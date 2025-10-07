@@ -5,182 +5,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colors - CORE Design System V2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- ZENTRALES CSS SYSTEM -->
     <link rel="stylesheet" href="/shared/master.css">
-    
+
     <style>
-        /* Colors Hero Section */
-        .colors-hero {
-            padding: var(--spacing-2xl) var(--spacing-xl);
-            background: var(--core-gradient-primary);
-            border-radius: var(--radius-lg);
-            margin-bottom: var(--spacing-2xl);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .colors-hero::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            right: -5%;
-            width: 40%;
-            height: 160%;
-            background: rgba(255, 255, 255, 0.03);
-            transform: rotate(45deg);
-        }
-        
-        /* Kleinere Hero-Titel für Unterseiten */
-        .core-hero-title-small {
-            font-size: 36px !important;
-            font-weight: 700 !important;
-            color: #FFFFFF !important;
-            margin-bottom: 16px !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            display: block !important;
-            position: relative !important;
-            z-index: 1000 !important;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6) !important;
-        }
-        
-        .core-hero-subtitle-small {
-            font-size: 16px !important;
-            color: #FFFFFF !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            display: block !important;
-            position: relative !important;
-            z-index: 1000 !important;
-            max-width: 600px !important;
-            line-height: 1.5 !important;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
-        }
-        
-        /* Colors specific styles */
+        /* Color Cards */
         .color-group {
             margin-bottom: var(--spacing-2xl);
         }
-        
+
         .color-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: var(--spacing-md);
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
             margin-top: var(--spacing-lg);
         }
-        
+
         .color-card {
             background: white;
             border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
             transition: var(--transition-luxury);
         }
-        
+
         .color-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
         }
-        
+
         .color-preview {
-            height: 120px;
+            height: 140px;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        
-        .color-preview.gradient {
+            font-weight: 600;
             color: white;
-            font-weight: var(--font-weight-semibold);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
-        
+
         .color-info {
-            padding: var(--spacing-md);
+            padding: var(--spacing-lg);
             background: white;
         }
-        
+
         .color-name {
             font-weight: var(--font-weight-semibold);
             color: var(--core-text);
             margin-bottom: var(--spacing-xs);
+            font-size: var(--font-size-md);
         }
-        
+
         .color-value {
             font-family: var(--font-family-mono);
             font-size: var(--font-size-sm);
             color: var(--core-grey);
+            margin-bottom: 4px;
         }
-        
+
+        .color-rgb {
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-xs);
+            color: var(--core-grey);
+            opacity: 0.7;
+        }
+
         .color-var {
             font-family: var(--font-family-mono);
             font-size: var(--font-size-xs);
             color: var(--core-primary);
-            margin-top: var(--spacing-xs);
+            margin-top: var(--spacing-sm);
+            padding: 4px 8px;
+            background: rgba(8, 32, 74, 0.05);
+            border-radius: 4px;
+            display: inline-block;
         }
-        
+
+        /* Neon Effects */
+        .neon-glow-cyan {
+            box-shadow:
+                0 0 20px rgba(0, 240, 255, 0.5),
+                0 0 40px rgba(0, 240, 255, 0.3),
+                0 0 60px rgba(0, 240, 255, 0.2);
+        }
+
+        .neon-glow-magenta {
+            box-shadow:
+                0 0 20px rgba(255, 0, 255, 0.5),
+                0 0 40px rgba(255, 0, 255, 0.3),
+                0 0 60px rgba(255, 0, 255, 0.2);
+        }
+
         .gradient-showcase {
-            background: var(--core-gradient-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--spacing-2xl);
-            color: white;
-            margin-bottom: var(--spacing-xl);
-        }
-        
-        .gradient-showcase h3 {
-            margin-bottom: var(--spacing-md);
-        }
-        
-        .gradient-examples {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--spacing-md);
-            margin-top: var(--spacing-lg);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
         }
-        
-        .gradient-example {
-            height: 100px;
-            border-radius: var(--radius-md);
+
+        .gradient-card {
+            height: 160px;
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: var(--font-size-sm);
-            font-weight: var(--font-weight-semibold);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-weight: 600;
+            font-size: var(--font-size-lg);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: var(--transition-luxury);
         }
-        
+
+        .gradient-card:hover {
+            transform: scale(1.05);
+        }
+
         .usage-example {
             background: var(--core-gray-100);
-            border-radius: var(--radius-md);
-            padding: var(--spacing-lg);
-            margin-top: var(--spacing-md);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-top: var(--spacing-lg);
         }
-        
+
         .usage-example code {
             background: white;
-            padding: 2px 6px;
-            border-radius: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
             font-family: var(--font-family-mono);
             font-size: var(--font-size-sm);
-            color: var(--core-primary);
+            color: #08204A;
+            border: 1px solid rgba(8, 32, 74, 0.1);
         }
-        
-        .contrast-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: var(--spacing-sm);
-            margin-top: var(--spacing-md);
+
+        .section-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, #00F0FF, #FF00FF);
+            color: white;
+            border-radius: 20px;
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-left: var(--spacing-sm);
         }
-        
-        .contrast-item {
-            padding: var(--spacing-md);
-            border-radius: var(--radius-md);
+
+        .neon-text-demo {
+            font-size: 48px;
+            font-weight: 900;
             text-align: center;
-            font-weight: var(--font-weight-medium);
+            padding: var(--spacing-2xl);
+            background: #08204A;
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .neon-text-cyan {
+            color: #00F0FF;
+            text-shadow:
+                0 0 10px #00F0FF,
+                0 0 20px #00F0FF,
+                0 0 40px rgba(0, 240, 255, 0.5);
+        }
+
+        .neon-text-magenta {
+            color: #FF00FF;
+            text-shadow:
+                0 0 10px #FF00FF,
+                0 0 20px #FF00FF,
+                0 0 40px rgba(255, 0, 255, 0.5);
         }
     </style>
 </head>
@@ -190,360 +185,529 @@
             <div class="core-logo-text">CORE</div>
             <div class="logo-subtitle">Design System V2</div>
         </div>
-        
+
         <nav>
             <div class="nav-section">
-                <div class="nav-section-title">Design Principles</div>
-                <a href="/design-principles/overview/" class="nav-item">Overview</a>
-                <a href="/design-principles/colors/" class="nav-item active">Colors</a>
-                <a href="/design-principles/typography/" class="nav-item">Typography</a>
-                <a href="/design-principles/grid/" class="nav-item">Grid</a>
-                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+                <div class="nav-section-title">Home</div>
+                <a href="/" class="nav-item">Overview</a>
             </div>
-            
+
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/v2/design-principles/overview" class="nav-item">Overview</a>
+                <a href="/v2/design-principles/colors" class="nav-item active">Colors</a>
+                <a href="/v2/design-principles/typography" class="nav-item">Typography</a>
+                <a href="/v2/design-principles/grid" class="nav-item">Grid</a>
+                <a href="/v2/design-principles/spacing" class="nav-item">Spacing</a>
+            </div>
+
             <div class="nav-section">
                 <div class="nav-section-title">Implementation Guide</div>
-                <a href="/implementation/overview/" class="nav-item">Overview</a>
-                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
-                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+                <a href="/v2/implementation/overview" class="nav-item">Overview</a>
+                <a href="/v2/implementation/css" class="nav-item">CSS Architecture</a>
+                <a href="/v2/implementation/nextjs" class="nav-item">Next.js Integration</a>
             </div>
-            
+
             <div class="nav-section">
                 <div class="nav-section-title">Components</div>
-                <a href="/components/overview/" class="nav-item">Overview</a>
-                <a href="/components/buttons/" class="nav-item">Button</a>
-                <a href="/components/inputs/" class="nav-item">Input</a>
-                <a href="/components/cards/" class="nav-item">Card</a>
-                <a href="/components/select/" class="nav-item">Select</a>
-                <a href="/components/accordion/" class="nav-item">Accordion</a>
-                <a href="/components/modal/" class="nav-item">Modal</a>
-                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
-                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
-                <a href="/components/radio/" class="nav-item">Radio</a>
-                <a href="/components/toast/" class="nav-item">Toast</a>
-                <a href="/components/table/" class="nav-item">Table</a>
-                <a href="/components/textarea/" class="nav-item">Textarea</a>
-                <a href="/components/switch/" class="nav-item">Switch</a>
-                <a href="/components/slider/" class="nav-item">Slider</a>
-                <a href="/components/alert/" class="nav-item">Alert</a>
-                <a href="/components/badge/" class="nav-item">Badge</a>
-                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
-                <a href="/components/avatar/" class="nav-item">Avatar</a>
-                <a href="/components/navbar/" class="nav-item">Navbar</a>
-                <a href="/components/tabs/" class="nav-item">Tabs</a>
-                <a href="/components/progress/" class="nav-item">Progress</a>
-                <a href="/components/calendar/" class="nav-item">Calendar</a>
-                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
-                <a href="/components/pagination/" class="nav-item">Pagination</a>
-                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
-                <a href="/components/spinner/" class="nav-item">Spinner</a>
-                </div>
+                <a href="/v2/components/overview" class="nav-item">Overview</a>
+                <a href="/v2/components/buttons" class="nav-item">Button</a>
+                <a href="/v2/components/inputs" class="nav-item">Input</a>
+                <a href="/v2/components/cards" class="nav-item">Card</a>
+                <a href="/v2/components/select" class="nav-item">Select</a>
+                <a href="/v2/components/accordion" class="nav-item">Accordion</a>
+                <a href="/v2/components/modal" class="nav-item">Modal</a>
+                <a href="/v2/components/dropdown" class="nav-item">Dropdown</a>
+                <a href="/v2/components/checkbox" class="nav-item">Checkbox</a>
+                <a href="/v2/components/radio" class="nav-item">Radio</a>
+                <a href="/v2/components/toast" class="nav-item">Toast</a>
+                <a href="/v2/components/table" class="nav-item">Table</a>
+                <a href="/v2/components/textarea" class="nav-item">Textarea</a>
+                <a href="/v2/components/switch" class="nav-item">Switch</a>
+                <a href="/v2/components/slider" class="nav-item">Slider</a>
+                <a href="/v2/components/alert" class="nav-item">Alert</a>
+                <a href="/v2/components/badge" class="nav-item">Badge</a>
+                <a href="/v2/components/date-picker" class="nav-item">Date Picker</a>
+                <a href="/v2/components/avatar" class="nav-item">Avatar</a>
+                <a href="/v2/components/navbar" class="nav-item">Navbar</a>
+                <a href="/v2/components/tabs" class="nav-item">Tabs</a>
+                <a href="/v2/components/progress" class="nav-item">Progress</a>
+                <a href="/v2/components/calendar" class="nav-item">Calendar</a>
+                <a href="/v2/components/autocomplete" class="nav-item">Autocomplete</a>
+                <a href="/v2/components/pagination" class="nav-item">Pagination</a>
+                <a href="/v2/components/tooltip" class="nav-item">Tooltip</a>
+            </div>
         </nav>
     </div>
-    
+
     <main class="main-content">
         <header class="page-header">
-            <h1>Colors</h1>
-            <p>The color system of the CORE Design System - Premium colors for the luxury segment</p>
+            <h1>Color System</h1>
+            <p>Corporate colors enhanced with modern neon accents</p>
         </header>
-        
+
+        <!-- 1. Primary Corporate Colors -->
         <section class="section">
-            <h2 class="section-title">Brand Colors</h2>
-            
+            <h2 class="section-title">Primary Corporate Colors</h2>
+
             <div class="color-group">
-                <p>The core colors of the CORE Corporate Identity form the foundation of our Design System.</p>
-                
+                <p>The foundation of the CORE Corporate Identity - Professional, trustworthy, premium.</p>
+
                 <div class="color-grid">
                     <div class="color-card">
-                        <div class="color-preview" style="background: #000066;">
+                        <div class="color-preview" style="background: #08204A;">
+                            Primary Blue
                         </div>
                         <div class="color-info">
-                            <div class="color-name">Deep Blue (Primary)</div>
-                            <div class="color-value">#000066</div>
-                            <div class="color-var">--core-primary</div>
+                            <div class="color-name">Primary Blue</div>
+                            <div class="color-value">#08204A</div>
+                            <div class="color-rgb">rgb(8, 32, 74)</div>
+                            <div class="color-var">--core-primary-blue</div>
                         </div>
                     </div>
-                    
+
                     <div class="color-card">
-                        <div class="color-preview" style="background: #3366CC;">
+                        <div class="color-preview" style="background: #FF5A10;">
+                            Primary Orange
                         </div>
                         <div class="color-info">
-                            <div class="color-name">Royal Blue</div>
-                            <div class="color-value">#3366CC</div>
-                            <div class="color-var">--core-royal-blue</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #E8F0FE;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Accent</div>
-                            <div class="color-value">#E8F0FE</div>
-                            <div class="color-var">--core-accent</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #666666;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Grey</div>
-                            <div class="color-value">#666666</div>
-                            <div class="color-var">--core-grey</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #E5E7EB;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Line</div>
-                            <div class="color-value">#E5E7EB</div>
-                            <div class="color-var">--core-line</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #111111;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Text</div>
-                            <div class="color-value">#111111</div>
-                            <div class="color-var">--core-text</div>
+                            <div class="color-name">Primary Orange</div>
+                            <div class="color-value">#FF5A10</div>
+                            <div class="color-rgb">rgb(255, 90, 16)</div>
+                            <div class="color-var">--core-primary-orange</div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
+        <!-- 2. Blue Scale -->
         <section class="section">
-            <h2 class="section-title">Luxury Gradients</h2>
-            
-            <div class="component-card">
-                <h3>Premium Gradient System</h3>
-                <p>Our gradients give the Design System a luxurious appearance and reinforce the premium positioning.</p>
+            <h2 class="section-title">Extended Blue Palette</h2>
+
+            <div class="color-group">
+                <p>Full spectrum of blue tones from darkest to lightest.</p>
+
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #051228;">
+                            Blue 900
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Blue 900 - Darkest</div>
+                            <div class="color-value">#051228</div>
+                            <div class="color-rgb">rgb(5, 18, 40)</div>
+                            <div class="color-var">--core-blue-900</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #08204A;">
+                            Blue 800
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Blue 800 - Primary</div>
+                            <div class="color-value">#08204A</div>
+                            <div class="color-rgb">rgb(8, 32, 74)</div>
+                            <div class="color-var">--core-blue-800</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #054A91;">
+                            Blue 600
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Blue 600 - Medium</div>
+                            <div class="color-value">#054A91</div>
+                            <div class="color-rgb">rgb(5, 74, 145)</div>
+                            <div class="color-var">--core-blue-600</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #6498C5;">
+                            Blue 400
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Blue 400 - Light</div>
+                            <div class="color-value">#6498C5</div>
+                            <div class="color-rgb">rgb(100, 152, 197)</div>
+                            <div class="color-var">--core-blue-400</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="gradient-examples">
-                <div class="gradient-example" style="background: linear-gradient(135deg, #000066 0%, #3366CC 100%);">
-                    Primary Gradient
-                </div>
-                <div class="gradient-example" style="background: linear-gradient(135deg, #3366CC 0%, #000066 100%);">
-                    Hover Gradient
-                </div>
-                <div class="gradient-example" style="background: linear-gradient(180deg, rgba(0,0,102,0.03) 0%, rgba(51,102,204,0.05) 100%); color: var(--core-primary); font-weight: var(--font-weight-semibold);">
-                    Subtle Gradient
-                </div>
-                <div class="gradient-example" style="background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%); border: 1px solid rgba(255,255,255,0.3); color: var(--core-primary); font-weight: var(--font-weight-semibold);">
-                    Glass Gradient
-                </div>
-                <div class="gradient-example" style="background: linear-gradient(90deg, #000066 0%, #3366CC 50%, #000066 100%);">
-                    Premium Gradient
-                </div>
-                <div class="gradient-example" style="background: radial-gradient(circle at 50% 50%, #3366CC 0%, #000066 100%);">
-                    Radial Gradient
+        </section>
+
+        <!-- 3. Orange Scale -->
+        <section class="section">
+            <h2 class="section-title">Extended Orange Palette</h2>
+
+            <div class="color-group">
+                <p>Vibrant orange tones for CTAs and highlights.</p>
+
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #FF5A10;">
+                            Orange 600
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Orange 600 - Primary</div>
+                            <div class="color-value">#FF5A10</div>
+                            <div class="color-rgb">rgb(255, 90, 16)</div>
+                            <div class="color-var">--core-orange-600</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #FFAD75;">
+                            Orange 400
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Orange 400 - Light</div>
+                            <div class="color-value">#FFAD75</div>
+                            <div class="color-rgb">rgb(255, 173, 117)</div>
+                            <div class="color-var">--core-orange-400</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+        </section>
+
+        <!-- 4. Neon Accent Colors -->
+        <section class="section">
+            <h2 class="section-title">Neon Accent Colors<span class="section-badge">NEW</span></h2>
+
+            <div class="color-group">
+                <p>Modern neon accents for data visualization, interactive elements, and special highlights.</p>
+
+                <div class="color-grid">
+                    <div class="color-card neon-glow-cyan">
+                        <div class="color-preview" style="background: #00F0FF;">
+                            Data Color 1
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Neon Cyan</div>
+                            <div class="color-value">#00F0FF</div>
+                            <div class="color-rgb">rgb(0, 240, 255)</div>
+                            <div class="color-var">--core-neon-cyan</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card neon-glow-magenta">
+                        <div class="color-preview" style="background: #FF00FF;">
+                            Data Color 2
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Neon Magenta</div>
+                            <div class="color-value">#FF00FF</div>
+                            <div class="color-rgb">rgb(255, 0, 255)</div>
+                            <div class="color-var">--core-neon-magenta</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card" style="box-shadow: 0 0 20px rgba(191, 0, 255, 0.5);">
+                        <div class="color-preview" style="background: #BF00FF;">
+                            Purple Mix
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Neon Purple</div>
+                            <div class="color-value">#BF00FF</div>
+                            <div class="color-rgb">rgb(191, 0, 255)</div>
+                            <div class="color-var">--core-neon-purple</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Neon Text Demo -->
+            <div class="neon-text-demo">
+                <div class="neon-text-cyan" style="margin-bottom: 20px;">NEON CYAN</div>
+                <div class="neon-text-magenta">NEON MAGENTA</div>
+            </div>
+
+            <div class="usage-example">
+                <strong>Glow Effects:</strong>
+                <p style="margin-top: var(--spacing-sm);">
+                    <code>box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);</code><br>
+                    <code>text-shadow: 0 0 20px #00F0FF;</code>
+                </p>
+            </div>
+        </section>
+
+        <!-- 5. Gradients -->
+        <section class="section">
+            <h2 class="section-title">Gradient System</h2>
+
+            <div class="color-group">
+                <p>Premium gradients combining corporate and neon colors.</p>
+
+                <div class="gradient-showcase">
+                    <div class="gradient-card" style="background: linear-gradient(135deg, #08204A 0%, #054A91 100%);">
+                        Primary Gradient
+                    </div>
+
+                    <div class="gradient-card" style="background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);">
+                        Orange Gradient
+                    </div>
+
+                    <div class="gradient-card" style="background: linear-gradient(135deg, #00F0FF 0%, #FF00FF 100%);">
+                        Neon Gradient
+                    </div>
+
+                    <div class="gradient-card" style="background: linear-gradient(135deg, #00F0FF 0%, #BF00FF 50%, #FF00FF 100%);">
+                        Neon Glow Gradient
+                    </div>
+
+                    <div class="gradient-card" style="background: linear-gradient(135deg, #08204A 0%, #00F0FF 100%);">
+                        Blue Neon Mix
+                    </div>
+
+                    <div class="gradient-card" style="background: linear-gradient(135deg, #FF5A10 0%, #FF00FF 100%);">
+                        Orange Magenta Mix
+                    </div>
+                </div>
+            </div>
+
             <div class="usage-example">
                 <strong>Usage:</strong>
                 <p style="margin-top: var(--spacing-sm);">
                     <code>background: var(--core-gradient-primary);</code><br>
-                    <code>background: var(--core-gradient-hover);</code><br>
-                    <code>background: var(--core-gradient-subtle);</code>
+                    <code>background: var(--core-gradient-orange);</code><br>
+                    <code>background: var(--core-gradient-neon);</code>
                 </p>
             </div>
         </section>
-        
+
+        <!-- 6. Grayscale -->
         <section class="section">
-            <h2 class="section-title">Semantic Colors</h2>
-            
+            <h2 class="section-title">Neutral Colors</h2>
+
             <div class="color-group">
-                <p>Functional colors for feedback and status communication.</p>
-                
+                <p>Balanced grayscale palette for typography and backgrounds.</p>
+
                 <div class="color-grid">
                     <div class="color-card">
-                        <div class="color-preview" style="background: #10b981;">
+                        <div class="color-preview" style="background: #000000;">
+                            Black
                         </div>
                         <div class="color-info">
-                            <div class="color-name">Success</div>
-                            <div class="color-value">#10b981</div>
-                            <div class="color-var">--core-success</div>
+                            <div class="color-name">Black</div>
+                            <div class="color-value">#000000</div>
+                            <div class="color-rgb">rgb(0, 0, 0)</div>
+                            <div class="color-var">--core-black</div>
                         </div>
                     </div>
-                    
+
                     <div class="color-card">
-                        <div class="color-preview" style="background: #f59e0b;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Warning</div>
-                            <div class="color-value">#f59e0b</div>
-                            <div class="color-var">--core-warning</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #ef4444;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Error</div>
-                            <div class="color-value">#ef4444</div>
-                            <div class="color-var">--core-error</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="section">
-            <h2 class="section-title">Gray Scale</h2>
-            
-            <div class="color-group">
-                <p>A balanced gray palette for hierarchy and structure.</p>
-                
-                <div class="color-grid">
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #f3f4f6;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Gray 100</div>
-                            <div class="color-value">#f3f4f6</div>
-                            <div class="color-var">--core-gray-100</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #e5e7eb;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Gray 200</div>
-                            <div class="color-value">#e5e7eb</div>
-                            <div class="color-var">--core-gray-200</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #d1d5db;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Gray 300</div>
-                            <div class="color-value">#d1d5db</div>
-                            <div class="color-var">--core-gray-300</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #9ca3af;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Gray 400</div>
-                            <div class="color-value">#9ca3af</div>
-                            <div class="color-var">--core-gray-400</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #6b7280;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Gray 500</div>
-                            <div class="color-value">#6b7280</div>
-                            <div class="color-var">--core-gray-500</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #4b5563;">
-                        </div>
-                        <div class="color-info">
-                            <div class="color-name">Gray 600</div>
-                            <div class="color-value">#4b5563</div>
-                            <div class="color-var">--core-gray-600</div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-card">
-                        <div class="color-preview" style="background: #374151;">
+                        <div class="color-preview" style="background: #878786;">
+                            Gray 700
                         </div>
                         <div class="color-info">
                             <div class="color-name">Gray 700</div>
-                            <div class="color-value">#374151</div>
+                            <div class="color-value">#878786</div>
+                            <div class="color-rgb">rgb(135, 135, 134)</div>
                             <div class="color-var">--core-gray-700</div>
                         </div>
                     </div>
-                    
+
                     <div class="color-card">
-                        <div class="color-preview" style="background: #1f2937;">
+                        <div class="color-preview" style="background: #C5C6C6;">
+                            Gray 500
                         </div>
                         <div class="color-info">
-                            <div class="color-name">Gray 800</div>
-                            <div class="color-value">#1f2937</div>
-                            <div class="color-var">--core-gray-800</div>
+                            <div class="color-name">Gray 500</div>
+                            <div class="color-value">#C5C6C6</div>
+                            <div class="color-rgb">rgb(197, 198, 198)</div>
+                            <div class="color-var">--core-gray-500</div>
                         </div>
                     </div>
-                    
+
                     <div class="color-card">
-                        <div class="color-preview" style="background: #111827;">
+                        <div class="color-preview" style="background: #EEEAE9;">
+                            Gray 300
                         </div>
                         <div class="color-info">
-                            <div class="color-name">Gray 900</div>
-                            <div class="color-value">#111827</div>
-                            <div class="color-var">--core-gray-900</div>
+                            <div class="color-name">Gray 300</div>
+                            <div class="color-value">#EEEAE9</div>
+                            <div class="color-rgb">rgb(238, 234, 233)</div>
+                            <div class="color-var">--core-gray-300</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #FFFFFF; border: 1px solid #E5E7EB;">
+                            White
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">White</div>
+                            <div class="color-value">#FFFFFF</div>
+                            <div class="color-rgb">rgb(255, 255, 255)</div>
+                            <div class="color-var">--core-white</div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
+        <!-- 7. Semantic Colors -->
         <section class="section">
-            <h2 class="section-title">Color Contrast</h2>
-            
-            <div class="component-card">
-                <h3>Accessibility Guidelines</h3>
-                <p>All color combinations meet WCAG 2.1 AA standards for optimal readability.</p>
-                
-                <div class="contrast-grid">
-                    <div class="contrast-item" style="background: #000066; color: white;">
-                        White on Primary
-                        <br><small>AAA</small>
+            <h2 class="section-title">Semantic Colors</h2>
+
+            <div class="color-group">
+                <p>Status and feedback colors for UI communication.</p>
+
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #00C853;">
+                            Success
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Success</div>
+                            <div class="color-value">#00C853</div>
+                            <div class="color-rgb">rgb(0, 200, 83)</div>
+                            <div class="color-var">--core-success</div>
+                        </div>
                     </div>
-                    <div class="contrast-item" style="background: #3366CC; color: white;">
-                        White on Royal Blue
-                        <br><small>AA</small>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #FF5A10;">
+                            Warning
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Warning</div>
+                            <div class="color-value">#FF5A10</div>
+                            <div class="color-rgb">rgb(255, 90, 16)</div>
+                            <div class="color-var">--core-warning</div>
+                        </div>
                     </div>
-                    <div class="contrast-item" style="background: #E8F0FE; color: #000066;">
-                        Primary on Accent
-                        <br><small>AAA</small>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #FF1744;">
+                            Error
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Error</div>
+                            <div class="color-value">#FF1744</div>
+                            <div class="color-rgb">rgb(255, 23, 68)</div>
+                            <div class="color-var">--core-error</div>
+                        </div>
                     </div>
-                    <div class="contrast-item" style="background: white; color: #000066; border: 1px solid #E5E7EB;">
-                        Primary on White
-                        <br><small>AAA</small>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #6498C5;">
+                            Info
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Info</div>
+                            <div class="color-value">#6498C5</div>
+                            <div class="color-rgb">rgb(100, 152, 197)</div>
+                            <div class="color-var">--core-info</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
+        <!-- 8. Data Visualization -->
         <section class="section">
-            <h2 class="section-title">Glassmorphism Effects</h2>
-            
+            <h2 class="section-title">Data Visualization Colors</h2>
+
+            <div class="color-group">
+                <p>Chart and data colors with neon accent integration.</p>
+
+                <div class="color-grid">
+                    <div class="color-card neon-glow-cyan">
+                        <div class="color-preview" style="background: #00F0FF;">
+                            Chart 1
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Chart 1 - Neon Cyan</div>
+                            <div class="color-var">--core-chart-1</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card neon-glow-magenta">
+                        <div class="color-preview" style="background: #FF00FF;">
+                            Chart 2
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Chart 2 - Neon Magenta</div>
+                            <div class="color-var">--core-chart-2</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #08204A;">
+                            Chart 3
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Chart 3 - Corporate Blue</div>
+                            <div class="color-var">--core-chart-3</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #FF5A10;">
+                            Chart 4
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Chart 4 - Corporate Orange</div>
+                            <div class="color-var">--core-chart-4</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #6498C5;">
+                            Chart 5
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Chart 5 - Light Blue</div>
+                            <div class="color-var">--core-chart-5</div>
+                        </div>
+                    </div>
+
+                    <div class="color-card">
+                        <div class="color-preview" style="background: #BF00FF; box-shadow: 0 0 20px rgba(191, 0, 255, 0.5);">
+                            Chart 6
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Chart 6 - Neon Purple</div>
+                            <div class="color-var">--core-chart-6</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Usage Guidelines -->
+        <section class="section">
+            <h2 class="section-title">Usage Guidelines</h2>
+
             <div class="component-card">
-                <h3>Glass Effects</h3>
-                <p>Modern glassmorphism effects for premium UI elements.</p>
-                
+                <h3>Button Hierarchy</h3>
+
+                <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; margin-top: var(--spacing-lg);">
+                    <button style="background: #08204A; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                        Primary Button
+                    </button>
+
+                    <button style="background: #FF5A10; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                        CTA Button
+                    </button>
+
+                    <button style="background: linear-gradient(135deg, #00F0FF, #FF00FF); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);">
+                        Neon Accent
+                    </button>
+                </div>
+
                 <div class="usage-example">
-                    <strong>Variables:</strong>
+                    <strong>Button Colors:</strong>
                     <p style="margin-top: var(--spacing-sm);">
-                        <code>--glass-white: rgba(255, 255, 255, 0.08);</code><br>
-                        <code>--glass-blur: blur(20px);</code><br>
-                        <code>--glass-border: 1px solid rgba(255, 255, 255, 0.18);</code>
-                    </p>
-                    <br>
-                    <strong>Usage:</strong>
-                    <p style="margin-top: var(--spacing-sm);">
-                        <code>background: var(--glass-white);</code><br>
-                        <code>backdrop-filter: var(--glass-blur);</code><br>
-                        <code>border: var(--glass-border);</code>
+                        <code>Primary: var(--core-primary-blue)</code><br>
+                        <code>CTA: var(--core-primary-orange)</code><br>
+                        <code>Neon: var(--core-gradient-neon)</code>
                     </p>
                 </div>
             </div>
