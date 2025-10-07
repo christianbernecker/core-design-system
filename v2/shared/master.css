@@ -200,7 +200,7 @@ body {
 
 .core-logo-text {
     font-size: var(--font-size-3xl);
-    font-weight: var(--font-weight-bold);
+    font-weight: 900;
     background: var(--core-gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

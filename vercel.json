@@ -21,6 +21,14 @@
     {
       "source": "/assets/:path*",
       "destination": "/v2/assets/:path*"
+    },
+    {
+      "source": "/design-principles/:path*",
+      "destination": "/v2/design-principles/:path*"
+    },
+    {
+      "source": "/implementation/:path*",
+      "destination": "/v2/implementation/:path*"
     }
   ]
 }
