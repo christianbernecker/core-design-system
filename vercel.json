@@ -8,5 +8,19 @@
       "destination": "/v2/",
       "permanent": false
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/shared/:path*",
+      "destination": "/v2/shared/:path*"
+    },
+    {
+      "source": "/components/:path*",
+      "destination": "/v2/components/:path*"
+    },
+    {
+      "source": "/assets/:path*",
+      "destination": "/v2/assets/:path*"
+    }
   ]
 }
