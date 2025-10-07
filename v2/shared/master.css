@@ -198,6 +198,18 @@ body {
     transform: translateX(-10px); /* 10px nach links */
 }
 
+.core-logo-text {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    background: var(--core-gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
 .logo-subtitle {
     font-size: var(--font-size-sm);
     color: var(--core-grey);
