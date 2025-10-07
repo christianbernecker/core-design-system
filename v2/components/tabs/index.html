@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabs - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR TABS-SPEZIFISCHE STYLES */
+        .core-tabs {
+            width: 100%;
+        }
+        
+        .core-tabs-list {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            border-bottom: 2px solid var(--core-line);
+            margin-bottom: var(--spacing-lg);
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+        
+        .core-tabs-list::-webkit-scrollbar {
+            height: 4px;
+        }
+        
+        .core-tabs-list::-webkit-scrollbar-thumb {
+            background: var(--core-grey);
+            border-radius: var(--radius-full);
+        }
+        
+        .core-tab {
+            position: relative;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: none;
+            border: none;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--core-grey);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        
+        .core-tab:hover {
+            color: var(--core-text);
+        }
+        
+        .core-tab.active {
+            color: var(--core-primary);
+        }
+        
+        .core-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--core-primary);
+        }
+        
+        .core-tab-panel {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .core-tab-panel.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Pills Style */
+        .core-tabs-list.pills {
+            border-bottom: none;
+            background: var(--core-gray-100);
+            padding: 4px;
+            border-radius: var(--radius-lg);
+            gap: 4px;
+        }
+        
+        .core-tabs-list.pills .core-tab {
+            border-radius: var(--radius-md);
+        }
+        
+        .core-tabs-list.pills .core-tab:hover {
+            background: var(--core-gray-200);
+        }
+        
+        .core-tabs-list.pills .core-tab.active {
+            background: white;
+            color: var(--core-primary);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .core-tabs-list.pills .core-tab.active::after {
+            display: none;
+        }
+        
+        /* Vertical Tabs */
+        .core-tabs.vertical {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+        
+        .core-tabs.vertical .core-tabs-list {
+            flex-direction: column;
+            border-bottom: none;
+            border-right: 2px solid var(--core-line);
+            padding-right: var(--spacing-md);
+            margin-bottom: 0;
+            min-width: 200px;
+        }
+        
+        .core-tabs.vertical .core-tab {
+            width: 100%;
+            text-align: left;
+        }
+        
+        .core-tabs.vertical .core-tab.active::after {
+            bottom: 0;
+            top: 0;
+            left: auto;
+            right: calc(var(--spacing-md) * -1 - 2px);
+            width: 2px;
+            height: auto;
+        }
+        
+        .core-tabs.vertical .core-tab-panels {
+            flex: 1;
+        }
+        
+        /* Icon Tabs */
+        .core-tab-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+        
+        .core-tab-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Tab Badges */
+        .core-tab-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 6px;
+            margin-left: var(--spacing-xs);
+            background: var(--core-error);
+            color: white;
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item active">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Tabs</h1>
+        <p>Tab navigation component for organizing content into switchable sections.</p>
+        
+        <!-- Section 1: Tab Variants -->
+        <section class="section">
+            <h2 class="section-title">Tab Variants</h2>
+            
+            <div class="component-card">
+                <h3>Standard Tabs</h3>
+                <p>Basic horizontal tabs with underline indicator</p>
+                
+                <div class="core-tabs">
+                    <div class="core-tabs-list">
+                        <button class="core-tab active" onclick="switchTab(event, 'tab1')">Overview</button>
+                        <button class="core-tab" onclick="switchTab(event, 'tab2')">Features</button>
+                        <button class="core-tab" onclick="switchTab(event, 'tab3')">Specifications</button>
+                        <button class="core-tab" onclick="switchTab(event, 'tab4')">Reviews</button>
+                    </div>
+                    
+                    <div class="core-tab-panels">
+                        <div id="tab1" class="core-tab-panel active">
+                            <h4>Overview Content</h4>
+                            <p>This is the overview tab content. It provides general information about the property or item being displayed.</p>
+                        </div>
+                        <div id="tab2" class="core-tab-panel">
+                            <h4>Features Content</h4>
+                            <p>List of features and amenities available with this property.</p>
+                        </div>
+                        <div id="tab3" class="core-tab-panel">
+                            <h4>Specifications Content</h4>
+                            <p>Detailed technical specifications and measurements.</p>
+                        </div>
+                        <div id="tab4" class="core-tab-panel">
+                            <h4>Reviews Content</h4>
+                            <p>Customer reviews and ratings for this property.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Pills Style Tabs</h3>
+                <p>Tabs with pill-style background</p>
+                
+                <div class="core-tabs">
+                    <div class="core-tabs-list pills">
+                        <button class="core-tab active" onclick="switchTab(event, 'pill1')">All</button>
+                        <button class="core-tab" onclick="switchTab(event, 'pill2')">For Sale</button>
+                        <button class="core-tab" onclick="switchTab(event, 'pill3')">For Rent</button>
+                        <button class="core-tab" onclick="switchTab(event, 'pill4')">Sold</button>
+                    </div>
+                    
+                    <div class="core-tab-panels">
+                        <div id="pill1" class="core-tab-panel active">
+                            <p>Showing all properties</p>
+                        </div>
+                        <div id="pill2" class="core-tab-panel">
+                            <p>Properties available for sale</p>
+                        </div>
+                        <div id="pill3" class="core-tab-panel">
+                            <p>Properties available for rent</p>
+                        </div>
+                        <div id="pill4" class="core-tab-panel">
+                            <p>Recently sold properties</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Tabs with Icons</h3>
+                <p>Tabs enhanced with icons</p>
+                
+                <div class="core-tabs">
+                    <div class="core-tabs-list">
+                        <button class="core-tab active" onclick="switchTab(event, 'icon1')">
+                            <span class="core-tab-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                </svg>
+                                Home
+                            </span>
+                        </button>
+                        <button class="core-tab" onclick="switchTab(event, 'icon2')">
+                            <span class="core-tab-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                Location
+                            </span>
+                        </button>
+                        <button class="core-tab" onclick="switchTab(event, 'icon3')">
+                            <span class="core-tab-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Pricing
+                            </span>
+                        </button>
+                    </div>
+                    
+                    <div class="core-tab-panels">
+                        <div id="icon1" class="core-tab-panel active">
+                            <p>Property overview and details</p>
+                        </div>
+                        <div id="icon2" class="core-tab-panel">
+                            <p>Location information and map</p>
+                        </div>
+                        <div id="icon3" class="core-tab-panel">
+                            <p>Pricing and payment options</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Tabs with Badges</h3>
+                <p>Tabs with notification badges</p>
+                
+                <div class="core-tabs">
+                    <div class="core-tabs-list">
+                        <button class="core-tab active" onclick="switchTab(event, 'badge1')">
+                            Messages
+                            <span class="core-tab-badge">3</span>
+                        </button>
+                        <button class="core-tab" onclick="switchTab(event, 'badge2')">
+                            Notifications
+                            <span class="core-tab-badge">12</span>
+                        </button>
+                        <button class="core-tab" onclick="switchTab(event, 'badge3')">
+                            Updates
+                        </button>
+                    </div>
+                    
+                    <div class="core-tab-panels">
+                        <div id="badge1" class="core-tab-panel active">
+                            <p>You have 3 new messages</p>
+                        </div>
+                        <div id="badge2" class="core-tab-panel">
+                            <p>12 new notifications</p>
+                        </div>
+                        <div id="badge3" class="core-tab-panel">
+                            <p>No new updates</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            
+            <div class="component-card">
+                <h3>Property Details Tabs</h3>
+                
+                <div class="core-tabs">
+                    <div class="core-tabs-list">
+                        <button class="core-tab active" onclick="switchTab(event, 'property1')">Details</button>
+                        <button class="core-tab" onclick="switchTab(event, 'property2')">Floor Plans</button>
+                        <button class="core-tab" onclick="switchTab(event, 'property3')">Virtual Tour</button>
+                        <button class="core-tab" onclick="switchTab(event, 'property4')">Neighborhood</button>
+                        <button class="core-tab" onclick="switchTab(event, 'property5')">Contact Agent</button>
+                    </div>
+                    
+                    <div class="core-tab-panels">
+                        <div id="property1" class="core-tab-panel active">
+                            <h4>Property Details</h4>
+                            <ul>
+                                <li>3 Bedrooms, 2 Bathrooms</li>
+                                <li>150 m² Living Space</li>
+                                <li>Built in 2020</li>
+                                <li>Energy Class A+</li>
+                            </ul>
+                        </div>
+                        <div id="property2" class="core-tab-panel">
+                            <h4>Floor Plans</h4>
+                            <p>Interactive floor plans would be displayed here</p>
+                        </div>
+                        <div id="property3" class="core-tab-panel">
+                            <h4>Virtual Tour</h4>
+                            <p>360° virtual tour interface</p>
+                        </div>
+                        <div id="property4" class="core-tab-panel">
+                            <h4>Neighborhood Information</h4>
+                            <p>Schools, transport, shopping nearby</p>
+                        </div>
+                        <div id="property5" class="core-tab-panel">
+                            <h4>Contact Agent</h4>
+                            <p>Agent contact form and information</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Standard Tabs --&gt;
+&lt;div class="core-tabs"&gt;
+    &lt;div class="core-tabs-list"&gt;
+        &lt;button class="core-tab active" onclick="switchTab(event, 'tab1')"&gt;Tab 1&lt;/button&gt;
+        &lt;button class="core-tab" onclick="switchTab(event, 'tab2')"&gt;Tab 2&lt;/button&gt;
+        &lt;button class="core-tab" onclick="switchTab(event, 'tab3')"&gt;Tab 3&lt;/button&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="core-tab-panels"&gt;
+        &lt;div id="tab1" class="core-tab-panel active"&gt;
+            &lt;p&gt;Tab 1 content&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div id="tab2" class="core-tab-panel"&gt;
+            &lt;p&gt;Tab 2 content&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div id="tab3" class="core-tab-panel"&gt;
+            &lt;p&gt;Tab 3 content&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Pills Style --&gt;
+&lt;div class="core-tabs-list pills"&gt;
+    &lt;button class="core-tab active"&gt;Option 1&lt;/button&gt;
+    &lt;button class="core-tab"&gt;Option 2&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Tab with Icon and Badge --&gt;
+&lt;button class="core-tab"&gt;
+    &lt;span class="core-tab-icon"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+        Messages
+    &lt;/span&gt;
+    &lt;span class="core-tab-badge"&gt;3&lt;/span&gt;
+&lt;/button&gt;</pre>
+                </div>
+                
+                <h3>JavaScript Tab Switching</h3>
+                <div class="code-block">
+                    <pre>// Switch tabs
+function switchTab(event, tabId) {
+    // Get tab container
+    const tabContainer = event.target.closest('.core-tabs');
+    
+    // Remove active from all tabs
+    tabContainer.querySelectorAll('.core-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Remove active from all panels
+    tabContainer.querySelectorAll('.core-tab-panel').forEach(panel => {
+        panel.classList.remove('active');
+    });
+    
+    // Add active to clicked tab
+    event.target.classList.add('active');
+    
+    // Add active to corresponding panel
+    const panel = tabContainer.querySelector(`#${tabId}`);
+    if (panel) {
+        panel.classList.add('active');
+    }
+}
+
+// Keyboard navigation
+document.querySelectorAll('.core-tabs-list').forEach(tabList => {
+    const tabs = tabList.querySelectorAll('.core-tab');
+    
+    tabs.forEach((tab, index) => {
+        tab.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                const nextTab = tabs[index + 1] || tabs[0];
+                nextTab.focus();
+                nextTab.click();
+            } else if (e.key === 'ArrowLeft') {
+                const prevTab = tabs[index - 1] || tabs[tabs.length - 1];
+                prevTab.focus();
+                prevTab.click();
+            }
+        });
+    });
+});</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Tabs.tsx
+import { useState, ReactNode } from 'react';
+
+interface Tab {
+  id: string;
+  label: string;
+  icon?: ReactNode;
+  badge?: number;
+  content: ReactNode;
+}
+
+interface TabsProps {
+  tabs: Tab[];
+  variant?: 'underline' | 'pills';
+  orientation?: 'horizontal' | 'vertical';
+  defaultTab?: string;
+}
+
+export const Tabs = ({
+  tabs,
+  variant = 'underline',
+  orientation = 'horizontal',
+  defaultTab
+}: TabsProps) => {
+  const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.id);
+  
+  const tabListClasses = [
+    'core-tabs-list',
+    variant === 'pills' && 'pills'
+  ].filter(Boolean).join(' ');
+  
+  const tabsClasses = [
+    'core-tabs',
+    orientation === 'vertical' && 'vertical'
+  ].filter(Boolean).join(' ');
+  
+  return (
+    &lt;div className={tabsClasses}&gt;
+      &lt;div className={tabListClasses}&gt;
+        {tabs.map((tab) => (
+          &lt;button
+            key={tab.id}
+            className={`core-tab ${activeTab === tab.id ? 'active' : ''}`}
+            onClick={() => setActiveTab(tab.id)}
+          &gt;
+            {tab.icon && (
+              &lt;span className="core-tab-icon"&gt;
+                {tab.icon}
+                {tab.label}
+              &lt;/span&gt;
+            )}
+            {!tab.icon && tab.label}
+            {tab.badge && (
+              &lt;span className="core-tab-badge"&gt;{tab.badge}&lt;/span&gt;
+            )}
+          &lt;/button&gt;
+        ))}
+      &lt;/div&gt;
+      
+      &lt;div className="core-tab-panels"&gt;
+        {tabs.map((tab) => (
+          &lt;div
+            key={tab.id}
+            id={tab.id}
+            className={`core-tab-panel ${activeTab === tab.id ? 'active' : ''}`}
+          &gt;
+            {tab.content}
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-tabs</code></td>
+                        <td>Main tabs container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-tabs-list</code></td>
+                        <td>Tab buttons container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-tab</code></td>
+                        <td>Individual tab button</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-tab-panels</code></td>
+                        <td>Tab content panels container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-tab-panel</code></td>
+                        <td>Individual tab panel</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-tab-icon</code></td>
+                        <td>Tab icon wrapper</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-tab-badge</code></td>
+                        <td>Tab notification badge</td>
+                    </tr>
+                    <tr>
+                        <td><code>.pills</code></td>
+                        <td>Pills style variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.vertical</code></td>
+                        <td>Vertical orientation</td>
+                    </tr>
+                    <tr>
+                        <td><code>.active</code></td>
+                        <td>Active tab/panel state</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 5: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Keyboard Navigation</h3>
+                <ul>
+                    <li>Tab to focus tab list</li>
+                    <li>Arrow keys to navigate between tabs</li>
+                    <li>Enter/Space to activate tab</li>
+                    <li>Tab to move into panel content</li>
+                </ul>
+                
+                <h3>ARIA Attributes</h3>
+                <ul>
+                    <li>role="tablist" on tab container</li>
+                    <li>role="tab" on tab buttons</li>
+                    <li>role="tabpanel" on content panels</li>
+                    <li>aria-selected on active tab</li>
+                    <li>aria-controls linking tabs to panels</li>
+                </ul>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Keep tab labels short and descriptive</li>
+                    <li>Limit to 5-7 tabs maximum</li>
+                    <li>Use icons to enhance recognition</li>
+                    <li>Provide visual feedback for active state</li>
+                    <li>Consider vertical tabs for many items</li>
+                </ul>
+                
+                <h3>Content Organization</h3>
+                <ul>
+                    <li>Group related content logically</li>
+                    <li>Order tabs by importance/frequency</li>
+                    <li>Maintain consistent panel layouts</li>
+                    <li>Preserve state when switching tabs</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        // Switch tabs
+        function switchTab(event, tabId) {
+            // Get tab container
+            const tabContainer = event.target.closest('.core-tabs');
+            if (!tabContainer) return;
+            
+            // Handle badge/icon clicks
+            let tabButton = event.target;
+            if (!tabButton.classList.contains('core-tab')) {
+                tabButton = tabButton.closest('.core-tab');
+            }
+            
+            // Remove active from all tabs
+            tabContainer.querySelectorAll('.core-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active from all panels
+            tabContainer.querySelectorAll('.core-tab-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            // Add active to clicked tab
+            tabButton.classList.add('active');
+            
+            // Add active to corresponding panel
+            const panel = tabContainer.querySelector(`#${tabId}`);
+            if (panel) {
+                panel.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

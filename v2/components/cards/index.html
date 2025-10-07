@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR CARD-SPEZIFISCHE STYLES */
+        .core-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--core-line);
+            padding: var(--spacing-lg);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .core-card.elevated {
+            border: none;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .core-card.compact {
+            padding: var(--spacing-md);
+        }
+        
+        .core-card.clickable {
+            cursor: pointer;
+        }
+        
+        .core-card.clickable:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .core-card-header {
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--core-line);
+        }
+        
+        .core-card-title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--core-text);
+            margin: 0 0 var(--spacing-xs) 0;
+        }
+        
+        .core-card-subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--core-grey);
+        }
+        
+        .core-card-body {
+            color: var(--core-text);
+            line-height: 1.6;
+        }
+        
+        .core-card-footer {
+            margin-top: var(--spacing-md);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--core-line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .core-card-image {
+            width: calc(100% + var(--spacing-lg) * 2);
+            height: 200px;
+            margin: calc(var(--spacing-lg) * -1) calc(var(--spacing-lg) * -1) var(--spacing-lg) calc(var(--spacing-lg) * -1);
+            object-fit: cover;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+        
+        /* Status Cards */
+        .core-card.success {
+            border-left: 4px solid var(--core-success);
+        }
+        
+        .core-card.warning {
+            border-left: 4px solid var(--core-warning);
+        }
+        
+        .core-card.error {
+            border-left: 4px solid var(--core-error);
+        }
+        
+        .core-card.info {
+            border-left: 4px solid var(--core-primary);
+        }
+        
+        /* Horizontal Card */
+        .core-card.horizontal {
+            display: flex;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+        
+        .core-card.horizontal .core-card-image {
+            width: 200px;
+            height: 150px;
+            margin: calc(var(--spacing-lg) * -1) 0 calc(var(--spacing-lg) * -1) calc(var(--spacing-lg) * -1);
+            flex-shrink: 0;
+        }
+        
+        .core-card.horizontal .core-card-content {
+            flex: 1;
+        }
+        
+        /* Property Card Specific */
+        .property-badge {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            background: var(--core-primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .property-features {
+            display: flex;
+            gap: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+        }
+        
+        .property-feature {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: var(--font-size-sm);
+            color: var(--core-grey);
+        }
+        
+        .property-tags {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+            margin: var(--spacing-md) 0;
+        }
+        
+        .property-tag {
+            padding: 4px 8px;
+            background: var(--core-gray-100);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-xs);
+            color: var(--core-grey);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item active">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Card</h1>
+        <p>Flexible content containers with multiple variants for displaying grouped information.</p>
+        
+        <!-- Section 1: Card Variants -->
+        <section class="section">
+            <h2 class="section-title">Card Variants</h2>
+            
+            <div class="component-card">
+                <h3>Standard Card</h3>
+                <p>Basic card with header, body, and footer</p>
+                
+                <div class="core-card">
+                    <div class="core-card-header">
+                        <h3 class="core-card-title">Card Title</h3>
+                        <div class="core-card-subtitle">Card subtitle text</div>
+                    </div>
+                    <div class="core-card-body">
+                        <p>This is a basic card with standard content. Cards are perfect for grouping related information together.</p>
+                    </div>
+                    <div class="core-card-footer">
+                        <button class="core-button secondary">Cancel</button>
+                        <button class="core-button primary">Action</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Card with Image</h3>
+                <p>Image header card</p>
+                
+                <div class="core-card">
+                    <div class="core-card-image" style="background: var(--core-gradient-primary); height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5" fill="white"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </div>
+                    <div class="core-card-header">
+                        <h3 class="core-card-title">Image Card</h3>
+                    </div>
+                    <div class="core-card-body">
+                        <p>Beautiful card design with an image header.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Elevated Card</h3>
+                <p>Shadow-based elevation</p>
+                
+                <div class="core-card elevated">
+                    <div class="core-card-header">
+                        <h3 class="core-card-title">Elevated Card</h3>
+                    </div>
+                    <div class="core-card-body">
+                        <p>This card uses shadow instead of border for a more elevated appearance.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Compact Card</h3>
+                <p>Reduced padding variant</p>
+                
+                <div class="core-card compact">
+                    <div class="core-card-header">
+                        <h3 class="core-card-title">Compact Card</h3>
+                    </div>
+                    <div class="core-card-body">
+                        <p>Less padding for dense layouts.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Card States -->
+        <section class="section">
+            <h2 class="section-title">Card States</h2>
+            
+            <div class="component-card">
+                <h3>Status Cards</h3>
+                <p>Cards with status indicators</p>
+                
+                <div style="display: grid; gap: 16px;">
+                    <div class="core-card success">
+                        <h4>Success</h4>
+                        <p>Operation completed successfully.</p>
+                    </div>
+                    
+                    <div class="core-card warning">
+                        <h4>Warning</h4>
+                        <p>Please review this information.</p>
+                    </div>
+                    
+                    <div class="core-card error">
+                        <h4>Error</h4>
+                        <p>An error has occurred.</p>
+                    </div>
+                    
+                    <div class="core-card info">
+                        <h4>Information</h4>
+                        <p>Important information to note.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Horizontal Card</h3>
+                <p>Side-by-side layout</p>
+                
+                <div class="core-card horizontal">
+                    <div class="core-card-image" style="background: var(--core-gradient-primary); width: 200px; min-height: 150px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-lg) 0 0 var(--radius-lg);">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5" fill="white"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </div>
+                    <div class="core-card-content">
+                        <div class="core-card-header">
+                            <h3 class="core-card-title">Horizontal Layout</h3>
+                        </div>
+                        <div class="core-card-body">
+                            <p>Image and content arranged side by side.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            
+            <div class="component-card">
+                <h3>Property Card</h3>
+                
+                <div class="core-card clickable">
+                    <span class="property-badge">New</span>
+                    <div class="core-card-image" style="background: var(--core-gradient-primary); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: var(--font-size-xl); font-weight: var(--font-weight-bold);">
+                        🏠 Property Image
+                    </div>
+                    <div class="core-card-header">
+                        <h3 class="core-card-title">€850,000</h3>
+                    </div>
+                    <div class="core-card-body">
+                        <div class="property-features">
+                            <span class="property-feature">3 Bed</span>
+                            <span>•</span>
+                            <span class="property-feature">2 Bath</span>
+                            <span>•</span>
+                            <span class="property-feature">150m²</span>
+                        </div>
+                        <p>Modern apartment in city center with panoramic views.</p>
+                        <div class="property-tags">
+                            <span class="property-tag">Parking</span>
+                            <span class="property-tag">Balcony</span>
+                            <span class="property-tag">Elevator</span>
+                        </div>
+                    </div>
+                    <div class="core-card-footer">
+                        <button class="core-button outline small">Save</button>
+                        <button class="core-button primary small">View Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Agent Card</h3>
+                
+                <div class="core-card">
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);"></div>
+                        <div>
+                            <h3 class="core-card-title" style="margin: 0;">John Smith</h3>
+                            <div class="core-card-subtitle">Senior Real Estate Agent</div>
+                        </div>
+                    </div>
+                    <div class="core-card-body">
+                        <p>15+ years experience • 200+ properties sold</p>
+                    </div>
+                    <div class="core-card-footer">
+                        <button class="core-button secondary">Contact</button>
+                        <button class="core-button primary">View Profile</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Standard Card --&gt;
+&lt;div class="core-card"&gt;
+    &lt;div class="core-card-header"&gt;
+        &lt;h3 class="core-card-title"&gt;Card Title&lt;/h3&gt;
+        &lt;div class="core-card-subtitle"&gt;Optional subtitle&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="core-card-body"&gt;
+        &lt;p&gt;Your card content goes here.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="core-card-footer"&gt;
+        &lt;button class="core-button secondary"&gt;Cancel&lt;/button&gt;
+        &lt;button class="core-button primary"&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Image Card --&gt;
+&lt;div class="core-card"&gt;
+    &lt;img src="image.jpg" alt="Description" class="core-card-image"&gt;
+    &lt;div class="core-card-body"&gt;
+        &lt;h3 class="core-card-title"&gt;Image Card&lt;/h3&gt;
+        &lt;p&gt;Content below the image.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </div>
+                
+                <h3>Clickable Card JavaScript</h3>
+                <div class="code-block">
+                    <pre>// Make card clickable
+document.querySelectorAll('.core-card.clickable').forEach(card => {
+    card.addEventListener('click', () => {
+        // Navigate to detail page
+        window.location.href = card.dataset.href;
+    });
+});
+
+// Card hover effects
+document.querySelectorAll('.core-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-4px)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0)';
+    });
+});</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Card.tsx
+import { ReactNode, HTMLAttributes } from 'react';
+
+interface CardProps extends HTMLAttributes<HTMLDivElement> {
+  title?: string;
+  subtitle?: string;
+  image?: string;
+  footer?: ReactNode;
+  variant?: 'default' | 'elevated' | 'compact';
+  status?: 'success' | 'warning' | 'error' | 'info';
+  horizontal?: boolean;
+  clickable?: boolean;
+  children: ReactNode;
+}
+
+export const Card = ({
+  title,
+  subtitle,
+  image,
+  footer,
+  variant = 'default',
+  status,
+  horizontal = false,
+  clickable = false,
+  children,
+  className = '',
+  ...props
+}: CardProps) => {
+  const cardClasses = [
+    'core-card',
+    variant !== 'default' && variant,
+    status,
+    horizontal && 'horizontal',
+    clickable && 'clickable',
+    className
+  ].filter(Boolean).join(' ');
+  
+  return (
+    &lt;div className={cardClasses} {...props}&gt;
+      {image && (
+        &lt;img src={image} alt="" className="core-card-image" /&gt;
+      )}
+      
+      {horizontal ? (
+        &lt;div className="core-card-content"&gt;
+          {(title || subtitle) && (
+            &lt;div className="core-card-header"&gt;
+              {title && &lt;h3 className="core-card-title"&gt;{title}&lt;/h3&gt;}
+              {subtitle && &lt;div className="core-card-subtitle"&gt;{subtitle}&lt;/div&gt;}
+            &lt;/div&gt;
+          )}
+          &lt;div className="core-card-body"&gt;{children}&lt;/div&gt;
+          {footer && &lt;div className="core-card-footer"&gt;{footer}&lt;/div&gt;}
+        &lt;/div&gt;
+      ) : (
+        &lt;&gt;
+          {(title || subtitle) && (
+            &lt;div className="core-card-header"&gt;
+              {title && &lt;h3 className="core-card-title"&gt;{title}&lt;/h3&gt;}
+              {subtitle && &lt;div className="core-card-subtitle"&gt;{subtitle}&lt;/div&gt;}
+            &lt;/div&gt;
+          )}
+          &lt;div className="core-card-body"&gt;{children}&lt;/div&gt;
+          {footer && &lt;div className="core-card-footer"&gt;{footer}&lt;/div&gt;}
+        &lt;/&gt;
+      )}
+    &lt;/div&gt;
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 5: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-card</code></td>
+                        <td>Base card container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-card-header</code></td>
+                        <td>Card header section</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-card-title</code></td>
+                        <td>Card title text</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-card-subtitle</code></td>
+                        <td>Card subtitle text</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-card-body</code></td>
+                        <td>Card body content</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-card-footer</code></td>
+                        <td>Card footer with actions</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-card-image</code></td>
+                        <td>Card image element</td>
+                    </tr>
+                    <tr>
+                        <td><code>.elevated</code></td>
+                        <td>Shadow-based card</td>
+                    </tr>
+                    <tr>
+                        <td><code>.compact</code></td>
+                        <td>Reduced padding variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.horizontal</code></td>
+                        <td>Horizontal layout</td>
+                    </tr>
+                    <tr>
+                        <td><code>.clickable</code></td>
+                        <td>Interactive card</td>
+                    </tr>
+                    <tr>
+                        <td><code>.success</code></td>
+                        <td>Success status indicator</td>
+                    </tr>
+                    <tr>
+                        <td><code>.warning</code></td>
+                        <td>Warning status indicator</td>
+                    </tr>
+                    <tr>
+                        <td><code>.error</code></td>
+                        <td>Error status indicator</td>
+                    </tr>
+                    <tr>
+                        <td><code>.info</code></td>
+                        <td>Info status indicator</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 6: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Semantic HTML</h3>
+                <ul>
+                    <li>Use appropriate heading levels</li>
+                    <li>Ensure content flow is logical</li>
+                    <li>Article or section elements when appropriate</li>
+                    <li>Meaningful alt text for images</li>
+                </ul>
+                
+                <h3>Keyboard Navigation</h3>
+                <ul>
+                    <li>Interactive elements are tabbable</li>
+                    <li>Clear focus indicators</li>
+                    <li>Logical tab order</li>
+                    <li>Enter/Space for clickable cards</li>
+                </ul>
+                
+                <h3>Screen Readers</h3>
+                <ul>
+                    <li>Clear content structure</li>
+                    <li>Descriptive headings</li>
+                    <li>Status announcements</li>
+                    <li>Link purpose is clear</li>
+                </ul>
+                
+                <h3>Visual Design</h3>
+                <ul>
+                    <li>Sufficient contrast</li>
+                    <li>Clear visual hierarchy</li>
+                    <li>Consistent spacing</li>
+                    <li>Responsive layout</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        // Demo clickable cards
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.core-card.clickable').forEach(card => {
+                card.style.cursor = 'pointer';
+            });
+        });
+    </script>
+</body>
+</html>

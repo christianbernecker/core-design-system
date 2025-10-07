@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR AVATAR-SPEZIFISCHE STYLES */
+        .core-avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            color: white;
+            font-weight: var(--font-weight-semibold);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        /* Avatar Sizes */
+        .core-avatar.xs {
+            width: 24px;
+            height: 24px;
+            font-size: 10px;
+        }
+        
+        .core-avatar.sm {
+            width: 32px;
+            height: 32px;
+            font-size: var(--font-size-xs);
+        }
+        
+        .core-avatar.md {
+            width: 40px;
+            height: 40px;
+            font-size: var(--font-size-sm);
+        }
+        
+        .core-avatar.lg {
+            width: 48px;
+            height: 48px;
+            font-size: var(--font-size-base);
+        }
+        
+        .core-avatar.xl {
+            width: 64px;
+            height: 64px;
+            font-size: var(--font-size-lg);
+        }
+        
+        .core-avatar.xxl {
+            width: 96px;
+            height: 96px;
+            font-size: var(--font-size-2xl);
+        }
+        
+        /* Avatar Image */
+        .core-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Avatar Status */
+        .core-avatar-status {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 25%;
+            height: 25%;
+            min-width: 12px;
+            min-height: 12px;
+            border-radius: 50%;
+            border: 2px solid white;
+            z-index: 10;
+        }
+        
+        .core-avatar-status.online {
+            background: var(--core-success);
+        }
+        
+        .core-avatar-status.offline {
+            background: var(--core-gray-400);
+        }
+        
+        .core-avatar-status.busy {
+            background: var(--core-error);
+        }
+        
+        .core-avatar-status.away {
+            background: var(--core-warning);
+        }
+        
+        /* Avatar Group */
+        .core-avatar-group {
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .core-avatar-group .core-avatar {
+            margin-left: -8px;
+            border: 2px solid white;
+        }
+        
+        .core-avatar-group .core-avatar:first-child {
+            margin-left: 0;
+        }
+        
+        .core-avatar-group .core-avatar-more {
+            background: var(--core-gray-200);
+            color: var(--core-text);
+        }
+        
+        /* Avatar with Text */
+        .core-avatar-item {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .core-avatar-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .core-avatar-name {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--core-text);
+        }
+        
+        .core-avatar-role {
+            font-size: var(--font-size-sm);
+            color: var(--core-grey);
+        }
+        
+        /* Avatar Shapes */
+        .core-avatar.square {
+            border-radius: var(--radius-md);
+        }
+        
+        .core-avatar.rounded {
+            border-radius: var(--radius-lg);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item active">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Avatar</h1>
+        <p>User profile images and initials with status indicators and grouping options.</p>
+        
+        <!-- Section 1: Avatar Sizes -->
+        <section class="section">
+            <h2 class="section-title">Avatar Sizes</h2>
+            
+            <div class="component-card">
+                <h3>Size Variants</h3>
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <div class="core-avatar xs">XS</div>
+                    <div class="core-avatar sm">SM</div>
+                    <div class="core-avatar md">MD</div>
+                    <div class="core-avatar lg">LG</div>
+                    <div class="core-avatar xl">XL</div>
+                    <div class="core-avatar xxl">XXL</div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>With Images</h3>
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <div class="core-avatar sm">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100" alt="User">
+                    </div>
+                    <div class="core-avatar md">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="User">
+                    </div>
+                    <div class="core-avatar lg">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="User">
+                    </div>
+                    <div class="core-avatar xl">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100" alt="User">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>With Initials</h3>
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <div class="core-avatar sm">JD</div>
+                    <div class="core-avatar md">AS</div>
+                    <div class="core-avatar lg">MM</div>
+                    <div class="core-avatar xl">CB</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Avatar Variants -->
+        <section class="section">
+            <h2 class="section-title">Avatar Variants</h2>
+            
+            <div class="component-card">
+                <h3>With Status Indicator</h3>
+                <div style="display: flex; align-items: center; gap: 24px;">
+                    <div class="core-avatar lg">
+                        JD
+                        <span class="core-avatar-status online"></span>
+                    </div>
+                    <div class="core-avatar lg">
+                        AS
+                        <span class="core-avatar-status away"></span>
+                    </div>
+                    <div class="core-avatar lg">
+                        MM
+                        <span class="core-avatar-status busy"></span>
+                    </div>
+                    <div class="core-avatar lg">
+                        CB
+                        <span class="core-avatar-status offline"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Avatar Shapes</h3>
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <div class="core-avatar lg">Circle</div>
+                    <div class="core-avatar lg rounded">Round</div>
+                    <div class="core-avatar lg square">Square</div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Avatar Group</h3>
+                <div class="core-avatar-group">
+                    <div class="core-avatar md">JD</div>
+                    <div class="core-avatar md">AS</div>
+                    <div class="core-avatar md">MM</div>
+                    <div class="core-avatar md">CB</div>
+                    <div class="core-avatar md core-avatar-more">+5</div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Avatar with Text</h3>
+                
+                <div class="core-avatar-item">
+                    <div class="core-avatar md">JD</div>
+                    <div class="core-avatar-info">
+                        <div class="core-avatar-name">John Doe</div>
+                        <div class="core-avatar-role">Real Estate Agent</div>
+                    </div>
+                </div>
+                
+                <div class="core-avatar-item" style="margin-top: 16px;">
+                    <div class="core-avatar md">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Anna Schmidt">
+                    </div>
+                    <div class="core-avatar-info">
+                        <div class="core-avatar-name">Anna Schmidt</div>
+                        <div class="core-avatar-role">Property Manager</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            
+            <div class="component-card">
+                <h3>Agent Profiles</h3>
+                
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div class="core-avatar-item">
+                        <div class="core-avatar lg">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Max Mustermann">
+                        </div>
+                        <div class="core-avatar-info">
+                            <div class="core-avatar-name">Max Mustermann</div>
+                            <div class="core-avatar-role">Senior Agent • 15 Properties</div>
+                        </div>
+                    </div>
+                    
+                    <div class="core-avatar-item">
+                        <div class="core-avatar lg">
+                            <span class="core-avatar-status online"></span>
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100" alt="Sarah Johnson">
+                        </div>
+                        <div class="core-avatar-info">
+                            <div class="core-avatar-name">Sarah Johnson</div>
+                            <div class="core-avatar-role">Property Consultant • Available Now</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Client List</h3>
+                
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div class="core-avatar-item">
+                        <div class="core-avatar sm">TC</div>
+                        <div class="core-avatar-info">
+                            <div class="core-avatar-name">Thomas Chen</div>
+                            <div class="core-avatar-role">Interested in: Apartments</div>
+                        </div>
+                    </div>
+                    
+                    <div class="core-avatar-item">
+                        <div class="core-avatar sm">LM</div>
+                        <div class="core-avatar-info">
+                            <div class="core-avatar-name">Lisa Martinez</div>
+                            <div class="core-avatar-role">Budget: €500k - €800k</div>
+                        </div>
+                    </div>
+                    
+                    <div class="core-avatar-item">
+                        <div class="core-avatar sm">RB</div>
+                        <div class="core-avatar-info">
+                            <div class="core-avatar-name">Robert Brown</div>
+                            <div class="core-avatar-role">Looking for: Commercial</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Basic Avatar with Initials --&gt;
+&lt;div class="core-avatar md"&gt;JD&lt;/div&gt;
+
+&lt;!-- Avatar with Image --&gt;
+&lt;div class="core-avatar lg"&gt;
+    &lt;img src="user.jpg" alt="User Name"&gt;
+&lt;/div&gt;
+
+&lt;!-- Avatar with Status --&gt;
+&lt;div class="core-avatar lg"&gt;
+    JD
+    &lt;span class="core-avatar-status online"&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Avatar Group --&gt;
+&lt;div class="core-avatar-group"&gt;
+    &lt;div class="core-avatar md"&gt;JD&lt;/div&gt;
+    &lt;div class="core-avatar md"&gt;AS&lt;/div&gt;
+    &lt;div class="core-avatar md core-avatar-more"&gt;+3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Avatar with Info --&gt;
+&lt;div class="core-avatar-item"&gt;
+    &lt;div class="core-avatar md"&gt;JD&lt;/div&gt;
+    &lt;div class="core-avatar-info"&gt;
+        &lt;div class="core-avatar-name"&gt;John Doe&lt;/div&gt;
+        &lt;div class="core-avatar-role"&gt;Agent&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Avatar.tsx
+import { ReactNode } from 'react';
+
+interface AvatarProps {
+  src?: string;
+  alt?: string;
+  initials?: string;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+  shape?: 'circle' | 'rounded' | 'square';
+  status?: 'online' | 'offline' | 'busy' | 'away';
+  className?: string;
+}
+
+export const Avatar = ({
+  src,
+  alt,
+  initials,
+  size = 'md',
+  shape = 'circle',
+  status,
+  className = ''
+}: AvatarProps) => {
+  const shapeClass = shape === 'circle' ? '' : shape;
+  
+  return (
+    &lt;div className={`core-avatar ${size} ${shapeClass} ${className}`}&gt;
+      {src ? (
+        &lt;img src={src} alt={alt || 'Avatar'} /&gt;
+      ) : (
+        initials || '?'
+      )}
+      {status && &lt;span className={`core-avatar-status ${status}`} /&gt;}
+    &lt;/div&gt;
+  );
+};
+
+// Avatar Group Component
+interface AvatarGroupProps {
+  children: ReactNode;
+  max?: number;
+}
+
+export const AvatarGroup = ({ children, max = 4 }: AvatarGroupProps) => {
+  const avatars = React.Children.toArray(children);
+  const visible = avatars.slice(0, max);
+  const remaining = avatars.length - max;
+  
+  return (
+    &lt;div className="core-avatar-group"&gt;
+      {visible}
+      {remaining > 0 && (
+        &lt;div className="core-avatar md core-avatar-more"&gt;
+          +{remaining}
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 5: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-avatar</code></td>
+                        <td>Base avatar class</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-avatar-status</code></td>
+                        <td>Status indicator</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-avatar-group</code></td>
+                        <td>Container for grouped avatars</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-avatar-item</code></td>
+                        <td>Avatar with text container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-avatar-info</code></td>
+                        <td>Text info container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-avatar-name</code></td>
+                        <td>User name text</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-avatar-role</code></td>
+                        <td>User role/subtitle text</td>
+                    </tr>
+                    <tr>
+                        <td><code>.xs, .sm, .md, .lg, .xl, .xxl</code></td>
+                        <td>Size variants</td>
+                    </tr>
+                    <tr>
+                        <td><code>.rounded, .square</code></td>
+                        <td>Shape variants</td>
+                    </tr>
+                    <tr>
+                        <td><code>.online, .offline, .busy, .away</code></td>
+                        <td>Status indicators</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* HEROUI-BASIERTE DROPDOWN ARCHITEKTUR */
+        .heroui-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .heroui-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 12px 16px;
+            min-width: 150px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+        
+        .heroui-trigger:hover {
+            border-color: #0066ff;
+            background: #f8fafc;
+        }
+        
+        .heroui-trigger:focus {
+            border-color: #0066ff;
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+        }
+        
+        .heroui-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            min-width: 200px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            z-index: 999999999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px) scale(0.95);
+            transition: all 0.2s ease;
+            padding: 8px 0;
+            overflow: hidden;
+        }
+        
+        .heroui-menu[data-open="true"] {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        
+        .heroui-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            color: #111;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.15s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+        
+        .heroui-item:hover {
+            background: #f3f4f6;
+        }
+        
+        .heroui-section-header {
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .heroui-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 8px 0;
+        }
+        
+        /* Checkbox Styles */
+        .heroui-checkbox {
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .heroui-checkbox::before {
+            content: '';
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        .heroui-checkbox[data-selected="true"]::before {
+            background: #0066ff;
+            border-color: #0066ff;
+        }
+        
+        .heroui-checkbox[data-selected="true"]::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 6px;
+            height: 10px;
+            border: 2px solid white;
+            border-top: none;
+            border-left: none;
+        }
+    </style>
+    
+    <script>
+        // HEROUI-BASIERTE DROPDOWN FUNKTIONALITÄT
+        function toggleHeroUIDropdown(triggerId) {
+            const trigger = document.getElementById(triggerId);
+            const menu = trigger.nextElementSibling;
+            const isOpen = menu.getAttribute('data-open') === 'true';
+            
+            // Close all dropdowns
+            document.querySelectorAll('.heroui-menu').forEach(m => {
+                m.setAttribute('data-open', 'false');
+            });
+            
+            // Toggle current dropdown
+            if (!isOpen) {
+                menu.setAttribute('data-open', 'true');
+            }
+        }
+        
+        function toggleCheckbox(item) {
+            const isSelected = item.getAttribute('data-selected') === 'true';
+            item.setAttribute('data-selected', isSelected ? 'false' : 'true');
+        }
+        
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.heroui-dropdown')) {
+                document.querySelectorAll('.heroui-menu').forEach(m => {
+                    m.setAttribute('data-open', 'false');
+                });
+            }
+        });
+        
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.heroui-menu').forEach(m => {
+                    m.setAttribute('data-open', 'false');
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />
+            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item active">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+            </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Dropdown</h1>
+        <p>Versatile dropdown menus for navigation, actions, and selections with smooth animations - rebuilt with HeroUI architecture.</p>
+        
+        <!-- Section 1: HeroUI Dropdown Variants -->
+        <section class="section">
+            <h2 class="section-title">HeroUI Dropdown Variants</h2>
+            
+            <div class="component-card">
+                <h3>Standard Dropdown</h3>
+                <p>Basic dropdown with text items</p>
+                
+                <div class="heroui-dropdown">
+                    <button class="heroui-trigger" id="dropdown1" onclick="toggleHeroUIDropdown('dropdown1')">
+                        <span>Options</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="heroui-menu" data-open="false">
+                        <a href="#" class="heroui-item">View Details</a>
+                        <a href="#" class="heroui-item">Edit Property</a>
+                        <a href="#" class="heroui-item">Share Listing</a>
+                        <div class="heroui-divider"></div>
+                        <a href="#" class="heroui-item" style="color: #ef4444;">Delete</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Dropdown with Icons</h3>
+                <p>Enhanced dropdown with icon indicators</p>
+                
+                <div class="heroui-dropdown">
+                    <button class="heroui-trigger" id="dropdown2" onclick="toggleHeroUIDropdown('dropdown2')">
+                        <span>Actions</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="heroui-menu" data-open="false">
+                        <a href="#" class="heroui-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            View
+                        </a>
+                        <a href="#" class="heroui-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                            Edit
+                        </a>
+                        <a href="#" class="heroui-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                            </svg>
+                            Duplicate
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Multi-Select Dropdown</h3>
+                <p>Dropdown with checkbox selection</p>
+                
+                <div class="heroui-dropdown">
+                    <button class="heroui-trigger" id="dropdown3" onclick="toggleHeroUIDropdown('dropdown3')">
+                        <span>Filter Properties</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="heroui-menu" data-open="false">
+                        <div class="heroui-section-header">Property Type</div>
+                        <button class="heroui-item heroui-checkbox" data-selected="false" onclick="toggleCheckbox(this)">Apartment</button>
+                        <button class="heroui-item heroui-checkbox" data-selected="true" onclick="toggleCheckbox(this)">House</button>
+                        <button class="heroui-item heroui-checkbox" data-selected="false" onclick="toggleCheckbox(this)">Villa</button>
+                        <button class="heroui-item heroui-checkbox" data-selected="false" onclick="toggleCheckbox(this)">Penthouse</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            
+            <div class="component-card">
+                <h3>User Menu</h3>
+                
+                <div class="heroui-dropdown">
+                    <button class="heroui-trigger" id="dropdown4" onclick="toggleHeroUIDropdown('dropdown4')">
+                        <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #000066, #3366CC); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px;">
+                            JD
+                        </div>
+                        <span>John Doe</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="heroui-menu" data-open="false" style="right: 0; left: auto;">
+                        <div class="heroui-section-header">Account</div>
+                        <a href="#" class="heroui-item">My Profile</a>
+                        <a href="#" class="heroui-item">My Properties</a>
+                        <a href="#" class="heroui-item">Saved Searches</a>
+                        <div class="heroui-divider"></div>
+                        <a href="#" class="heroui-item">Settings</a>
+                        <a href="#" class="heroui-item" style="color: #ef4444;">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Standard Dropdown --&gt;
+&lt;div class="core-dropdown"&gt;
+    &lt;button class="core-dropdown-trigger" onclick="LYDDropdown.toggle('myDropdown')"&gt;
+        &lt;span&gt;Options&lt;/span&gt;
+        &lt;svg class="core-dropdown-icon"&gt;...&lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class="core-dropdown-menu" id="myDropdown"&gt;
+        &lt;a href="#" class="core-dropdown-item"&gt;Option 1&lt;/a&gt;
+        &lt;a href="#" class="core-dropdown-item"&gt;Option 2&lt;/a&gt;
+        &lt;div class="core-dropdown-divider"&gt;&lt;/div&gt;
+        &lt;a href="#" class="core-dropdown-item"&gt;Option 3&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </div>
+            </div>
+            
+            <div class="implementation-section">
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>import { useState, useRef, useEffect } from 'react';
+
+interface DropdownProps {
+  trigger: React.ReactNode;
+  children: React.ReactNode;
+  align?: 'left' | 'right';
+}
+
+export const Dropdown = ({ trigger, children, align = 'left' }: DropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef&lt;HTMLDivElement&gt;(null);
+  
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+  
+  return (
+    &lt;div className="core-dropdown" ref={dropdownRef}&gt;
+      &lt;button 
+        className={`core-dropdown-trigger ${isOpen ? 'active' : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
+      &gt;
+        {trigger}
+      &lt;/button&gt;
+      &lt;div className={`core-dropdown-menu ${align} ${isOpen ? 'active' : ''}`}&gt;
+        {children}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-dropdown</code></td>
+                        <td>Container for dropdown component</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-dropdown-trigger</code></td>
+                        <td>Button that opens the dropdown</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-dropdown-menu</code></td>
+                        <td>Dropdown menu container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-dropdown-item</code></td>
+                        <td>Individual menu item</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-dropdown-divider</code></td>
+                        <td>Horizontal separator</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-dropdown-header</code></td>
+                        <td>Section header in dropdown</td>
+                    </tr>
+                    <tr>
+                        <td><code>.checkbox</code></td>
+                        <td>Checkbox style item</td>
+                    </tr>
+                    <tr>
+                        <td><code>.selected</code></td>
+                        <td>Selected state for checkbox items</td>
+                    </tr>
+                    <tr>
+                        <td><code>.active</code></td>
+                        <td>Open state for dropdown</td>
+                    </tr>
+                    <tr>
+                        <td><code>.right</code></td>
+                        <td>Right-aligned dropdown menu</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 5: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Keyboard Navigation</h3>
+                <ul>
+                    <li>Enter/Space to open dropdown</li>
+                    <li>Arrow keys to navigate items</li>
+                    <li>Escape to close dropdown</li>
+                    <li>Tab to move focus</li>
+                </ul>
+                
+                <h3>Screen Reader Support</h3>
+                <ul>
+                    <li>Use aria-expanded on trigger</li>
+                    <li>Add role="menu" to dropdown</li>
+                    <li>Include aria-haspopup</li>
+                    <li>Announce selection changes</li>
+                </ul>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Close on outside click</li>
+                    <li>Prevent viewport overflow</li>
+                    <li>Clear visual feedback</li>
+                    <li>Smooth animations</li>
+                    <li>Mobile-friendly touch targets</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        // HeroUI-inspirierte Dropdown-Funktionalität
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verbesserte Toggle-Funktion
+            window.LYDDropdown = window.LYDDropdown || {
+                toggle: function(dropdownId) {
+                    const dropdown = document.getElementById(dropdownId);
+                    const trigger = dropdown?.previousElementSibling;
+                    
+                    if (dropdown && trigger) {
+                        // Close all other dropdowns
+                        document.querySelectorAll('.core-dropdown-menu.active').forEach(menu => {
+                            if (menu.id !== dropdownId) {
+                                menu.classList.remove('active');
+                                menu.previousElementSibling?.classList.remove('active');
+                            }
+                        });
+                        
+                        // Toggle current dropdown
+                        const isActive = dropdown.classList.contains('active');
+                        dropdown.classList.toggle('active');
+                        trigger.classList.toggle('active');
+                    }
+                }
+            };
+            
+            // Close dropdowns on outside click
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.core-dropdown')) {
+                    document.querySelectorAll('.core-dropdown-menu.active').forEach(menu => {
+                        menu.classList.remove('active');
+                        menu.previousElementSibling?.classList.remove('active');
+                    });
+                }
+            });
+            
+            // Escape key support
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.core-dropdown-menu.active').forEach(menu => {
+                        menu.classList.remove('active');
+                        menu.previousElementSibling?.classList.remove('active');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

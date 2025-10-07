@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <!-- ZENTRALE JAVASCRIPT INTERAKTIONEN -->
+    <script src="/shared/interactions.js"></script>
+    
+    <style>
+        /* HEROUI-INSPIRIERTES CALENDAR SYSTEM */
+        .core-calendar {
+            background: white;
+            border: 1px solid var(--core-line);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-lg);
+            max-width: 400px;
+            font-family: var(--font-family-primary);
+        }
+        
+        .core-calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--core-line);
+        }
+        
+        .core-calendar-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--core-text);
+        }
+        
+        .core-calendar-nav {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .core-calendar-nav-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: 1px solid var(--core-line);
+            border-radius: var(--radius-md);
+            color: var(--core-text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .core-calendar-nav-btn:hover {
+            background: var(--core-gradient-subtle);
+            border-color: var(--core-primary);
+            color: var(--core-primary);
+        }
+        
+        .core-calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .core-calendar-weekday {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-bold);
+            color: var(--core-grey);
+            padding: 8px 4px;
+        }
+        
+        .core-calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+        
+        .core-calendar-day {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: none;
+            color: var(--core-text);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        
+        .core-calendar-day:hover {
+            background: var(--core-gradient-subtle);
+            color: var(--core-primary);
+        }
+        
+        .core-calendar-day.today {
+            background: var(--core-primary);
+            color: white;
+            font-weight: var(--font-weight-bold);
+        }
+        
+        .core-calendar-day.selected {
+            background: var(--core-gradient-primary);
+            color: white;
+            font-weight: var(--font-weight-bold);
+        }
+        
+        .core-calendar-day.disabled {
+            color: var(--core-gray-300);
+            cursor: not-allowed;
+        }
+        
+        .core-calendar-day.disabled:hover {
+            background: none;
+            color: var(--core-gray-300);
+        }
+        
+        .core-calendar-day.in-range {
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--core-primary);
+        }
+        
+        /* Month/Year Selector */
+        .core-month-selector,
+        .core-year-selector {
+            background: white;
+            border: 1px solid var(--core-line);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+        
+        .core-month-grid,
+        .core-year-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-sm);
+        }
+        
+        .core-month-item,
+        .core-year-item {
+            padding: 12px 16px;
+            text-align: center;
+            border: 1px solid var(--core-line);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            background: white;
+        }
+        
+        .core-month-item:hover,
+        .core-year-item:hover {
+            background: var(--core-gradient-subtle);
+            border-color: var(--core-primary);
+            color: var(--core-primary);
+        }
+        
+        .core-month-item.selected,
+        .core-year-item.selected {
+            background: var(--core-primary);
+            border-color: var(--core-primary);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />
+            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item active">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+            </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Calendar</h1>
+        <p>Full-featured calendar for viewing schedules, property viewings, and important dates.</p>
+        
+        <!-- Section 1: Month View -->
+        <section class="section">
+            <h2 class="section-title">Month View</h2>
+            
+            <div class="component-card">
+                <h3>Default Calendar</h3>
+                
+                <div class="core-calendar">
+                    <div class="core-calendar-header">
+                        <button class="core-calendar-nav-btn" onclick="previousMonth()">‹</button>
+                        <div class="core-calendar-title">September 2025</div>
+                        <button class="core-calendar-nav-btn" onclick="nextMonth()">›</button>
+                    </div>
+                    
+                    <div class="core-calendar-weekdays">
+                        <div class="core-calendar-weekday">Su</div>
+                        <div class="core-calendar-weekday">Mo</div>
+                        <div class="core-calendar-weekday">Tu</div>
+                        <div class="core-calendar-weekday">We</div>
+                        <div class="core-calendar-weekday">Th</div>
+                        <div class="core-calendar-weekday">Fr</div>
+                        <div class="core-calendar-weekday">Sa</div>
+                    </div>
+                    
+                    <div class="core-calendar-grid">
+                        <button class="core-calendar-day disabled">31</button>
+                        <button class="core-calendar-day">1</button>
+                        <button class="core-calendar-day">2</button>
+                        <button class="core-calendar-day">3</button>
+                        <button class="core-calendar-day">4</button>
+                        <button class="core-calendar-day">5</button>
+                        <button class="core-calendar-day">6</button>
+                        <button class="core-calendar-day">7</button>
+                        <button class="core-calendar-day">8</button>
+                        <button class="core-calendar-day">9</button>
+                        <button class="core-calendar-day">10</button>
+                        <button class="core-calendar-day">11</button>
+                        <button class="core-calendar-day">12</button>
+                        <button class="core-calendar-day">13</button>
+                        <button class="core-calendar-day">14</button>
+                        <button class="core-calendar-day">15</button>
+                        <button class="core-calendar-day">16</button>
+                        <button class="core-calendar-day">17</button>
+                        <button class="core-calendar-day">18</button>
+                        <button class="core-calendar-day">19</button>
+                        <button class="core-calendar-day">20</button>
+                        <button class="core-calendar-day">21</button>
+                        <button class="core-calendar-day selected">22</button>
+                        <button class="core-calendar-day">23</button>
+                        <button class="core-calendar-day today">24</button>
+                        <button class="core-calendar-day">25</button>
+                        <button class="core-calendar-day">26</button>
+                        <button class="core-calendar-day">27</button>
+                        <button class="core-calendar-day">28</button>
+                        <button class="core-calendar-day">29</button>
+                        <button class="core-calendar-day">30</button>
+                        <button class="core-calendar-day disabled">1</button>
+                        <button class="core-calendar-day disabled">2</button>
+                        <button class="core-calendar-day disabled">3</button>
+                        <button class="core-calendar-day disabled">4</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Month Selector -->
+        <section class="section">
+            <h2 class="section-title">Month Selector</h2>
+            
+            <div class="component-card">
+                <h3>Month Selection</h3>
+                
+                <div class="core-month-selector">
+                    <div class="core-calendar-header">
+                        <button class="core-calendar-nav-btn">‹</button>
+                        <div class="core-calendar-title">2025</div>
+                        <button class="core-calendar-nav-btn">›</button>
+                    </div>
+                    
+                    <div class="core-month-grid">
+                        <button class="core-month-item">Jan</button>
+                        <button class="core-month-item">Feb</button>
+                        <button class="core-month-item">Mar</button>
+                        <button class="core-month-item">Apr</button>
+                        <button class="core-month-item">May</button>
+                        <button class="core-month-item">Jun</button>
+                        <button class="core-month-item">Jul</button>
+                        <button class="core-month-item">Aug</button>
+                        <button class="core-month-item selected">Sep</button>
+                        <button class="core-month-item">Oct</button>
+                        <button class="core-month-item">Nov</button>
+                        <button class="core-month-item">Dec</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Year Selector -->
+        <section class="section">
+            <h2 class="section-title">Year Selector</h2>
+            
+            <div class="component-card">
+                <h3>Year Range Selection</h3>
+                
+                <div class="core-year-selector">
+                    <div class="core-calendar-header">
+                        <button class="core-calendar-nav-btn">‹</button>
+                        <div class="core-calendar-title">2020 - 2031</div>
+                        <button class="core-calendar-nav-btn">›</button>
+                    </div>
+                    
+                    <div class="core-year-grid">
+                        <button class="core-year-item">2020</button>
+                        <button class="core-year-item">2021</button>
+                        <button class="core-year-item">2022</button>
+                        <button class="core-year-item">2023</button>
+                        <button class="core-year-item">2024</button>
+                        <button class="core-year-item selected">2025</button>
+                        <button class="core-year-item">2026</button>
+                        <button class="core-year-item">2027</button>
+                        <button class="core-year-item">2028</button>
+                        <button class="core-year-item">2029</button>
+                        <button class="core-year-item">2030</button>
+                        <button class="core-year-item">2031</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Calendar Month View --&gt;
+&lt;div class="core-calendar"&gt;
+    &lt;div class="core-calendar-header"&gt;
+        &lt;button class="core-calendar-nav-btn"&gt;‹&lt;/button&gt;
+        &lt;div class="core-calendar-title"&gt;September 2025&lt;/div&gt;
+        &lt;button class="core-calendar-nav-btn"&gt;›&lt;/button&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="core-calendar-weekdays"&gt;
+        &lt;div class="core-calendar-weekday"&gt;Su&lt;/div&gt;
+        &lt;!-- ... more weekdays ... --&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="core-calendar-grid"&gt;
+        &lt;button class="core-calendar-day"&gt;1&lt;/button&gt;
+        &lt;button class="core-calendar-day today"&gt;24&lt;/button&gt;
+        &lt;!-- ... more days ... --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </div>
+            </div>
+            
+            <div class="implementation-section">
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>import { useState } from 'react';
+
+interface CalendarProps {
+  selectedDate?: Date;
+  onDateSelect?: (date: Date) => void;
+  minDate?: Date;
+  maxDate?: Date;
+}
+
+export const Calendar = ({ 
+  selectedDate, 
+  onDateSelect, 
+  minDate, 
+  maxDate 
+}: CalendarProps) => {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  
+  const getDaysInMonth = (date: Date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const startDate = new Date(firstDay);
+    startDate.setDate(startDate.getDate() - firstDay.getDay());
+    
+    const days = [];
+    for (let i = 0; i &lt; 42; i++) {
+      const day = new Date(startDate);
+      day.setDate(startDate.getDate() + i);
+      days.push(day);
+    }
+    return days;
+  };
+  
+  const handleDateClick = (date: Date) => {
+    onDateSelect?.(date);
+  };
+  
+  const previousMonth = () => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1));
+  };
+  
+  const nextMonth = () => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1));
+  };
+  
+  const days = getDaysInMonth(currentDate);
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  
+  return (
+    &lt;div className="core-calendar"&gt;
+      &lt;div className="core-calendar-header"&gt;
+        &lt;button className="core-calendar-nav-btn" onClick={previousMonth}&gt;‹&lt;/button&gt;
+        &lt;div className="core-calendar-title"&gt;
+          {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+        &lt;/div&gt;
+        &lt;button className="core-calendar-nav-btn" onClick={nextMonth}&gt;›&lt;/button&gt;
+      &lt;/div&gt;
+      
+      &lt;div className="core-calendar-weekdays"&gt;
+        {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
+          &lt;div key={day} className="core-calendar-weekday"&gt;{day}&lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+      
+      &lt;div className="core-calendar-grid"&gt;
+        {days.map((day, index) => (
+          &lt;button
+            key={index}
+            className={`core-calendar-day ${getDayClasses(day)}`}
+            onClick={() => handleDateClick(day)}
+          &gt;
+            {day.getDate()}
+          &lt;/button&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 5: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-calendar</code></td>
+                        <td>Main calendar container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-calendar-header</code></td>
+                        <td>Calendar header with navigation</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-calendar-title</code></td>
+                        <td>Month/year title</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-calendar-nav-btn</code></td>
+                        <td>Previous/next navigation buttons</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-calendar-weekdays</code></td>
+                        <td>Weekday labels container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-calendar-grid</code></td>
+                        <td>Calendar days grid</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-calendar-day</code></td>
+                        <td>Individual day button</td>
+                    </tr>
+                    <tr>
+                        <td><code>.today</code></td>
+                        <td>Current date styling</td>
+                    </tr>
+                    <tr>
+                        <td><code>.selected</code></td>
+                        <td>Selected date styling</td>
+                    </tr>
+                    <tr>
+                        <td><code>.disabled</code></td>
+                        <td>Disabled date styling</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    
+    <script>
+        // HeroUI-inspirierte Calendar-Funktionalität
+        let currentMonth = 8; // September (0-based)
+        let currentYear = 2025;
+        
+        function previousMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            updateCalendar();
+        }
+        
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            updateCalendar();
+        }
+        
+        function updateCalendar() {
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            
+            const titleElement = document.querySelector('.core-calendar-title');
+            if (titleElement) {
+                titleElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            }
+        }
+        
+        // Day selection
+        document.querySelectorAll('.core-calendar-day:not(.disabled)').forEach(day => {
+            day.addEventListener('click', function() {
+                // Remove previous selection
+                document.querySelectorAll('.core-calendar-day.selected').forEach(d => {
+                    if (!d.classList.contains('today')) {
+                        d.classList.remove('selected');
+                    }
+                });
+                
+                // Add selection to clicked day
+                if (!this.classList.contains('today')) {
+                    this.classList.add('selected');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

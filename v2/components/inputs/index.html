@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR INPUT-SPEZIFISCHE STYLES */
+        .core-input {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: 2px solid var(--core-line);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            font-family: var(--font-family);
+            background: white;
+            color: var(--core-text);
+            transition: all 0.3s ease;
+            outline: none;
+            min-height: 44px;
+            box-sizing: border-box;
+        }
+        
+        .core-input:hover {
+            border-color: var(--core-royal-blue);
+        }
+        
+        .core-input:focus {
+            border-color: var(--core-primary);
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+        }
+        
+        .core-input::placeholder {
+            color: var(--core-text-secondary);
+        }
+        
+        /* Input with Icon */
+        .core-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        
+        .core-input-icon {
+            position: absolute;
+            left: var(--spacing-lg);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: var(--core-text-secondary);
+            stroke: var(--core-text-secondary);
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .core-input-wrapper.has-icon .core-input {
+            padding-left: calc(var(--spacing-lg) * 2 + 20px);
+        }
+        
+        .core-input-icon-right {
+            left: auto;
+            right: var(--spacing-lg);
+        }
+        
+        .core-input-wrapper.has-icon-right .core-input {
+            padding-right: calc(var(--spacing-lg) * 2 + 20px);
+        }
+        
+        /* Label */
+        .core-input-label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--core-text);
+        }
+        
+        .core-input-label.required::after {
+            content: ' *';
+            color: var(--core-error);
+        }
+        
+        /* Helper Text */
+        .core-input-helper {
+            margin-top: var(--spacing-xs);
+            font-size: var(--font-size-sm);
+            color: var(--core-text-secondary);
+        }
+        
+        /* Error State */
+        .core-input.error {
+            border-color: var(--core-error);
+        }
+        
+        .core-input.error:focus {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+        
+        .core-input-error {
+            margin-top: var(--spacing-xs);
+            font-size: var(--font-size-sm);
+            color: var(--core-error);
+        }
+        
+        /* Success State */
+        .core-input.success {
+            border-color: var(--core-success);
+        }
+        
+        .core-input.success:focus {
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+        
+        /* Disabled State */
+        .core-input:disabled {
+            background: var(--core-gray-100);
+            color: var(--core-text-secondary);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        /* Premium Input */
+        .core-input.premium {
+            background: var(--core-gradient-subtle);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+        
+        .core-input.premium::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: var(--radius-md);
+            background: var(--core-gradient-primary);
+            z-index: -1;
+        }
+        
+        /* Input Sizes */
+        .core-input.small {
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: var(--font-size-sm);
+            min-height: 36px;
+        }
+        
+        .core-input.large {
+            padding: var(--spacing-lg) var(--spacing-xl);
+            font-size: var(--font-size-lg);
+            min-height: 52px;
+        }
+        
+        /* Input Group */
+        .core-input-group {
+            display: flex;
+            align-items: stretch;
+            width: 100%;
+        }
+        
+        .core-input-group .core-input {
+            border-radius: 0;
+            flex: 1;
+        }
+        
+        .core-input-group .core-input:first-child {
+            border-top-left-radius: var(--radius-md);
+            border-bottom-left-radius: var(--radius-md);
+        }
+        
+        .core-input-group .core-input:last-child {
+            border-top-right-radius: var(--radius-md);
+            border-bottom-right-radius: var(--radius-md);
+        }
+        
+        .core-input-addon {
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-lg);
+            background: var(--core-gray-100);
+            border: 2px solid var(--core-line);
+            border-left: none;
+            color: var(--core-text-secondary);
+            font-size: var(--font-size-base);
+        }
+        
+        .core-input-addon:first-child {
+            border-left: 2px solid var(--core-line);
+            border-right: none;
+            border-top-left-radius: var(--radius-md);
+            border-bottom-left-radius: var(--radius-md);
+        }
+        
+        .core-input-addon:last-child {
+            border-top-right-radius: var(--radius-md);
+            border-bottom-right-radius: var(--radius-md);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item active">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Input</h1>
+        <p>Professional form input fields with LYD brand styling, validation states, and premium features for the luxury real estate segment.</p>
+        
+        <!-- Section 1: Input Types -->
+        <section class="section">
+            <h2 class="section-title">Input Types</h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>Basic Input</h3>
+                    <p class="text-muted">Standard text input field</p>
+                    <div class="component-preview">
+                        <label class="core-input-label">Property Name</label>
+                        <input type="text" class="core-input" placeholder="Enter property name">
+                        <div class="core-input-helper">Maximum 100 characters</div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Input with Icon</h3>
+                    <p class="text-muted">Input field with leading icon</p>
+                    <div class="component-preview">
+                        <label class="core-input-label">Email Address</label>
+                        <div class="core-input-wrapper has-icon">
+                            <svg class="core-input-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            <input type="email" class="core-input" placeholder="contact@core-design-system.vercel.app">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Search Input</h3>
+                    <p class="text-muted">Input with search functionality</p>
+                    <div class="component-preview">
+                        <label class="core-input-label">Search Properties</label>
+                        <div class="core-input-wrapper has-icon has-icon-right">
+                            <svg class="core-input-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                            <input type="search" class="core-input" placeholder="Search by location, price, or type">
+                            <svg class="core-input-icon core-input-icon-right" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 10l5 5 5-5z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Password Input</h3>
+                    <p class="text-muted">Secure password field</p>
+                    <div class="component-preview">
+                        <label class="core-input-label required">Password</label>
+                        <div class="core-input-wrapper has-icon">
+                            <svg class="core-input-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                            </svg>
+                            <input type="password" class="core-input" placeholder="Enter your password">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Number Input</h3>
+                    <p class="text-muted">Numeric input with formatting</p>
+                    <div class="component-preview">
+                        <label class="core-input-label">Property Price</label>
+                        <div class="core-input-group">
+                            <span class="core-input-addon">€</span>
+                            <input type="number" class="core-input" placeholder="1,500,000" min="0" step="1000">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Premium Input</h3>
+                    <p class="text-muted">Luxury gradient border effect</p>
+                    <div class="component-preview">
+                        <label class="core-input-label">Exclusive Property Code</label>
+                        <input type="text" class="core-input premium" placeholder="Enter VIP access code">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Validation States -->
+        <section class="section">
+            <h2 class="section-title">Validation States</h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>Error State</h3>
+                    <p class="text-muted">Invalid input indication</p>
+                    <div class="component-preview">
+                        <label class="core-input-label required">Email</label>
+                        <input type="email" class="core-input error" value="invalid-email" placeholder="Enter email">
+                        <div class="core-input-error">Please enter a valid email address</div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Success State</h3>
+                    <p class="text-muted">Valid input confirmation</p>
+                    <div class="component-preview">
+                        <label class="core-input-label">Phone Number</label>
+                        <input type="tel" class="core-input success" value="+49 123 456 7890" placeholder="Enter phone">
+                        <div class="core-input-helper" style="color: var(--core-success);">✓ Valid phone number</div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Disabled State</h3>
+                    <p class="text-muted">Non-interactive input</p>
+                    <div class="component-preview">
+                        <label class="core-input-label">Property ID</label>
+                        <input type="text" class="core-input" value="LYD-2024-001" disabled>
+                        <div class="core-input-helper">Auto-generated ID</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Input Sizes -->
+        <section class="section">
+            <h2 class="section-title">Input Sizes</h2>
+            <div class="component-card">
+                <h3>Size Variations</h3>
+                <p class="text-muted">Different input sizes for various use cases</p>
+                <div class="component-preview">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <input type="text" class="core-input small" placeholder="Small input">
+                        <input type="text" class="core-input" placeholder="Default input">
+                        <input type="text" class="core-input large" placeholder="Large input">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>Property Search</h3>
+                    <div class="component-preview">
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div>
+                                <label class="core-input-label">Location</label>
+                                <div class="core-input-wrapper has-icon">
+                                    <svg class="core-input-icon" viewBox="0 0 24 24">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                    </svg>
+                                    <input type="text" class="core-input" placeholder="Munich, Berlin, Hamburg...">
+                                </div>
+                            </div>
+                            <div class="core-input-group">
+                                <input type="number" class="core-input" placeholder="Min Price">
+                                <span class="core-input-addon">to</span>
+                                <input type="number" class="core-input" placeholder="Max Price">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Contact Form</h3>
+                    <div class="component-preview">
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div>
+                                <label class="core-input-label required">Full Name</label>
+                                <input type="text" class="core-input" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="core-input-label required">Phone</label>
+                                <div class="core-input-wrapper has-icon">
+                                    <svg class="core-input-icon" viewBox="0 0 24 24">
+                                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                                    </svg>
+                                    <input type="tel" class="core-input" placeholder="+49 123 456 7890">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 5: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Implementation</h3>
+                <div class="code-block">
+                    <pre><code>&lt;!-- Basic Input --&gt;
+&lt;label class="core-input-label"&gt;Property Name&lt;/label&gt;
+&lt;input type="text" class="core-input" placeholder="Enter property name"&gt;
+&lt;div class="core-input-helper"&gt;Maximum 100 characters&lt;/div&gt;
+
+&lt;!-- Input with Icon --&gt;
+&lt;div class="core-input-wrapper has-icon"&gt;
+    &lt;svg class="core-input-icon" viewBox="0 0 24 24"&gt;
+        &lt;path d="M20 4H4c-1.1 0-1.99..."&gt;
+    &lt;/svg&gt;
+    &lt;input type="email" class="core-input" placeholder="Email"&gt;
+&lt;/div&gt;
+
+&lt;!-- Input Group --&gt;
+&lt;div class="core-input-group"&gt;
+    &lt;span class="core-input-addon"&gt;€&lt;/span&gt;
+    &lt;input type="number" class="core-input" placeholder="Price"&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+            
+            <div class="implementation-section">
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre><code>import React, { useState } from 'react';
+
+interface InputProps {
+    type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'search';
+    label?: string;
+    placeholder?: string;
+    value?: string;
+    error?: string;
+    helper?: string;
+    required?: boolean;
+    disabled?: boolean;
+    icon?: React.ReactNode;
+    size?: 'small' | 'default' | 'large';
+    variant?: 'default' | 'premium';
+    onChange?: (e: React.ChangeEvent&lt;HTMLInputElement&gt;) => void;
+}
+
+export const Input: React.FC&lt;InputProps&gt; = ({
+    type = 'text',
+    label,
+    placeholder,
+    value,
+    error,
+    helper,
+    required = false,
+    disabled = false,
+    icon,
+    size = 'default',
+    variant = 'default',
+    onChange
+}) => {
+    const [focused, setFocused] = useState(false);
+    
+    const inputClasses = [
+        'core-input',
+        size !== 'default' && size,
+        variant === 'premium' && 'premium',
+        error && 'error',
+        value && !error && 'success'
+    ].filter(Boolean).join(' ');
+    
+    return (
+        &lt;div className="core-input-field"&gt;
+            {label && (
+                &lt;label className={`core-input-label ${required ? 'required' : ''}`}&gt;
+                    {label}
+                &lt;/label&gt;
+            )}
+            
+            &lt;div className={`core-input-wrapper ${icon ? 'has-icon' : ''}`}&gt;
+                {icon && &lt;span className="core-input-icon"&gt;{icon}&lt;/span&gt;}
+                &lt;input
+                    type={type}
+                    className={inputClasses}
+                    placeholder={placeholder}
+                    value={value}
+                    disabled={disabled}
+                    onChange={onChange}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
+                /&gt;
+            &lt;/div&gt;
+            
+            {error && &lt;div className="core-input-error"&gt;{error}&lt;/div&gt;}
+            {helper && !error && &lt;div className="core-input-helper"&gt;{helper}&lt;/div&gt;}
+        &lt;/div&gt;
+    );
+};</code></pre>
+                </div>
+            </div>
+            
+            <div class="implementation-section">
+                <h3>JavaScript Validation</h3>
+                <div class="code-block">
+                    <pre><code>// Real-time validation
+function validateInput(input, type) {
+    const value = input.value.trim();
+    let isValid = true;
+    let message = '';
+    
+    switch(type) {
+        case 'email':
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            isValid = emailRegex.test(value);
+            message = isValid ? '' : 'Please enter a valid email';
+            break;
+            
+        case 'phone':
+            const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+            isValid = phoneRegex.test(value);
+            message = isValid ? '' : 'Please enter a valid phone number';
+            break;
+            
+        case 'required':
+            isValid = value.length > 0;
+            message = isValid ? '' : 'This field is required';
+            break;
+    }
+    
+    // Update UI
+    if (isValid) {
+        input.classList.remove('error');
+        input.classList.add('success');
+    } else {
+        input.classList.add('error');
+        input.classList.remove('success');
+    }
+    
+    // Update error message
+    const errorEl = input.parentElement.nextElementSibling;
+    if (errorEl && errorEl.classList.contains('core-input-error')) {
+        errorEl.textContent = message;
+    }
+    
+    return isValid;
+}
+
+// Format number inputs
+function formatCurrency(input) {
+    let value = input.value.replace(/[^\d]/g, '');
+    value = new Intl.NumberFormat('de-DE').format(value);
+    input.value = value;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 6: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            <div class="api-table-container">
+                <table class="api-table">
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Description</th>
+                            <th>Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>.core-input</code></td>
+                            <td>Base input class</td>
+                            <td>Required on all inputs</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-input-wrapper</code></td>
+                            <td>Container for input with icons</td>
+                            <td>Wrap input when using icons</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-input-label</code></td>
+                            <td>Input label styling</td>
+                            <td>Labels above inputs</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-input-helper</code></td>
+                            <td>Helper text below input</td>
+                            <td>Additional information</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-input-error</code></td>
+                            <td>Error message styling</td>
+                            <td>Validation errors</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-input-group</code></td>
+                            <td>Group multiple inputs</td>
+                            <td>Price ranges, etc.</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-input-addon</code></td>
+                            <td>Addon for input groups</td>
+                            <td>Currency symbols, units</td>
+                        </tr>
+                        <tr>
+                            <td><code>.error</code></td>
+                            <td>Error state modifier</td>
+                            <td>Invalid inputs</td>
+                        </tr>
+                        <tr>
+                            <td><code>.success</code></td>
+                            <td>Success state modifier</td>
+                            <td>Valid inputs</td>
+                        </tr>
+                        <tr>
+                            <td><code>.premium</code></td>
+                            <td>Premium variant</td>
+                            <td>Luxury sections</td>
+                        </tr>
+                        <tr>
+                            <td><code>.small</code></td>
+                            <td>Small size modifier</td>
+                            <td>Compact forms</td>
+                        </tr>
+                        <tr>
+                            <td><code>.large</code></td>
+                            <td>Large size modifier</td>
+                            <td>Hero sections</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Section 7: Accessibility & Best Practices -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>Accessibility Guidelines</h3>
+                    <ul class="best-practices-list">
+                        <li>Always use <code>&lt;label&gt;</code> elements with inputs</li>
+                        <li>Provide clear placeholder text</li>
+                        <li>Include helper text for complex fields</li>
+                        <li>Use proper input types (email, tel, number)</li>
+                        <li>Ensure keyboard navigation works</li>
+                        <li>Add <code>aria-describedby</code> for error messages</li>
+                        <li>Mark required fields clearly</li>
+                        <li>Maintain WCAG AA contrast ratios</li>
+                    </ul>
+                </div>
+                
+                <div class="component-card">
+                    <h3>LYD Brand Guidelines</h3>
+                    <ul class="best-practices-list">
+                        <li>Use LYD border colors for focus states</li>
+                        <li>Apply subtle shadows on focus</li>
+                        <li>Keep consistent input heights (44px default)</li>
+                        <li>Use system fonts for better readability</li>
+                        <li>Group related fields logically</li>
+                        <li>Provide real-time validation feedback</li>
+                        <li>Use icons to enhance understanding</li>
+                        <li>Format numbers and currencies appropriately</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        // Input demo interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add focus/blur effects
+            document.querySelectorAll('.core-input').forEach(input => {
+                input.addEventListener('focus', function() {
+                    if (!this.disabled) {
+                        this.parentElement.classList.add('focused');
+                    }
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+                
+                // Demo validation for email inputs
+                if (input.type === 'email') {
+                    input.addEventListener('input', function() {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (this.value && !emailRegex.test(this.value)) {
+                            this.classList.add('error');
+                            this.classList.remove('success');
+                        } else if (this.value) {
+                            this.classList.add('success');
+                            this.classList.remove('error');
+                        } else {
+                            this.classList.remove('error', 'success');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textarea - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR TEXTAREA-SPEZIFISCHE STYLES (Erweitert core-input aus master.css) */
+        .core-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: var(--font-size-base);
+            font-family: var(--font-family-primary);
+            border: 1px solid var(--core-line);
+            border-radius: var(--radius-md);
+            background: white;
+            color: var(--core-text);
+            transition: all 0.2s ease;
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.6;
+        }
+        
+        .core-textarea:focus {
+            outline: none;
+            border-color: var(--core-primary);
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+        }
+        
+        .core-textarea.error {
+            border-color: var(--core-error);
+        }
+        
+        .core-textarea.success {
+            border-color: var(--core-success);
+        }
+        
+        .core-textarea:disabled {
+            background: var(--core-gray-100);
+            cursor: not-allowed;
+            resize: none;
+        }
+        
+        /* Textarea with Character Count */
+        .core-textarea-wrapper {
+            position: relative;
+        }
+        
+        .core-character-count {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: var(--font-size-xs);
+            color: var(--core-grey);
+            background: white;
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+        }
+        
+        .core-character-count.warning {
+            color: var(--core-warning);
+        }
+        
+        .core-character-count.error {
+            color: var(--core-error);
+        }
+        
+        /* Auto-resize Textarea */
+        .core-textarea.auto-resize {
+            overflow-y: hidden;
+        }
+        
+        /* Sizes */
+        .core-textarea.small {
+            min-height: 60px;
+            font-size: var(--font-size-sm);
+        }
+        
+        .core-textarea.large {
+            min-height: 150px;
+            font-size: var(--font-size-lg);
+        }
+        
+        /* Helper Text */
+        .core-textarea-helper {
+            font-size: var(--font-size-sm);
+            color: var(--core-grey);
+            margin-top: var(--spacing-xs);
+        }
+        
+        .core-textarea-helper.error {
+            color: var(--core-error);
+        }
+        
+        .core-textarea-helper.success {
+            color: var(--core-success);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item active">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Textarea</h1>
+        <p>Multi-line text input components for property descriptions, notes, and messages with character counting.</p>
+        
+        <!-- Section 1: Textarea Variants -->
+        <section class="section">
+            <h2 class="section-title">Textarea Variants</h2>
+            
+            <div class="component-card">
+                <h3>Standard Textarea</h3>
+                <div class="core-input-group">
+                    <label class="core-input-label">Property Description</label>
+                    <textarea class="core-textarea" placeholder="Enter a detailed description of the property..." rows="4"></textarea>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Textarea with Character Count</h3>
+                <div class="core-input-group">
+                    <label class="core-input-label">Short Description</label>
+                    <div class="core-textarea-wrapper">
+                        <textarea class="core-textarea" id="textarea-count" placeholder="Maximum 200 characters..." rows="3" maxlength="200"></textarea>
+                        <span class="core-character-count" id="char-count">0/200</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Auto-resize Textarea</h3>
+                <div class="core-input-group">
+                    <label class="core-input-label">Notes</label>
+                    <textarea class="core-textarea auto-resize" id="auto-resize" placeholder="This textarea grows as you type..." rows="2"></textarea>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Textarea States</h3>
+                
+                <div class="core-input-group">
+                    <label class="core-input-label">Success State</label>
+                    <textarea class="core-textarea success" rows="2">Property description approved!</textarea>
+                    <div class="core-textarea-helper success">✓ Description meets all requirements</div>
+                </div>
+                
+                <div class="core-input-group">
+                    <label class="core-input-label">Error State</label>
+                    <textarea class="core-textarea error" rows="2">Too short...</textarea>
+                    <div class="core-textarea-helper error">Minimum 50 characters required</div>
+                </div>
+                
+                <div class="core-input-group">
+                    <label class="core-input-label">Disabled State</label>
+                    <textarea class="core-textarea" disabled rows="2">This field is not editable</textarea>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Textarea Sizes</h3>
+                
+                <div class="core-input-group">
+                    <label class="core-input-label">Small</label>
+                    <textarea class="core-textarea small" placeholder="Small textarea..." rows="2"></textarea>
+                </div>
+                
+                <div class="core-input-group">
+                    <label class="core-input-label">Default</label>
+                    <textarea class="core-textarea" placeholder="Default textarea..." rows="3"></textarea>
+                </div>
+                
+                <div class="core-input-group">
+                    <label class="core-input-label">Large</label>
+                    <textarea class="core-textarea large" placeholder="Large textarea..." rows="4"></textarea>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            
+            <div class="component-card">
+                <h3>Property Listing Form</h3>
+                
+                <div class="core-input-group">
+                    <label class="core-input-label">Property Title</label>
+                    <input type="text" class="core-input" placeholder="e.g., Luxury Penthouse with City View">
+                </div>
+                
+                <div class="core-input-group">
+                    <label class="core-input-label">Full Description</label>
+                    <textarea class="core-textarea" rows="6" placeholder="Describe the property in detail, including features, location benefits, and unique selling points..."></textarea>
+                </div>
+                
+                <div class="core-input-group">
+                    <label class="core-input-label">Special Features</label>
+                    <textarea class="core-textarea" rows="3" placeholder="List special features like smart home, solar panels, etc..."></textarea>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Client Message Form</h3>
+                
+                <div class="core-input-group">
+                    <label class="core-input-label">Your Message</label>
+                    <div class="core-textarea-wrapper">
+                        <textarea class="core-textarea" id="message-area" rows="4" maxlength="500" placeholder="I'm interested in this property..."></textarea>
+                        <span class="core-character-count" id="message-count">0/500</span>
+                    </div>
+                    <div class="core-textarea-helper">Include your preferred viewing times</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Standard Textarea --&gt;
+&lt;div class="core-input-group"&gt;
+    &lt;label class="core-input-label"&gt;Description&lt;/label&gt;
+    &lt;textarea class="core-textarea" placeholder="Enter text..." rows="4"&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;!-- Textarea with Character Count --&gt;
+&lt;div class="core-input-group"&gt;
+    &lt;label class="core-input-label"&gt;Message&lt;/label&gt;
+    &lt;div class="core-textarea-wrapper"&gt;
+        &lt;textarea class="core-textarea" id="textarea" maxlength="200"&gt;&lt;/textarea&gt;
+        &lt;span class="core-character-count" id="count"&gt;0/200&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Textarea with Helper Text --&gt;
+&lt;div class="core-input-group"&gt;
+    &lt;label class="core-input-label"&gt;Notes&lt;/label&gt;
+    &lt;textarea class="core-textarea error" rows="3"&gt;&lt;/textarea&gt;
+    &lt;div class="core-textarea-helper error"&gt;This field is required&lt;/div&gt;
+&lt;/div&gt;</pre>
+                </div>
+                
+                <h3>JavaScript Features</h3>
+                <div class="code-block">
+                    <pre>// Character Counter
+function setupCharacterCounter(textareaId, counterId) {
+    const textarea = document.getElementById(textareaId);
+    const counter = document.getElementById(counterId);
+    const maxLength = textarea.getAttribute('maxlength');
+    
+    function updateCount() {
+        const current = textarea.value.length;
+        counter.textContent = `${current}/${maxLength}`;
+        
+        // Update counter color
+        counter.classList.remove('warning', 'error');
+        if (current > maxLength * 0.9) {
+            counter.classList.add('error');
+        } else if (current > maxLength * 0.7) {
+            counter.classList.add('warning');
+        }
+    }
+    
+    textarea.addEventListener('input', updateCount);
+    updateCount();
+}
+
+// Auto-resize
+function setupAutoResize(textarea) {
+    function resize() {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    }
+    
+    textarea.addEventListener('input', resize);
+    resize();
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    // Character counters
+    setupCharacterCounter('textarea-count', 'char-count');
+    setupCharacterCounter('message-area', 'message-count');
+    
+    // Auto-resize
+    const autoResize = document.getElementById('auto-resize');
+    if (autoResize) {
+        setupAutoResize(autoResize);
+    }
+});</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Textarea.tsx
+import { TextareaHTMLAttributes, forwardRef, useState, useEffect, useRef } from 'react';
+
+interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  label?: string;
+  helperText?: string;
+  error?: boolean;
+  success?: boolean;
+  showCount?: boolean;
+  autoResize?: boolean;
+}
+
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({
+  label,
+  helperText,
+  error = false,
+  success = false,
+  showCount = false,
+  autoResize = false,
+  maxLength,
+  className = '',
+  onChange,
+  ...props
+}, ref) => {
+  const [count, setCount] = useState(0);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCount(e.target.value.length);
+    
+    if (autoResize && textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+    }
+    
+    onChange?.(e);
+  };
+  
+  useEffect(() => {
+    if (autoResize && textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+    }
+  }, [autoResize]);
+  
+  const classes = `core-textarea ${error ? 'error' : ''} ${success ? 'success' : ''} ${autoResize ? 'auto-resize' : ''} ${className}`;
+  
+  return (
+    &lt;div className="core-input-group"&gt;
+      {label && &lt;label className="core-input-label"&gt;{label}&lt;/label&gt;}
+      {showCount && maxLength ? (
+        &lt;div className="core-textarea-wrapper"&gt;
+          &lt;textarea
+            ref={ref || textareaRef}
+            className={classes}
+            maxLength={maxLength}
+            onChange={handleChange}
+            {...props}
+          /&gt;
+          &lt;span className={`core-character-count ${count > maxLength * 0.9 ? 'error' : count > maxLength * 0.7 ? 'warning' : ''}`}&gt;
+            {count}/{maxLength}
+          &lt;/span&gt;
+        &lt;/div&gt;
+      ) : (
+        &lt;textarea
+          ref={ref || textareaRef}
+          className={classes}
+          onChange={handleChange}
+          {...props}
+        /&gt;
+      )}
+      {helperText && (
+        &lt;div className={`core-textarea-helper ${error ? 'error' : ''} ${success ? 'success' : ''}`}&gt;
+          {helperText}
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+});</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-textarea</code></td>
+                        <td>Base textarea class</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-textarea-wrapper</code></td>
+                        <td>Container for textarea with character count</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-character-count</code></td>
+                        <td>Character counter display</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-textarea-helper</code></td>
+                        <td>Helper text below textarea</td>
+                    </tr>
+                    <tr>
+                        <td><code>.auto-resize</code></td>
+                        <td>Auto-resizing textarea</td>
+                    </tr>
+                    <tr>
+                        <td><code>.small</code></td>
+                        <td>Small size variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.large</code></td>
+                        <td>Large size variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.error</code></td>
+                        <td>Error state styling</td>
+                    </tr>
+                    <tr>
+                        <td><code>.success</code></td>
+                        <td>Success state styling</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 5: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Accessibility Features</h3>
+                <ul>
+                    <li>Use proper label associations</li>
+                    <li>Provide clear placeholder text</li>
+                    <li>Include aria-describedby for helper text</li>
+                    <li>Announce character count changes</li>
+                    <li>Ensure keyboard navigation</li>
+                </ul>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Set appropriate default rows</li>
+                    <li>Allow vertical resizing only</li>
+                    <li>Provide character limits when needed</li>
+                    <li>Use helper text for guidance</li>
+                    <li>Consider auto-save for long content</li>
+                    <li>Validate content appropriately</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        // Character Counter
+        function setupCharacterCounter(textareaId, counterId) {
+            const textarea = document.getElementById(textareaId);
+            const counter = document.getElementById(counterId);
+            
+            if (!textarea || !counter) return;
+            
+            const maxLength = textarea.getAttribute('maxlength');
+            
+            function updateCount() {
+                const current = textarea.value.length;
+                counter.textContent = `${current}/${maxLength}`;
+                
+                // Update counter color
+                counter.classList.remove('warning', 'error');
+                if (current > maxLength * 0.9) {
+                    counter.classList.add('error');
+                } else if (current > maxLength * 0.7) {
+                    counter.classList.add('warning');
+                }
+            }
+            
+            textarea.addEventListener('input', updateCount);
+            updateCount();
+        }
+        
+        // Auto-resize
+        function setupAutoResize(textarea) {
+            function resize() {
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+            }
+            
+            textarea.addEventListener('input', resize);
+            resize();
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Character counters
+            setupCharacterCounter('textarea-count', 'char-count');
+            setupCharacterCounter('message-area', 'message-count');
+            
+            // Auto-resize
+            const autoResize = document.getElementById('auto-resize');
+            if (autoResize) {
+                setupAutoResize(autoResize);
+            }
+        });
+    </script>
+</body>
+</html>

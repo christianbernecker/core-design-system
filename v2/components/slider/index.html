@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR SLIDER-SPEZIFISCHE STYLES */
+        .core-slider-container {
+            width: 100%;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .core-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--core-gray-200);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        
+        /* Webkit browsers */
+        .core-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            transition: all 0.2s ease;
+        }
+        
+        .core-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Firefox */
+        .core-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            border: none;
+            transition: all 0.2s ease;
+        }
+        
+        .core-slider::-moz-range-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Filled track */
+        .core-slider-wrapper {
+            position: relative;
+            width: 100%;
+            height: 6px;
+        }
+        
+        .core-slider-track {
+            position: absolute;
+            height: 6px;
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            border-radius: 3px;
+            pointer-events: none;
+        }
+        
+        /* Labels */
+        .core-slider-label {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--core-text);
+            margin-bottom: var(--spacing-sm);
+            display: block;
+        }
+        
+        .core-slider-value {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--core-primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            margin-left: var(--spacing-sm);
+        }
+        
+        .core-slider-marks {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--spacing-sm);
+        }
+        
+        .core-slider-mark {
+            font-size: var(--font-size-xs);
+            color: var(--core-grey);
+        }
+        
+        /* Range Slider */
+        .core-range-slider {
+            position: relative;
+            width: 100%;
+            height: 40px;
+        }
+        
+        .core-range-track {
+            position: absolute;
+            width: 100%;
+            height: 6px;
+            background: var(--core-gray-200);
+            border-radius: 3px;
+            top: 17px;
+        }
+        
+        .core-range-selected {
+            position: absolute;
+            height: 6px;
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            border-radius: 3px;
+            top: 17px;
+        }
+        
+        .core-range-input {
+            position: absolute;
+            width: 100%;
+            height: 6px;
+            background: transparent;
+            pointer-events: none;
+            -webkit-appearance: none;
+            appearance: none;
+            top: 15px;
+        }
+        
+        .core-range-input::-webkit-slider-thumb {
+            pointer-events: all;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+        
+        .core-range-input::-moz-range-thumb {
+            pointer-events: all;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            border: none;
+        }
+        
+        /* Disabled State */
+        .core-slider:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .core-slider:disabled::-webkit-slider-thumb {
+            cursor: not-allowed;
+        }
+        
+        .core-slider:disabled::-moz-range-thumb {
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item active">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Slider</h1>
+        <p>Range sliders for selecting values within a defined range with smooth interactions.</p>
+        
+        <!-- Section 1: Slider Variants -->
+        <section class="section">
+            <h2 class="section-title">Slider Variants</h2>
+            
+            <div class="component-card">
+                <h3>Basic Slider</h3>
+                <div class="core-slider-container">
+                    <label class="core-slider-label">
+                        Property Size (m²)
+                        <span class="core-slider-value" id="size-value">150</span>
+                    </label>
+                    <input type="range" class="core-slider" id="size-slider" min="50" max="500" value="150" step="10">
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Slider with Marks</h3>
+                <div class="core-slider-container">
+                    <label class="core-slider-label">
+                        Number of Bedrooms
+                        <span class="core-slider-value" id="bedroom-value">3</span>
+                    </label>
+                    <input type="range" class="core-slider" id="bedroom-slider" min="1" max="6" value="3" step="1">
+                    <div class="core-slider-marks">
+                        <span class="core-slider-mark">1</span>
+                        <span class="core-slider-mark">2</span>
+                        <span class="core-slider-mark">3</span>
+                        <span class="core-slider-mark">4</span>
+                        <span class="core-slider-mark">5</span>
+                        <span class="core-slider-mark">6+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Price Range Slider</h3>
+                <div class="core-slider-container">
+                    <label class="core-slider-label">
+                        Budget Range
+                        <span class="core-slider-value" id="price-range-value">€200k - €600k</span>
+                    </label>
+                    <div class="core-range-slider">
+                        <div class="core-range-track"></div>
+                        <div class="core-range-selected" id="price-range-selected"></div>
+                        <input type="range" class="core-range-input" id="price-min" min="0" max="1000" value="200" step="50">
+                        <input type="range" class="core-range-input" id="price-max" min="0" max="1000" value="600" step="50">
+                    </div>
+                    <div class="core-slider-marks">
+                        <span class="core-slider-mark">€0</span>
+                        <span class="core-slider-mark">€500k</span>
+                        <span class="core-slider-mark">€1M+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Disabled Slider</h3>
+                <div class="core-slider-container">
+                    <label class="core-slider-label">Unavailable Option</label>
+                    <input type="range" class="core-slider" min="0" max="100" value="50" disabled>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            
+            <div class="component-card">
+                <h3>Property Search Filters</h3>
+                
+                <div class="core-slider-container">
+                    <label class="core-slider-label">
+                        Living Area
+                        <span class="core-slider-value" id="area-value">120 m²</span>
+                    </label>
+                    <input type="range" class="core-slider" id="area-slider" min="30" max="300" value="120" step="10">
+                </div>
+                
+                <div class="core-slider-container">
+                    <label class="core-slider-label">
+                        Distance from City Center
+                        <span class="core-slider-value" id="distance-value">5 km</span>
+                    </label>
+                    <input type="range" class="core-slider" id="distance-slider" min="0" max="20" value="5" step="1">
+                </div>
+                
+                <div class="core-slider-container">
+                    <label class="core-slider-label">
+                        Year Built
+                        <span class="core-slider-value" id="year-value">2010</span>
+                    </label>
+                    <input type="range" class="core-slider" id="year-slider" min="1900" max="2024" value="2010" step="1">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Basic Slider --&gt;
+&lt;div class="core-slider-container"&gt;
+    &lt;label class="core-slider-label"&gt;
+        Label Text
+        &lt;span class="core-slider-value" id="value"&gt;50&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;input type="range" class="core-slider" id="slider" 
+           min="0" max="100" value="50" step="1"&gt;
+&lt;/div&gt;
+
+&lt;!-- Slider with Marks --&gt;
+&lt;div class="core-slider-container"&gt;
+    &lt;input type="range" class="core-slider" min="1" max="5" value="3"&gt;
+    &lt;div class="core-slider-marks"&gt;
+        &lt;span class="core-slider-mark"&gt;1&lt;/span&gt;
+        &lt;span class="core-slider-mark"&gt;2&lt;/span&gt;
+        &lt;span class="core-slider-mark"&gt;3&lt;/span&gt;
+        &lt;span class="core-slider-mark"&gt;4&lt;/span&gt;
+        &lt;span class="core-slider-mark"&gt;5&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </div>
+                
+                <h3>JavaScript Functions</h3>
+                <div class="code-block">
+                    <pre>// Update value display
+function setupSlider(sliderId, valueId, format = (v) => v) {
+    const slider = document.getElementById(sliderId);
+    const value = document.getElementById(valueId);
+    
+    slider.addEventListener('input', (e) => {
+        value.textContent = format(e.target.value);
+    });
+}
+
+// Range slider
+function setupRangeSlider(minId, maxId, selectedId, valueId) {
+    const minSlider = document.getElementById(minId);
+    const maxSlider = document.getElementById(maxId);
+    const selected = document.getElementById(selectedId);
+    const value = document.getElementById(valueId);
+    
+    function updateRange() {
+        const min = parseInt(minSlider.value);
+        const max = parseInt(maxSlider.value);
+        
+        // Prevent overlap
+        if (min > max) {
+            if (this.id === minId) {
+                maxSlider.value = min;
+            } else {
+                minSlider.value = max;
+            }
+        }
+        
+        // Update visual
+        const percentMin = (minSlider.value / minSlider.max) * 100;
+        const percentMax = (maxSlider.value / maxSlider.max) * 100;
+        selected.style.left = percentMin + '%';
+        selected.style.width = (percentMax - percentMin) + '%';
+        
+        // Update text
+        value.textContent = `€${minSlider.value}k - €${maxSlider.value}k`;
+    }
+    
+    minSlider.addEventListener('input', updateRange);
+    maxSlider.addEventListener('input', updateRange);
+    updateRange();
+}
+
+// Initialize
+setupSlider('size-slider', 'size-value', (v) => v + ' m²');
+setupSlider('bedroom-slider', 'bedroom-value');
+setupRangeSlider('price-min', 'price-max', 'price-range-selected', 'price-range-value');</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Slider.tsx
+import { InputHTMLAttributes, useState } from 'react';
+
+interface SliderProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  label?: string;
+  showValue?: boolean;
+  formatValue?: (value: number) => string;
+  marks?: number[] | string[];
+}
+
+export const Slider = ({
+  label,
+  showValue = true,
+  formatValue = (v) => String(v),
+  marks,
+  min = 0,
+  max = 100,
+  value: initialValue = 50,
+  onChange,
+  ...props
+}: SliderProps) => {
+  const [value, setValue] = useState(initialValue);
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = Number(e.target.value);
+    setValue(newValue);
+    onChange?.(e);
+  };
+  
+  return (
+    &lt;div className="core-slider-container"&gt;
+      {label && (
+        &lt;label className="core-slider-label"&gt;
+          {label}
+          {showValue && (
+            &lt;span className="core-slider-value"&gt;
+              {formatValue(Number(value))}
+            &lt;/span&gt;
+          )}
+        &lt;/label&gt;
+      )}
+      &lt;input
+        type="range"
+        className="core-slider"
+        min={min}
+        max={max}
+        value={value}
+        onChange={handleChange}
+        {...props}
+      /&gt;
+      {marks && (
+        &lt;div className="core-slider-marks"&gt;
+          {marks.map((mark, index) => (
+            &lt;span key={index} className="core-slider-mark"&gt;
+              {mark}
+            &lt;/span&gt;
+          ))}
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-slider-container</code></td>
+                        <td>Container for slider and labels</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-slider</code></td>
+                        <td>Base slider input</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-slider-label</code></td>
+                        <td>Label for slider</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-slider-value</code></td>
+                        <td>Current value display</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-slider-marks</code></td>
+                        <td>Container for tick marks</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-slider-mark</code></td>
+                        <td>Individual tick mark</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-range-slider</code></td>
+                        <td>Container for range slider</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-range-track</code></td>
+                        <td>Background track for range</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-range-selected</code></td>
+                        <td>Selected range highlight</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 5: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Accessibility Features</h3>
+                <ul>
+                    <li>Native range input for keyboard support</li>
+                    <li>Arrow keys for precise control</li>
+                    <li>Labels associated with sliders</li>
+                    <li>Visual value feedback</li>
+                    <li>ARIA attributes for screen readers</li>
+                </ul>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Always show current value</li>
+                    <li>Use appropriate step values</li>
+                    <li>Provide min/max context</li>
+                    <li>Consider adding tick marks for discrete values</li>
+                    <li>Use range sliders for min/max selections</li>
+                    <li>Format values appropriately (currency, units)</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        // Update value displays
+        function setupSlider(sliderId, valueId, suffix = '') {
+            const slider = document.getElementById(sliderId);
+            const value = document.getElementById(valueId);
+            
+            if (slider && value) {
+                slider.addEventListener('input', (e) => {
+                    value.textContent = e.target.value + suffix;
+                });
+            }
+        }
+        
+        // Initialize sliders
+        setupSlider('size-slider', 'size-value', ' m²');
+        setupSlider('bedroom-slider', 'bedroom-value');
+        setupSlider('area-slider', 'area-value', ' m²');
+        setupSlider('distance-slider', 'distance-value', ' km');
+        setupSlider('year-slider', 'year-value');
+        
+        // Range slider
+        const minSlider = document.getElementById('price-min');
+        const maxSlider = document.getElementById('price-max');
+        const selected = document.getElementById('price-range-selected');
+        const rangeValue = document.getElementById('price-range-value');
+        
+        function updateRange() {
+            if (!minSlider || !maxSlider || !selected || !rangeValue) return;
+            
+            let min = parseInt(minSlider.value);
+            let max = parseInt(maxSlider.value);
+            
+            // Prevent overlap
+            if (min > max) {
+                if (this === minSlider) {
+                    maxSlider.value = min;
+                    max = min;
+                } else {
+                    minSlider.value = max;
+                    min = max;
+                }
+            }
+            
+            // Update visual
+            const percentMin = (min / 1000) * 100;
+            const percentMax = (max / 1000) * 100;
+            selected.style.left = percentMin + '%';
+            selected.style.width = (percentMax - percentMin) + '%';
+            
+            // Update text
+            rangeValue.textContent = `€${min}k - €${max}k`;
+        }
+        
+        if (minSlider && maxSlider) {
+            minSlider.addEventListener('input', updateRange);
+            maxSlider.addEventListener('input', updateRange);
+            updateRange();
+        }
+    </script>
+</body>
+</html>

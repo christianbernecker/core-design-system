@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Switch - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR SWITCH-SPEZIFISCHE STYLES */
+        .core-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+        
+        .core-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .core-switch-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--core-gray-300);
+            transition: all 0.3s ease;
+            border-radius: 24px;
+        }
+        
+        .core-switch-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        input:checked + .core-switch-slider {
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+        }
+        
+        input:checked + .core-switch-slider:before {
+            transform: translateX(24px);
+        }
+        
+        input:disabled + .core-switch-slider {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Switch with Label */
+        .core-switch-group {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .core-switch-label {
+            font-size: var(--font-size-base);
+            color: var(--core-text);
+            user-select: none;
+            cursor: pointer;
+        }
+        
+        .core-switch-description {
+            font-size: var(--font-size-sm);
+            color: var(--core-grey);
+            margin-top: var(--spacing-xs);
+        }
+        
+        /* Sizes */
+        .core-switch.small {
+            width: 36px;
+            height: 18px;
+        }
+        
+        .core-switch.small .core-switch-slider:before {
+            height: 14px;
+            width: 14px;
+            left: 2px;
+            bottom: 2px;
+        }
+        
+        .core-switch.small input:checked + .core-switch-slider:before {
+            transform: translateX(18px);
+        }
+        
+        .core-switch.large {
+            width: 60px;
+            height: 30px;
+        }
+        
+        .core-switch.large .core-switch-slider:before {
+            height: 24px;
+            width: 24px;
+            left: 3px;
+            bottom: 3px;
+        }
+        
+        .core-switch.large input:checked + .core-switch-slider:before {
+            transform: translateX(30px);
+        }
+        
+        /* With Icons */
+        .core-switch-slider.with-icons {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px;
+        }
+        
+        .core-switch-icon {
+            width: 12px;
+            height: 12px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        
+        input:checked + .core-switch-slider.with-icons .core-switch-icon.on {
+            opacity: 1;
+        }
+        
+        input:not(:checked) + .core-switch-slider.with-icons .core-switch-icon.off {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item active">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Switch</h1>
+        <p>Toggle switches for binary choices with smooth animations and clear visual feedback.</p>
+        
+        <!-- Section 1: Switch Variants -->
+        <section class="section">
+            <h2 class="section-title">Switch Variants</h2>
+            
+            <div class="component-card">
+                <h3>Basic Switch</h3>
+                <label class="core-switch">
+                    <input type="checkbox" checked>
+                    <span class="core-switch-slider"></span>
+                </label>
+            </div>
+            
+            <div class="component-card">
+                <h3>Switch with Label</h3>
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox" id="notifications">
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <label for="notifications" class="core-switch-label">Enable Notifications</label>
+                </div>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox" id="newsletter" checked>
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <div>
+                        <label for="newsletter" class="core-switch-label">Newsletter Subscription</label>
+                        <div class="core-switch-description">Receive weekly property updates</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Switch Sizes</h3>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch small">
+                        <input type="checkbox" checked>
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <span class="core-switch-label">Small</span>
+                </div>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox" checked>
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <span class="core-switch-label">Default</span>
+                </div>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch large">
+                        <input type="checkbox" checked>
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <span class="core-switch-label">Large</span>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Switch States</h3>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox">
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <span class="core-switch-label">Off State</span>
+                </div>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox" checked>
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <span class="core-switch-label">On State</span>
+                </div>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox" disabled>
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <span class="core-switch-label">Disabled Off</span>
+                </div>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox" checked disabled>
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <span class="core-switch-label">Disabled On</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            
+            <div class="component-card">
+                <h3>Property Settings</h3>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox" checked>
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <div>
+                        <label class="core-switch-label">Featured Property</label>
+                        <div class="core-switch-description">Display on homepage carousel</div>
+                    </div>
+                </div>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox" checked>
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <div>
+                        <label class="core-switch-label">Virtual Tour Available</label>
+                        <div class="core-switch-description">Enable 360° property viewing</div>
+                    </div>
+                </div>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox">
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <div>
+                        <label class="core-switch-label">Price Negotiable</label>
+                        <div class="core-switch-description">Allow offers below asking price</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>User Preferences</h3>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox" checked>
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <label class="core-switch-label">Email Alerts</label>
+                </div>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox">
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <label class="core-switch-label">SMS Notifications</label>
+                </div>
+                
+                <div class="core-switch-group">
+                    <label class="core-switch">
+                        <input type="checkbox" checked>
+                        <span class="core-switch-slider"></span>
+                    </label>
+                    <label class="core-switch-label">Save Search History</label>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Basic Switch --&gt;
+&lt;label class="core-switch"&gt;
+    &lt;input type="checkbox"&gt;
+    &lt;span class="core-switch-slider"&gt;&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Switch with Label --&gt;
+&lt;div class="core-switch-group"&gt;
+    &lt;label class="core-switch"&gt;
+        &lt;input type="checkbox" id="switch-id"&gt;
+        &lt;span class="core-switch-slider"&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label for="switch-id" class="core-switch-label"&gt;Label Text&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;!-- Switch with Description --&gt;
+&lt;div class="core-switch-group"&gt;
+    &lt;label class="core-switch"&gt;
+        &lt;input type="checkbox"&gt;
+        &lt;span class="core-switch-slider"&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;div&gt;
+        &lt;label class="core-switch-label"&gt;Main Label&lt;/label&gt;
+        &lt;div class="core-switch-description"&gt;Helper text&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Switch.tsx
+import { InputHTMLAttributes, forwardRef } from 'react';
+
+interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+  label?: string;
+  description?: string;
+  size?: 'small' | 'medium' | 'large';
+}
+
+export const Switch = forwardRef<HTMLInputElement, SwitchProps>(({
+  label,
+  description,
+  size = 'medium',
+  className = '',
+  id,
+  ...props
+}, ref) => {
+  const switchId = id || `switch-${Math.random().toString(36).substr(2, 9)}`;
+  
+  return (
+    &lt;div className="core-switch-group"&gt;
+      &lt;label className={`core-switch ${size} ${className}`}&gt;
+        &lt;input
+          ref={ref}
+          type="checkbox"
+          id={switchId}
+          {...props}
+        /&gt;
+        &lt;span className="core-switch-slider" /&gt;
+      &lt;/label&gt;
+      {(label || description) && (
+        &lt;div&gt;
+          {label && (
+            &lt;label htmlFor={switchId} className="core-switch-label"&gt;
+              {label}
+            &lt;/label&gt;
+          )}
+          {description && (
+            &lt;div className="core-switch-description"&gt;
+              {description}
+            &lt;/div&gt;
+          )}
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+});
+
+// Usage
+&lt;Switch 
+  label="Enable Notifications"
+  description="Receive alerts for new properties"
+  checked={isEnabled}
+  onChange={(e) => setIsEnabled(e.target.checked)}
+/&gt;</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-switch</code></td>
+                        <td>Container for switch component</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-switch-slider</code></td>
+                        <td>Visual switch element</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-switch-group</code></td>
+                        <td>Container for switch with label</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-switch-label</code></td>
+                        <td>Label text for switch</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-switch-description</code></td>
+                        <td>Helper text below label</td>
+                    </tr>
+                    <tr>
+                        <td><code>.small</code></td>
+                        <td>Small size variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.large</code></td>
+                        <td>Large size variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.with-icons</code></td>
+                        <td>Switch with on/off icons</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 5: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Accessibility Features</h3>
+                <ul>
+                    <li>Use native checkbox input for accessibility</li>
+                    <li>Associate labels with switches using for/id</li>
+                    <li>Keyboard navigable (Tab, Space)</li>
+                    <li>ARIA states handled by native checkbox</li>
+                    <li>Visible focus states</li>
+                </ul>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Use for binary on/off choices only</li>
+                    <li>Provide clear labels</li>
+                    <li>Default to "off" for optional features</li>
+                    <li>Group related switches</li>
+                    <li>Consider using checkboxes for multiple selections</li>
+                    <li>Save state immediately or provide save button</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

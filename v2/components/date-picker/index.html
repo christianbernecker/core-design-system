@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Picker - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <!-- ZENTRALE JAVASCRIPT INTERAKTIONEN -->
+    <script src="/shared/interactions.js"></script>
+    
+    <style>
+        /* HEROUI-INSPIRIERTES DATE PICKER SYSTEM */
+        .core-datepicker {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .core-datepicker-input {
+            width: 100%;
+            padding: 12px 48px 12px 16px;
+            background: white;
+            border: 2px solid var(--core-line);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--core-text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-family-primary);
+        }
+        
+        .core-datepicker-input:hover {
+            border-color: var(--core-primary);
+            background: var(--core-gradient-subtle);
+        }
+        
+        .core-datepicker-input:focus,
+        .core-datepicker.active .core-datepicker-input {
+            outline: none;
+            border-color: var(--core-primary);
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+        }
+        
+        .core-datepicker-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            stroke: var(--core-grey);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+        
+        .core-datepicker.active .core-datepicker-icon {
+            stroke: var(--core-primary);
+        }
+        
+        .core-calendar {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--core-line);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            z-index: 9999999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px) scale(0.95);
+            transition: all 0.2s ease;
+            padding: var(--spacing-lg);
+        }
+        
+        .core-calendar.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        
+        .core-calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .core-calendar-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--core-text);
+        }
+        
+        .core-calendar-nav {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .core-calendar-nav-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: 1px solid var(--core-line);
+            border-radius: var(--radius-md);
+            color: var(--core-text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .core-calendar-nav-btn:hover {
+            background: var(--core-gradient-subtle);
+            border-color: var(--core-primary);
+            color: var(--core-primary);
+        }
+        
+        .core-calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .core-calendar-weekday {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-bold);
+            color: var(--core-grey);
+            padding: 8px 4px;
+        }
+        
+        .core-calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+        
+        .core-calendar-day {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: none;
+            color: var(--core-text);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        
+        .core-calendar-day:hover {
+            background: var(--core-gradient-subtle);
+            color: var(--core-primary);
+        }
+        
+        .core-calendar-day.today {
+            background: var(--core-primary);
+            color: white;
+            font-weight: var(--font-weight-bold);
+        }
+        
+        .core-calendar-day.selected {
+            background: var(--core-gradient-primary);
+            color: white;
+            font-weight: var(--font-weight-bold);
+        }
+        
+        .core-calendar-day.disabled {
+            color: var(--core-gray-300);
+            cursor: not-allowed;
+        }
+        
+        .core-calendar-day.disabled:hover {
+            background: none;
+            color: var(--core-gray-300);
+        }
+        
+        /* Date Range Styles */
+        .core-datepicker-range {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+        
+        .core-datepicker-range .core-datepicker {
+            flex: 1;
+        }
+        
+        .core-datepicker-separator {
+            color: var(--core-grey);
+            font-weight: var(--font-weight-bold);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />
+            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item active">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+            </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Date Picker</h1>
+        <p>Calendar-based date selection with single date and range options for property bookings.</p>
+        
+        <!-- Section 1: Date Picker Variants -->
+        <section class="section">
+            <h2 class="section-title">Date Picker Variants</h2>
+            
+            <div class="component-card">
+                <h3>Single Date Picker</h3>
+                
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; font-size: 14px; font-weight: 500; color: #666; margin-bottom: 8px;">Viewing Date</label>
+                    <div style="position: relative; display: inline-block; width: 100%; max-width: 300px;">
+                        <input type="text" onclick="alert('Date picker would open here. Selected: ' + this.value)" value="September 22, 2025" readonly style="width: 100%; padding: 12px 48px 12px 16px; background: white; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px; color: #111; cursor: pointer; font-family: Inter, sans-serif;" onmouseover="this.style.borderColor='#0066ff'; this.style.background='#f8fafc';" onmouseout="this.style.borderColor='#e5e7eb'; this.style.background='white';">
+                        <svg onclick="alert('Calendar would open')" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; stroke: #666; cursor: pointer;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <div class="core-calendar" id="calendar1">
+                            <div class="core-calendar-header">
+                                <button class="core-calendar-nav-btn" onclick="previousMonth()">‹</button>
+                                <div class="core-calendar-title">September 2025</div>
+                                <button class="core-calendar-nav-btn" onclick="nextMonth()">›</button>
+                            </div>
+                            
+                            <div class="core-calendar-weekdays">
+                                <div class="core-calendar-weekday">Su</div>
+                                <div class="core-calendar-weekday">Mo</div>
+                                <div class="core-calendar-weekday">Tu</div>
+                                <div class="core-calendar-weekday">We</div>
+                                <div class="core-calendar-weekday">Th</div>
+                                <div class="core-calendar-weekday">Fr</div>
+                                <div class="core-calendar-weekday">Sa</div>
+                            </div>
+                            
+                            <div class="core-calendar-grid">
+                                <button class="core-calendar-day disabled">31</button>
+                                <button class="core-calendar-day">1</button>
+                                <button class="core-calendar-day">2</button>
+                                <button class="core-calendar-day">3</button>
+                                <button class="core-calendar-day">4</button>
+                                <button class="core-calendar-day">5</button>
+                                <button class="core-calendar-day">6</button>
+                                <button class="core-calendar-day">7</button>
+                                <button class="core-calendar-day">8</button>
+                                <button class="core-calendar-day">9</button>
+                                <button class="core-calendar-day">10</button>
+                                <button class="core-calendar-day">11</button>
+                                <button class="core-calendar-day">12</button>
+                                <button class="core-calendar-day">13</button>
+                                <button class="core-calendar-day">14</button>
+                                <button class="core-calendar-day">15</button>
+                                <button class="core-calendar-day">16</button>
+                                <button class="core-calendar-day">17</button>
+                                <button class="core-calendar-day">18</button>
+                                <button class="core-calendar-day">19</button>
+                                <button class="core-calendar-day">20</button>
+                                <button class="core-calendar-day">21</button>
+                                <button class="core-calendar-day selected">22</button>
+                                <button class="core-calendar-day">23</button>
+                                <button class="core-calendar-day today">24</button>
+                                <button class="core-calendar-day">25</button>
+                                <button class="core-calendar-day">26</button>
+                                <button class="core-calendar-day">27</button>
+                                <button class="core-calendar-day">28</button>
+                                <button class="core-calendar-day">29</button>
+                                <button class="core-calendar-day">30</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Date Range Picker</h3>
+                
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; font-size: 14px; font-weight: 500; color: #666; margin-bottom: 8px;">Availability Period</label>
+                    <div style="display: flex; gap: 16px; align-items: center;">
+                        <div style="position: relative; display: inline-block; flex: 1;">
+                            <input type="text" onclick="alert('Start date picker. Selected: ' + this.value)" value="Sep 15, 2025" readonly style="width: 100%; padding: 12px 48px 12px 16px; background: white; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px; color: #111; cursor: pointer; font-family: Inter, sans-serif;" onmouseover="this.style.borderColor='#0066ff'; this.style.background='#f8fafc';" onmouseout="this.style.borderColor='#e5e7eb'; this.style.background='white';">
+                            <svg style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; stroke: #666; cursor: pointer;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        
+                        <div style="color: #666; font-weight: bold; font-size: 18px;">→</div>
+                        
+                        <div style="position: relative; display: inline-block; flex: 1;">
+                            <input type="text" onclick="alert('End date picker. Selected: ' + this.value)" value="Sep 30, 2025" readonly style="width: 100%; padding: 12px 48px 12px 16px; background: white; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px; color: #111; cursor: pointer; font-family: Inter, sans-serif;" onmouseover="this.style.borderColor='#0066ff'; this.style.background='#f8fafc';" onmouseout="this.style.borderColor='#e5e7eb'; this.style.background='white';">
+                            <svg style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; stroke: #666; cursor: pointer;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Calendar View</h3>
+                
+                <div class="core-calendar open" style="position: relative; transform: none; opacity: 1; visibility: visible;">
+                    <div class="core-calendar-header">
+                        <button class="core-calendar-nav-btn">‹</button>
+                        <div class="core-calendar-title">September 2025</div>
+                        <button class="core-calendar-nav-btn">›</button>
+                    </div>
+                    
+                    <div class="core-calendar-weekdays">
+                        <div class="core-calendar-weekday">Su</div>
+                        <div class="core-calendar-weekday">Mo</div>
+                        <div class="core-calendar-weekday">Tu</div>
+                        <div class="core-calendar-weekday">We</div>
+                        <div class="core-calendar-weekday">Th</div>
+                        <div class="core-calendar-weekday">Fr</div>
+                        <div class="core-calendar-weekday">Sa</div>
+                    </div>
+                    
+                    <div class="core-calendar-grid">
+                        <button class="core-calendar-day disabled">31</button>
+                        <button class="core-calendar-day">1</button>
+                        <button class="core-calendar-day">2</button>
+                        <button class="core-calendar-day">3</button>
+                        <button class="core-calendar-day">4</button>
+                        <button class="core-calendar-day">5</button>
+                        <button class="core-calendar-day">6</button>
+                        <button class="core-calendar-day">7</button>
+                        <button class="core-calendar-day">8</button>
+                        <button class="core-calendar-day">9</button>
+                        <button class="core-calendar-day">10</button>
+                        <button class="core-calendar-day">11</button>
+                        <button class="core-calendar-day">12</button>
+                        <button class="core-calendar-day">13</button>
+                        <button class="core-calendar-day">14</button>
+                        <button class="core-calendar-day">15</button>
+                        <button class="core-calendar-day">16</button>
+                        <button class="core-calendar-day">17</button>
+                        <button class="core-calendar-day">18</button>
+                        <button class="core-calendar-day">19</button>
+                        <button class="core-calendar-day">20</button>
+                        <button class="core-calendar-day">21</button>
+                        <button class="core-calendar-day selected">22</button>
+                        <button class="core-calendar-day">23</button>
+                        <button class="core-calendar-day today">24</button>
+                        <button class="core-calendar-day">25</button>
+                        <button class="core-calendar-day">26</button>
+                        <button class="core-calendar-day">27</button>
+                        <button class="core-calendar-day">28</button>
+                        <button class="core-calendar-day">29</button>
+                        <button class="core-calendar-day">30</button>
+                        <button class="core-calendar-day disabled">1</button>
+                        <button class="core-calendar-day disabled">2</button>
+                        <button class="core-calendar-day disabled">3</button>
+                        <button class="core-calendar-day disabled">4</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Date Picker --&gt;
+&lt;div class="core-datepicker"&gt;
+    &lt;input type="text" class="core-datepicker-input" 
+           placeholder="Select date" readonly&gt;
+    &lt;svg class="core-datepicker-icon"&gt;...&lt;/svg&gt;
+    
+    &lt;div class="core-calendar"&gt;
+        &lt;div class="core-calendar-header"&gt;
+            &lt;button class="core-calendar-nav-btn"&gt;‹&lt;/button&gt;
+            &lt;div class="core-calendar-title"&gt;September 2025&lt;/div&gt;
+            &lt;button class="core-calendar-nav-btn"&gt;›&lt;/button&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="core-calendar-weekdays"&gt;
+            &lt;div class="core-calendar-weekday"&gt;Su&lt;/div&gt;
+            &lt;!-- ... more weekdays ... --&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="core-calendar-grid"&gt;
+            &lt;button class="core-calendar-day"&gt;1&lt;/button&gt;
+            &lt;!-- ... more days ... --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </div>
+            </div>
+            
+            <div class="implementation-section">
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>import { useState, useRef, useEffect } from 'react';
+
+interface DatePickerProps {
+  label?: string;
+  value?: Date;
+  onChange?: (date: Date) => void;
+  minDate?: Date;
+  maxDate?: Date;
+  placeholder?: string;
+}
+
+export const DatePicker = ({
+  label,
+  value,
+  onChange,
+  minDate,
+  maxDate,
+  placeholder = 'Select date'
+}: DatePickerProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(value || new Date());
+  const ref = useRef(null);
+  
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+  
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+  
+  return (
+    &lt;div className="core-input-group"&gt;
+      {label && &lt;label className="core-input-label"&gt;{label}&lt;/label&gt;}
+      &lt;div className="core-datepicker" ref={ref}&gt;
+        &lt;input
+          type="text"
+          className="core-datepicker-input"
+          value={value ? formatDate(value) : ''}
+          placeholder={placeholder}
+          readOnly
+          onClick={() => setIsOpen(!isOpen)}
+        /&gt;
+        &lt;svg className="core-datepicker-icon" viewBox="0 0 24 24"&gt;
+          &lt;path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /&gt;
+        &lt;/svg&gt;
+        
+        {isOpen && (
+          &lt;Calendar
+            selectedDate={selectedDate}
+            onDateSelect={(date) => {
+              setSelectedDate(date);
+              onChange?.(date);
+              setIsOpen(false);
+            }}
+            minDate={minDate}
+            maxDate={maxDate}
+          /&gt;
+        )}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-datepicker</code></td>
+                        <td>Container for date picker</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-datepicker-input</code></td>
+                        <td>Input field for date display</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-datepicker-icon</code></td>
+                        <td>Calendar icon</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-calendar</code></td>
+                        <td>Calendar dropdown container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-calendar-header</code></td>
+                        <td>Calendar header with navigation</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-calendar-grid</code></td>
+                        <td>Grid container for days</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-calendar-day</code></td>
+                        <td>Individual day button</td>
+                    </tr>
+                    <tr>
+                        <td><code>.selected</code></td>
+                        <td>Selected date styling</td>
+                    </tr>
+                    <tr>
+                        <td><code>.today</code></td>
+                        <td>Today's date indicator</td>
+                    </tr>
+                    <tr>
+                        <td><code>.in-range</code></td>
+                        <td>Dates within selected range</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    
+    <script>
+        // HeroUI-inspirierte Date Picker Funktionalität
+        function toggleDatePicker(pickerId) {
+            const picker = document.querySelector(`#${pickerId.replace('datepicker', 'calendar')}`);
+            const input = document.querySelector(`[onclick*="${pickerId}"] .core-datepicker-input`);
+            
+            if (picker) {
+                // Close other date pickers
+                document.querySelectorAll('.core-calendar.open').forEach(cal => {
+                    if (cal.id !== picker.id) {
+                        cal.classList.remove('open');
+                    }
+                });
+                
+                picker.classList.toggle('open');
+                
+                if (input) {
+                    input.closest('.core-datepicker').classList.toggle('active');
+                }
+            }
+        }
+        
+        // Close date pickers on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.core-datepicker')) {
+                document.querySelectorAll('.core-calendar.open').forEach(calendar => {
+                    calendar.classList.remove('open');
+                });
+                document.querySelectorAll('.core-datepicker.active').forEach(picker => {
+                    picker.classList.remove('active');
+                });
+            }
+        });
+        
+        // Day selection
+        document.querySelectorAll('.core-calendar-day:not(.disabled)').forEach(day => {
+            day.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                const calendar = this.closest('.core-calendar');
+                const picker = calendar.closest('.core-datepicker');
+                const input = picker?.querySelector('.core-datepicker-input');
+                
+                // Remove previous selection in this calendar
+                calendar.querySelectorAll('.core-calendar-day.selected').forEach(d => {
+                    if (!d.classList.contains('today')) {
+                        d.classList.remove('selected');
+                    }
+                });
+                
+                // Add selection to clicked day
+                if (!this.classList.contains('today')) {
+                    this.classList.add('selected');
+                }
+                
+                // Update input value
+                if (input) {
+                    const dayNum = this.textContent;
+                    input.value = `September ${dayNum}, 2025`;
+                }
+                
+                // Close calendar
+                calendar.classList.remove('open');
+                picker?.classList.remove('active');
+            });
+        });
+        
+        // Calendar navigation
+        let currentMonth = 8; // September
+        let currentYear = 2025;
+        
+        function previousMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            updateCalendarTitle();
+        }
+        
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            updateCalendarTitle();
+        }
+        
+        function updateCalendarTitle() {
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            
+            document.querySelectorAll('.core-calendar-title').forEach(title => {
+                title.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            });
+        }
+    </script>
+</body>
+</html>

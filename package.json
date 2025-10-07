@@ -1,0 +1,24 @@
+{
+  "name": "core-design-system",
+  "version": "1.0.0",
+  "description": "CORE Design System - Standalone HTML/CSS component library",
+  "main": "v2/index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "start": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "design-system",
+    "css",
+    "html",
+    "components",
+    "ui"
+  ],
+  "author": "Christian Bernecker",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/christianbernecker/core-design-system.git"
+  },
+  "homepage": "https://core-design-system.vercel.app"
+}

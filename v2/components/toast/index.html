@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <!-- ZENTRALE JAVASCRIPT INTERAKTIONEN -->
+    <script src="/shared/interactions.js"></script>
+    
+    <style>
+        /* NUR TOAST-SPEZIFISCHE STYLES */
+        .core-toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-tooltip);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            max-width: 400px;
+        }
+        
+        .core-toast {
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            padding: var(--spacing-md);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            min-width: 300px;
+            animation: slideIn 0.3s ease;
+            position: relative;
+            border-left: 4px solid var(--core-primary);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        .core-toast.hiding {
+            animation: slideOut 0.3s ease forwards;
+        }
+        
+        .core-toast-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        
+        .core-toast-content {
+            flex: 1;
+        }
+        
+        .core-toast-title {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--core-text);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .core-toast-message {
+            font-size: var(--font-size-sm);
+            color: var(--core-grey);
+            line-height: 1.5;
+        }
+        
+        .core-toast-close {
+            background: none;
+            border: none;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--core-grey);
+            transition: all 0.2s ease;
+            border-radius: var(--radius-sm);
+        }
+        
+        .core-toast-close:hover {
+            background: var(--core-gray-100);
+            color: var(--core-text);
+        }
+        
+        /* Toast Types */
+        .core-toast.success {
+            border-left-color: var(--core-success);
+        }
+        
+        .core-toast.success .core-toast-icon {
+            color: var(--core-success);
+        }
+        
+        .core-toast.error {
+            border-left-color: var(--core-error);
+        }
+        
+        .core-toast.error .core-toast-icon {
+            color: var(--core-error);
+        }
+        
+        .core-toast.warning {
+            border-left-color: var(--core-warning);
+        }
+        
+        .core-toast.warning .core-toast-icon {
+            color: var(--core-warning);
+        }
+        
+        .core-toast.info {
+            border-left-color: var(--core-primary);
+        }
+        
+        .core-toast.info .core-toast-icon {
+            color: var(--core-primary);
+        }
+        
+        /* Progress Bar */
+        .core-toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--core-primary);
+            animation: progress 5s linear;
+        }
+        
+        @keyframes progress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+        
+        /* Position Variants */
+        .core-toast-container.top-left {
+            top: 20px;
+            right: auto;
+            left: 20px;
+        }
+        
+        .core-toast-container.bottom-right {
+            top: auto;
+            bottom: 20px;
+            right: 20px;
+        }
+        
+        .core-toast-container.bottom-left {
+            top: auto;
+            bottom: 20px;
+            right: auto;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item active">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Toast</h1>
+        <p>Non-intrusive notification components for feedback and status updates with auto-dismiss functionality.</p>
+        
+        <!-- Section 1: Toast Types -->
+        <section class="section">
+            <h2 class="section-title">Toast Types</h2>
+            
+            <div class="component-card">
+                <h3>Success Toast</h3>
+                <button class="core-button primary" onclick="showToast('success')">Show Success Toast</button>
+                
+                <h3 class="mt-lg">Error Toast</h3>
+                <button class="core-button primary" onclick="showToast('error')">Show Error Toast</button>
+                
+                <h3 class="mt-lg">Warning Toast</h3>
+                <button class="core-button primary" onclick="showToast('warning')">Show Warning Toast</button>
+                
+                <h3 class="mt-lg">Info Toast</h3>
+                <button class="core-button primary" onclick="showToast('info')">Show Info Toast</button>
+            </div>
+            
+            <div class="component-card">
+                <h3>Toast with Progress</h3>
+                <button class="core-button primary" onclick="showToastWithProgress()">Show Toast with Progress</button>
+                
+                <h3 class="mt-lg">Persistent Toast</h3>
+                <button class="core-button primary" onclick="showPersistentToast()">Show Persistent Toast</button>
+            </div>
+        </section>
+        
+        <!-- Section 2: Toast Examples (Static) -->
+        <section class="section">
+            <h2 class="section-title">Static Examples</h2>
+            
+            <div class="component-card">
+                <div style="position: relative; height: 400px; background: var(--core-gray-100); border-radius: var(--radius-lg); overflow: hidden;">
+                    <div style="position: absolute; top: 20px; right: 20px; display: flex; flex-direction: column; gap: 16px;">
+                        <!-- Success Toast -->
+                        <div class="core-toast success">
+                            <svg class="core-toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <div class="core-toast-content">
+                                <div class="core-toast-title">Property Saved</div>
+                                <div class="core-toast-message">Your property has been successfully saved to favorites.</div>
+                            </div>
+                            <button class="core-toast-close">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Error Toast -->
+                        <div class="core-toast error">
+                            <svg class="core-toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <div class="core-toast-content">
+                                <div class="core-toast-title">Upload Failed</div>
+                                <div class="core-toast-message">Could not upload images. Please try again.</div>
+                            </div>
+                            <button class="core-toast-close">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Warning Toast -->
+                        <div class="core-toast warning">
+                            <svg class="core-toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                            <div class="core-toast-content">
+                                <div class="core-toast-title">Limited Availability</div>
+                                <div class="core-toast-message">Only 2 units remaining in this building.</div>
+                            </div>
+                            <button class="core-toast-close">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Info Toast with Progress -->
+                        <div class="core-toast info">
+                            <svg class="core-toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <div class="core-toast-content">
+                                <div class="core-toast-title">New Properties</div>
+                                <div class="core-toast-message">5 new properties match your criteria.</div>
+                            </div>
+                            <button class="core-toast-close">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                            <div class="core-toast-progress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Toast Container --&gt;
+&lt;div class="core-toast-container"&gt;
+    &lt;!-- Success Toast --&gt;
+    &lt;div class="core-toast success"&gt;
+        &lt;svg class="core-toast-icon"&gt;...&lt;/svg&gt;
+        &lt;div class="core-toast-content"&gt;
+            &lt;div class="core-toast-title"&gt;Success!&lt;/div&gt;
+            &lt;div class="core-toast-message"&gt;Operation completed successfully.&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;button class="core-toast-close"&gt;
+            &lt;svg&gt;...&lt;/svg&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- Toast with Progress --&gt;
+    &lt;div class="core-toast info"&gt;
+        &lt;svg class="core-toast-icon"&gt;...&lt;/svg&gt;
+        &lt;div class="core-toast-content"&gt;
+            &lt;div class="core-toast-title"&gt;Processing&lt;/div&gt;
+            &lt;div class="core-toast-message"&gt;Please wait...&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="core-toast-progress"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </div>
+                
+                <h3>JavaScript Functions</h3>
+                <div class="code-block">
+                    <pre>// Toast Manager
+class ToastManager {
+    constructor() {
+        this.container = null;
+        this.init();
+    }
+    
+    init() {
+        // Create container if it doesn't exist
+        if (!document.querySelector('.core-toast-container')) {
+            this.container = document.createElement('div');
+            this.container.className = 'core-toast-container';
+            document.body.appendChild(this.container);
+        } else {
+            this.container = document.querySelector('.core-toast-container');
+        }
+    }
+    
+    show(type, title, message, duration = 5000) {
+        const toast = document.createElement('div');
+        toast.className = `core-toast ${type}`;
+        
+        const icons = {
+            success: '&lt;path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /&gt;',
+            error: '&lt;path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /&gt;',
+            warning: '&lt;path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /&gt;',
+            info: '&lt;path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /&gt;'
+        };
+        
+        toast.innerHTML = `
+            &lt;svg class="core-toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"&gt;
+                ${icons[type]}
+            &lt;/svg&gt;
+            &lt;div class="core-toast-content"&gt;
+                &lt;div class="core-toast-title"&gt;${title}&lt;/div&gt;
+                &lt;div class="core-toast-message"&gt;${message}&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;button class="core-toast-close"&gt;
+                &lt;svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"&gt;
+                    &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /&gt;
+                &lt;/svg&gt;
+            &lt;/button&gt;
+            ${duration > 0 ? '&lt;div class="core-toast-progress"&gt;&lt;/div&gt;' : ''}
+        `;
+        
+        this.container.appendChild(toast);
+        
+        // Close button
+        toast.querySelector('.core-toast-close').addEventListener('click', () => {
+            this.hide(toast);
+        });
+        
+        // Auto dismiss
+        if (duration > 0) {
+            setTimeout(() => {
+                this.hide(toast);
+            }, duration);
+        }
+    }
+    
+    hide(toast) {
+        toast.classList.add('hiding');
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }
+}
+
+// Initialize
+const toastManager = new ToastManager();
+
+// Helper functions
+function showToast(type) {
+    const messages = {
+        success: { title: 'Success!', message: 'Operation completed successfully.' },
+        error: { title: 'Error!', message: 'Something went wrong. Please try again.' },
+        warning: { title: 'Warning!', message: 'Please check your input.' },
+        info: { title: 'Info', message: 'Here\'s some useful information.' }
+    };
+    
+    toastManager.show(type, messages[type].title, messages[type].message);
+}</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Toast.tsx
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+
+interface ToastProps {
+  type: 'success' | 'error' | 'warning' | 'info';
+  title: string;
+  message: string;
+  duration?: number;
+  onClose: () => void;
+}
+
+export const Toast = ({ type, title, message, duration = 5000, onClose }: ToastProps) => {
+  const [isVisible, setIsVisible] = useState(true);
+  
+  useEffect(() => {
+    if (duration > 0) {
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+        setTimeout(onClose, 300);
+      }, duration);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [duration, onClose]);
+  
+  const icons = {
+    success: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+    error: 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
+    warning: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
+    info: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+  };
+  
+  return createPortal(
+    &lt;div className={`core-toast ${type} ${!isVisible ? 'hiding' : ''}`}&gt;
+      &lt;svg className="core-toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"&gt;
+        &lt;path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icons[type]} /&gt;
+      &lt;/svg&gt;
+      &lt;div className="core-toast-content"&gt;
+        &lt;div className="core-toast-title"&gt;{title}&lt;/div&gt;
+        &lt;div className="core-toast-message"&gt;{message}&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;button className="core-toast-close" onClick={() => {
+        setIsVisible(false);
+        setTimeout(onClose, 300);
+      }}&gt;
+        &lt;svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"&gt;
+          &lt;path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+      {duration > 0 && &lt;div className="core-toast-progress" /&gt;}
+    &lt;/div&gt;,
+    document.body
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-toast-container</code></td>
+                        <td>Container for toast notifications</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-toast</code></td>
+                        <td>Individual toast notification</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-toast-icon</code></td>
+                        <td>Toast type icon</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-toast-content</code></td>
+                        <td>Content wrapper</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-toast-title</code></td>
+                        <td>Toast title text</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-toast-message</code></td>
+                        <td>Toast message text</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-toast-close</code></td>
+                        <td>Close button</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-toast-progress</code></td>
+                        <td>Auto-dismiss progress bar</td>
+                    </tr>
+                    <tr>
+                        <td><code>.success</code></td>
+                        <td>Success toast styling</td>
+                    </tr>
+                    <tr>
+                        <td><code>.error</code></td>
+                        <td>Error toast styling</td>
+                    </tr>
+                    <tr>
+                        <td><code>.warning</code></td>
+                        <td>Warning toast styling</td>
+                    </tr>
+                    <tr>
+                        <td><code>.info</code></td>
+                        <td>Info toast styling</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 5: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Accessibility Features</h3>
+                <ul>
+                    <li>ARIA live regions for screen readers</li>
+                    <li>Keyboard dismissible (Escape key)</li>
+                    <li>Focus management</li>
+                    <li>Sufficient color contrast</li>
+                </ul>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Keep messages concise and actionable</li>
+                    <li>Use appropriate types for context</li>
+                    <li>Auto-dismiss after 5-7 seconds</li>
+                    <li>Allow manual dismissal</li>
+                    <li>Stack multiple toasts vertically</li>
+                    <li>Position consistently (top-right recommended)</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Toast Container (Dynamic) -->
+    <div class="core-toast-container" id="toast-container"></div>
+    
+    <script>
+        // Toast-Demo-Funktionen - Nutzen zentrales LYDToast-System
+        function showToast(type) {
+            const messages = {
+                success: 'Your property has been successfully saved.',
+                error: 'Could not save property. Please try again.',
+                warning: 'Some fields require your attention.',
+                info: '5 new properties match your criteria.'
+            };
+            
+            LYDToast.show(messages[type], type);
+        }
+        
+        function showToastWithProgress() {
+            LYDToast.show('Your request is being processed...', 'info', 5000);
+        }
+        
+        function showPersistentToast() {
+            LYDToast.show('Please complete your profile to continue.', 'warning', 0);
+        }
+    </script>
+</body>
+</html>

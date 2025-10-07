@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badge - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR BADGE-SPEZIFISCHE STYLES */
+        .core-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            line-height: 1;
+            white-space: nowrap;
+        }
+        
+        /* Badge Types */
+        .core-badge.primary {
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            color: white;
+        }
+        
+        .core-badge.secondary {
+            background: var(--core-gray-200);
+            color: var(--core-text);
+        }
+        
+        .core-badge.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--core-success);
+        }
+        
+        .core-badge.warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--core-warning);
+        }
+        
+        .core-badge.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--core-error);
+        }
+        
+        .core-badge.info {
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--core-primary);
+        }
+        
+        /* Badge Sizes */
+        .core-badge.small {
+            padding: 2px 8px;
+            font-size: 10px;
+        }
+        
+        .core-badge.large {
+            padding: 6px 16px;
+            font-size: var(--font-size-sm);
+        }
+        
+        /* Badge Variants */
+        .core-badge.outline {
+            background: transparent;
+            border: 1px solid currentColor;
+        }
+        
+        .core-badge.outline.primary {
+            color: var(--core-primary);
+            border-color: var(--core-primary);
+        }
+        
+        .core-badge.outline.success {
+            color: var(--core-success);
+            border-color: var(--core-success);
+        }
+        
+        .core-badge.outline.warning {
+            color: var(--core-warning);
+            border-color: var(--core-warning);
+        }
+        
+        .core-badge.outline.error {
+            color: var(--core-error);
+            border-color: var(--core-error);
+        }
+        
+        /* Badge with Icon */
+        .core-badge-icon {
+            width: 12px;
+            height: 12px;
+            margin-right: 4px;
+        }
+        
+        .core-badge.small .core-badge-icon {
+            width: 10px;
+            height: 10px;
+        }
+        
+        .core-badge.large .core-badge-icon {
+            width: 14px;
+            height: 14px;
+        }
+        
+        /* Badge with Dot */
+        .core-badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            margin-right: 6px;
+        }
+        
+        /* Badge Count */
+        .core-badge-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 6px;
+            border-radius: var(--radius-full);
+            background: var(--core-error);
+            color: white;
+            font-size: 11px;
+            font-weight: var(--font-weight-bold);
+        }
+        
+        /* Badge Group */
+        .core-badge-group {
+            display: inline-flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item active">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Badge</h1>
+        <p>Compact labels for highlighting status, counts, or categories with various styles.</p>
+        
+        <!-- Section 1: Badge Types -->
+        <section class="section">
+            <h2 class="section-title">Badge Types</h2>
+            
+            <div class="component-card">
+                <h3>Status Badges</h3>
+                <div class="core-badge-group">
+                    <span class="core-badge primary">Primary</span>
+                    <span class="core-badge secondary">Secondary</span>
+                    <span class="core-badge success">Available</span>
+                    <span class="core-badge warning">Pending</span>
+                    <span class="core-badge error">Sold</span>
+                    <span class="core-badge info">New</span>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Outline Badges</h3>
+                <div class="core-badge-group">
+                    <span class="core-badge outline primary">Premium</span>
+                    <span class="core-badge outline success">Verified</span>
+                    <span class="core-badge outline warning">Expiring</span>
+                    <span class="core-badge outline error">Urgent</span>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Badge Sizes</h3>
+                <div class="core-badge-group">
+                    <span class="core-badge small primary">Small</span>
+                    <span class="core-badge primary">Default</span>
+                    <span class="core-badge large primary">Large</span>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Badge with Icons</h3>
+                <div class="core-badge-group">
+                    <span class="core-badge success">
+                        <svg class="core-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Verified
+                    </span>
+                    <span class="core-badge warning">
+                        <svg class="core-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Attention
+                    </span>
+                    <span class="core-badge info">
+                        <svg class="core-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Info
+                    </span>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Badge with Dot</h3>
+                <div class="core-badge-group">
+                    <span class="core-badge success">
+                        <span class="core-badge-dot"></span>
+                        Online
+                    </span>
+                    <span class="core-badge warning">
+                        <span class="core-badge-dot"></span>
+                        Away
+                    </span>
+                    <span class="core-badge error">
+                        <span class="core-badge-dot"></span>
+                        Offline
+                    </span>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Count Badges</h3>
+                <div class="core-badge-group">
+                    <span class="core-badge-count">5</span>
+                    <span class="core-badge-count">12</span>
+                    <span class="core-badge-count">99+</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            
+            <div class="component-card">
+                <h3>Property Status</h3>
+                <div class="core-badge-group">
+                    <span class="core-badge success">Available</span>
+                    <span class="core-badge warning">Reserved</span>
+                    <span class="core-badge error">Sold</span>
+                    <span class="core-badge info">New Listing</span>
+                    <span class="core-badge primary">Featured</span>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Property Features</h3>
+                <div class="core-badge-group">
+                    <span class="core-badge outline primary">Pool</span>
+                    <span class="core-badge outline primary">Garden</span>
+                    <span class="core-badge outline primary">Garage</span>
+                    <span class="core-badge outline primary">Balcony</span>
+                    <span class="core-badge outline primary">Elevator</span>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Property Types</h3>
+                <div class="core-badge-group">
+                    <span class="core-badge secondary">Apartment</span>
+                    <span class="core-badge secondary">House</span>
+                    <span class="core-badge secondary">Villa</span>
+                    <span class="core-badge secondary">Penthouse</span>
+                    <span class="core-badge secondary">Studio</span>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Urgency Indicators</h3>
+                <div class="core-badge-group">
+                    <span class="core-badge error">
+                        <svg class="core-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Last Day
+                    </span>
+                    <span class="core-badge warning">Price Reduced</span>
+                    <span class="core-badge info">Open House</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Basic Badge --&gt;
+&lt;span class="core-badge primary"&gt;Badge Text&lt;/span&gt;
+
+&lt;!-- Badge with Icon --&gt;
+&lt;span class="core-badge success"&gt;
+    &lt;svg class="core-badge-icon"&gt;...&lt;/svg&gt;
+    Verified
+&lt;/span&gt;
+
+&lt;!-- Badge with Dot --&gt;
+&lt;span class="core-badge success"&gt;
+    &lt;span class="core-badge-dot"&gt;&lt;/span&gt;
+    Online
+&lt;/span&gt;
+
+&lt;!-- Count Badge --&gt;
+&lt;span class="core-badge-count"&gt;5&lt;/span&gt;
+
+&lt;!-- Outline Badge --&gt;
+&lt;span class="core-badge outline primary"&gt;Premium&lt;/span&gt;
+
+&lt;!-- Badge Group --&gt;
+&lt;div class="core-badge-group"&gt;
+    &lt;span class="core-badge primary"&gt;Tag 1&lt;/span&gt;
+    &lt;span class="core-badge primary"&gt;Tag 2&lt;/span&gt;
+&lt;/div&gt;</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Badge.tsx
+import { ReactNode } from 'react';
+
+interface BadgeProps {
+  children: ReactNode;
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
+  size?: 'small' | 'medium' | 'large';
+  outline?: boolean;
+  icon?: ReactNode;
+  dot?: boolean;
+  className?: string;
+}
+
+export const Badge = ({
+  children,
+  variant = 'primary',
+  size = 'medium',
+  outline = false,
+  icon,
+  dot,
+  className = ''
+}: BadgeProps) => {
+  const sizeClass = size === 'small' ? 'small' : size === 'large' ? 'large' : '';
+  const outlineClass = outline ? 'outline' : '';
+  
+  return (
+    &lt;span className={`core-badge ${variant} ${sizeClass} ${outlineClass} ${className}`}&gt;
+      {dot && &lt;span className="core-badge-dot" /&gt;}
+      {icon && &lt;span className="core-badge-icon"&gt;{icon}&lt;/span&gt;}
+      {children}
+    &lt;/span&gt;
+  );
+};
+
+// Count Badge Component
+interface CountBadgeProps {
+  count: number;
+  max?: number;
+}
+
+export const CountBadge = ({ count, max = 99 }: CountBadgeProps) => {
+  const displayCount = count > max ? `${max}+` : count;
+  
+  return (
+    &lt;span className="core-badge-count"&gt;
+      {displayCount}
+    &lt;/span&gt;
+  );
+};
+
+// Usage
+&lt;Badge variant="success"&gt;Available&lt;/Badge&gt;
+&lt;Badge variant="warning" icon={&lt;Icon /&gt;}&gt;Pending&lt;/Badge&gt;
+&lt;Badge variant="info" dot&gt;Online&lt;/Badge&gt;
+&lt;CountBadge count={5} /&gt;</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-badge</code></td>
+                        <td>Base badge class</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-badge-icon</code></td>
+                        <td>Icon within badge</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-badge-dot</code></td>
+                        <td>Status dot indicator</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-badge-count</code></td>
+                        <td>Numeric count badge</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-badge-group</code></td>
+                        <td>Container for multiple badges</td>
+                    </tr>
+                    <tr>
+                        <td><code>.primary</code></td>
+                        <td>Primary color variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.secondary</code></td>
+                        <td>Secondary color variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.success</code></td>
+                        <td>Success/green variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.warning</code></td>
+                        <td>Warning/yellow variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.error</code></td>
+                        <td>Error/red variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.info</code></td>
+                        <td>Info/blue variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.outline</code></td>
+                        <td>Outline style variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.small</code></td>
+                        <td>Small size variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.large</code></td>
+                        <td>Large size variant</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 5: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Accessibility Features</h3>
+                <ul>
+                    <li>Use semantic HTML (span for decorative, button if clickable)</li>
+                    <li>Ensure sufficient color contrast</li>
+                    <li>Don't rely solely on color for meaning</li>
+                    <li>Add aria-label for icon-only badges</li>
+                    <li>Screen reader friendly text</li>
+                </ul>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Keep badge text concise</li>
+                    <li>Use consistent colors for same meanings</li>
+                    <li>Limit number of badges per item</li>
+                    <li>Choose appropriate size for context</li>
+                    <li>Group related badges together</li>
+                    <li>Consider using tooltips for additional info</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

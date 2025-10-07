@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <!-- ZENTRALE JAVASCRIPT INTERAKTIONEN -->
+    <script src="/shared/interactions.js"></script>
+    
+    <style>
+        /* BUTTON-SEITE SPEZIFISCHE ANPASSUNGEN - Basiert auf master.css */
+        
+        /* Glass Button - Spezielle Variante nur für Button-Seite */
+        .core-button.glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            color: var(--core-primary);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            font-weight: var(--font-weight-semibold);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+        
+        .core-button.glass:hover {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: var(--core-primary);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        /* EINHEITLICHE BUTTON-DIMENSIONEN */
+        .core-button {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: top;
+        }
+        
+        /* Icon-Only Button Size */
+        .core-button.icon-only {
+            padding: var(--spacing-md);
+            min-width: 44px;
+            min-height: 44px;
+        }
+        
+        /* Small Button Size */
+        .core-button.small {
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: var(--font-size-sm);
+            min-height: 36px;
+        }
+        
+        /* Large Button Size */
+        .core-button.large {
+            padding: var(--spacing-lg) var(--spacing-2xl);
+            font-size: var(--font-size-lg);
+            min-height: 52px;
+        }
+        
+        /* Ghost Button - Spezielle Variante */
+        .core-button.ghost {
+            background: transparent;
+            color: var(--core-primary);
+            border: none;
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .core-button.ghost:hover {
+            background: rgba(51, 102, 204, 0.1);
+            color: var(--core-primary);
+            transform: translateY(-1px);
+        }
+        
+        /* SVG ICON INTEGRATION - OPTIMIERT */
+        .core-button svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+            vertical-align: middle;
+            transition: var(--transition-luxury);
+        }
+        
+        /* Icon sizes for different button sizes */
+        .core-button.small svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .core-button.large svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* Secondary Button - Alternative Gestaltung */
+        .core-button.secondary {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--core-deep-blue);
+            border: 2px solid var(--core-royal-blue);
+            font-weight: var(--font-weight-semibold);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .core-button.secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(51,102,204,0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .core-button.secondary:hover {
+            background: var(--core-royal-blue);
+            color: white;
+            border-color: var(--core-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .core-button.secondary:hover::before {
+            left: 100%;
+        }
+        
+        /* BUTTON ALIGNMENT IN GRUPPEN */
+        .component-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            align-items: flex-start;
+        }
+        
+        .component-preview .core-button {
+            margin: 0;
+        }
+        
+        /* Alle anderen Button-Styles kommen aus master.css */
+        /* Einschließlich primary, outline mit hochwertigen Hover-Effekten */
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item active">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Button</h1>
+        <p>Interactive button components with LYD brand colors, luxury gradients, and premium styling for the luxury real estate segment.</p>
+        
+        <!-- Section 1: Button Variants -->
+        <section class="section">
+            <h2 class="section-title">Button Variants</h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>Primary Button</h3>
+                    <p class="text-muted">Main call to action with LYD primary gradient</p>
+                    <div class="component-preview">
+                        <button class="core-button primary">
+                            Primary Button
+                        </button>
+                        <button class="core-button primary">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 5v14m7-7H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            </svg>
+                            With Icon
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Secondary Button</h3>
+                    <p class="text-muted">Alternative action with Royal Blue</p>
+                    <div class="component-preview">
+                        <button class="core-button secondary">
+                            Secondary Button
+                        </button>
+                        <button class="core-button secondary">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Outline Button</h3>
+                    <p class="text-muted">Transparent background with primary border</p>
+                    <div class="component-preview">
+                        <button class="core-button outline">
+                            Outline Button
+                        </button>
+                        <button class="core-button outline">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            </svg>
+                            Contact
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Ghost Button</h3>
+                    <p class="text-muted">Minimal style with subtle hover</p>
+                    <div class="component-preview">
+                        <button class="core-button ghost">
+                            Ghost Button
+                        </button>
+                        <button class="core-button ghost">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Glassmorphism Button</h3>
+                    <p class="text-muted">Premium glass effect with blur</p>
+                    <div class="component-preview" style="background: var(--core-gradient-subtle); padding: 2rem;">
+                        <button class="core-button glass">
+                            Glass Button
+                        </button>
+                        <button class="core-button glass">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            </svg>
+                            Premium
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Icon Only Buttons</h3>
+                    <p class="text-muted">Compact buttons with icons only</p>
+                    <div class="component-preview">
+                        <button class="core-button primary icon-only">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            </svg>
+                        </button>
+                        <button class="core-button secondary icon-only">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <path d="M12 1v6m0 8v6M4.22 4.22l4.24 4.24m8.48 8.48l4.24 4.24M1 12h6m8 0h6M4.22 19.78l4.24-4.24m8.48-8.48l4.24-4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            </svg>
+                        </button>
+                        <button class="core-button outline icon-only">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="3" y="11" width="18" height="10" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Button States -->
+        <section class="section">
+            <h2 class="section-title">Button States</h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>Loading State</h3>
+                    <p class="text-muted">Asynchronous action indicator</p>
+                    <div class="component-preview">
+                        <button class="core-button primary loading" id="loadingBtn">
+                            Loading...
+                        </button>
+                        <button class="core-button secondary loading">
+                            Processing...
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Disabled State</h3>
+                    <p class="text-muted">Inactive button state</p>
+                    <div class="component-preview">
+                        <button class="core-button primary" disabled>
+                            Disabled
+                        </button>
+                        <button class="core-button outline" disabled>
+                            Unavailable
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Button Sizes -->
+        <section class="section">
+            <h2 class="section-title">Button Sizes</h2>
+            <div class="component-card">
+                <h3>Size Variations</h3>
+                <p class="text-muted">Different button sizes for various use cases</p>
+                <div class="component-preview" style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                    <button class="core-button primary small">Small</button>
+                    <button class="core-button primary">Default</button>
+                    <button class="core-button primary large">Large</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>Property Actions</h3>
+                    <div class="component-preview">
+                        <button class="core-button primary">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <polyline points="9,22 9,12 15,12 15,22" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                            View Property
+                        </button>
+                        <button class="core-button secondary">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                            Save Listing
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3>Contact Actions</h3>
+                    <div class="component-preview">
+                        <button class="core-button outline">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
+                                <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
+                                <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            Schedule Viewing
+                        </button>
+                        <button class="core-button ghost">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <circle cx="9" cy="10" r="1" fill="currentColor"/>
+                                <circle cx="15" cy="10" r="1" fill="currentColor"/>
+                                <circle cx="12" cy="10" r="1" fill="currentColor"/>
+                            </svg>
+                            Ask Question
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 5: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Implementation</h3>
+                <div class="code-block">
+                    <pre><code>&lt;!-- Primary Button --&gt;
+&lt;button class="core-button core-button-primary"&gt;
+    Primary Button
+&lt;/button&gt;
+
+&lt;!-- Button with Icon --&gt;
+&lt;button class="core-button core-button-secondary"&gt;
+    &lt;svg viewBox="0 0 24 24"&gt;
+        &lt;path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10..."&gt;
+    &lt;/svg&gt;
+    With Icon
+&lt;/button&gt;
+
+&lt;!-- Loading Button --&gt;
+&lt;button class="core-button core-button-primary loading"&gt;
+    Loading...
+&lt;/button&gt;</code></pre>
+                </div>
+            </div>
+            
+            <div class="implementation-section">
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre><code>import React, { useState } from 'react';
+
+interface ButtonProps {
+    variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'glass';
+    size?: 'small' | 'default' | 'large';
+    loading?: boolean;
+    disabled?: boolean;
+    icon?: React.ReactNode;
+    children: React.ReactNode;
+    onClick?: () => void;
+}
+
+export const Button: React.FC&lt;ButtonProps&gt; = ({
+    variant = 'primary',
+    size = 'default',
+    loading = false,
+    disabled = false,
+    icon,
+    children,
+    onClick
+}) => {
+    const classes = [
+        'core-button',
+        `core-button-${variant}`,
+        size !== 'default' && `core-button-${size}`,
+        loading && 'loading'
+    ].filter(Boolean).join(' ');
+    
+    return (
+        &lt;button 
+            className={classes}
+            disabled={disabled || loading}
+            onClick={onClick}
+        &gt;
+            {icon && !loading && icon}
+            {children}
+        &lt;/button&gt;
+    );
+};</code></pre>
+                </div>
+            </div>
+            
+            <div class="implementation-section">
+                <h3>JavaScript Behavior</h3>
+                <div class="code-block">
+                    <pre><code>// Handle loading state
+function handleAsyncAction(button) {
+    button.classList.add('loading');
+    button.disabled = true;
+    
+    // Simulate async operation
+    setTimeout(() => {
+        button.classList.remove('loading');
+        button.disabled = false;
+    }, 2000);
+}
+
+// Add ripple effect
+function addRippleEffect(button) {
+    button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        this.appendChild(ripple);
+        
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        
+        setTimeout(() => ripple.remove(), 600);
+    });
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 6: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            <div class="api-table-container">
+                <table class="api-table">
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Description</th>
+                            <th>Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>.core-button</code></td>
+                            <td>Base button class</td>
+                            <td>Required on all buttons</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-button-primary</code></td>
+                            <td>Primary button variant</td>
+                            <td>Main CTAs</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-button-secondary</code></td>
+                            <td>Secondary button variant</td>
+                            <td>Alternative actions</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-button-outline</code></td>
+                            <td>Outline button variant</td>
+                            <td>Tertiary actions</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-button-ghost</code></td>
+                            <td>Ghost button variant</td>
+                            <td>Minimal emphasis</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-button-glass</code></td>
+                            <td>Glassmorphism button</td>
+                            <td>Premium sections</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-button-small</code></td>
+                            <td>Small size modifier</td>
+                            <td>Compact layouts</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-button-large</code></td>
+                            <td>Large size modifier</td>
+                            <td>Hero sections</td>
+                        </tr>
+                        <tr>
+                            <td><code>.core-button-icon-only</code></td>
+                            <td>Icon-only button</td>
+                            <td>Toolbars, actions</td>
+                        </tr>
+                        <tr>
+                            <td><code>.loading</code></td>
+                            <td>Loading state</td>
+                            <td>Async operations</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Section 7: Accessibility & Best Practices -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>Accessibility Guidelines</h3>
+                    <ul class="best-practices-list">
+                        <li>Use semantic <code>&lt;button&gt;</code> elements for actions</li>
+                        <li>Provide clear, descriptive button text</li>
+                        <li>Ensure minimum touch target size of 44x44px</li>
+                        <li>Include focus states for keyboard navigation</li>
+                        <li>Add <code>aria-label</code> for icon-only buttons</li>
+                        <li>Use <code>aria-busy="true"</code> for loading states</li>
+                        <li>Maintain WCAG AA contrast ratios</li>
+                    </ul>
+                </div>
+                
+                <div class="component-card">
+                    <h3>LYD Brand Guidelines</h3>
+                    <ul class="best-practices-list">
+                        <li>Primary buttons use the CORE gradient</li>
+                        <li>Maintain consistent button heights across the application</li>
+                        <li>Use SVG icons for sharp rendering at all sizes</li>
+                        <li>Apply hover effects for better interactivity</li>
+                        <li>Keep button text concise and action-oriented</li>
+                        <li>Group related buttons with consistent spacing</li>
+                        <li>Use loading states for operations > 300ms</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- JavaScript-Funktionalitäten werden durch /shared/interactions.js bereitgestellt -->
+</body>
+</html>

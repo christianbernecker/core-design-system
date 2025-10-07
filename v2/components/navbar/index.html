@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR NAVBAR-SPEZIFISCHE STYLES */
+        .core-navbar {
+            background: white;
+            border-bottom: 1px solid var(--core-line);
+            padding: 0 var(--spacing-lg);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-navbar);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .core-navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        
+        .core-navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            text-decoration: none;
+            color: var(--core-text);
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-lg);
+        }
+        
+        .core-navbar-logo {
+            width: 120px;
+            height: 40px;
+        }
+        
+        .core-navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .core-navbar-item {
+            position: relative;
+        }
+        
+        .core-navbar-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            color: var(--core-text);
+            text-decoration: none;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+        
+        .core-navbar-link:hover {
+            background: var(--core-gray-100);
+            color: var(--core-primary);
+        }
+        
+        .core-navbar-link.active {
+            color: var(--core-primary);
+            background: rgba(0, 102, 255, 0.05);
+        }
+        
+        .core-navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        /* Mobile Menu Toggle */
+        .core-navbar-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            padding: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .core-navbar-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--core-text);
+            transition: all 0.3s ease;
+        }
+        
+        .core-navbar-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .core-navbar-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .core-navbar-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        /* Dropdown in Navbar */
+        .core-navbar-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            min-width: 200px;
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--core-line);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+        }
+        
+        .core-navbar-item:hover .core-navbar-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .core-navbar-dropdown-item {
+            display: block;
+            padding: var(--spacing-sm) var(--spacing-md);
+            color: var(--core-text);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .core-navbar-dropdown-item:hover {
+            background: var(--core-gray-100);
+            color: var(--core-primary);
+        }
+        
+        /* Dark Navbar */
+        .core-navbar.dark {
+            background: var(--core-text);
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .core-navbar.dark .core-navbar-link,
+        .core-navbar.dark .core-navbar-brand {
+            color: white;
+        }
+        
+        .core-navbar.dark .core-navbar-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .core-navbar.dark .core-navbar-link.active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .core-navbar-toggle {
+                display: flex;
+            }
+            
+            .core-navbar-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                align-items: stretch;
+                padding: var(--spacing-md);
+                border-bottom: 1px solid var(--core-line);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .core-navbar-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .core-navbar-actions {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item active">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Navbar</h1>
+        <p>Responsive navigation bar component with dropdowns, mobile menu, and various styling options.</p>
+        
+        <!-- Section 1: Navbar Variants -->
+        <section class="section">
+            <h2 class="section-title">Navbar Variants</h2>
+            
+            <div class="component-card">
+                <h3>Standard Navbar</h3>
+                <p>Basic navigation bar with links</p>
+                
+                <nav class="core-navbar">
+                    <div class="core-navbar-container">
+                        <a href="#" class="core-navbar-brand">
+                            <img src="/shared/core-logo.svg" alt="CORE" class="core-navbar-logo" />
+                        </a>
+                        
+                        <ul class="core-navbar-menu">
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link active">Home</a>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">Properties</a>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">About</a>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">Contact</a>
+                            </li>
+                        </ul>
+                        
+                        <div class="core-navbar-actions">
+                            <button class="core-button secondary small">Sign In</button>
+                            <button class="core-button primary small">Sign Up</button>
+                        </div>
+                        
+                        <button class="core-navbar-toggle" onclick="toggleMobileMenu(this)">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+            
+            <div class="component-card">
+                <h3>Navbar with Dropdown</h3>
+                <p>Navigation with dropdown menus</p>
+                
+                <nav class="core-navbar">
+                    <div class="core-navbar-container">
+                        <a href="#" class="core-navbar-brand">Brand</a>
+                        
+                        <ul class="core-navbar-menu">
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">
+                                    Properties
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </a>
+                                <div class="core-navbar-dropdown">
+                                    <a href="#" class="core-navbar-dropdown-item">For Sale</a>
+                                    <a href="#" class="core-navbar-dropdown-item">For Rent</a>
+                                    <a href="#" class="core-navbar-dropdown-item">New Projects</a>
+                                    <a href="#" class="core-navbar-dropdown-item">Commercial</a>
+                                </div>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">Services</a>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">About</a>
+                            </li>
+                        </ul>
+                        
+                        <div class="core-navbar-actions">
+                            <button class="core-button primary">Get Started</button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            
+            <div class="component-card">
+                <h3>Dark Navbar</h3>
+                <p>Dark themed navigation bar</p>
+                
+                <nav class="core-navbar dark">
+                    <div class="core-navbar-container">
+                        <a href="#" class="core-navbar-brand">LYD Estate</a>
+                        
+                        <ul class="core-navbar-menu">
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link active">Home</a>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">Properties</a>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">Agents</a>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">Contact</a>
+                            </li>
+                        </ul>
+                        
+                        <div class="core-navbar-actions">
+                            <button class="core-button outline" style="color: white; border-color: white;">Contact Us</button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </section>
+        
+        <!-- Section 2: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            
+            <div class="component-card">
+                <h3>Real Estate Portal Navigation</h3>
+                
+                <nav class="core-navbar">
+                    <div class="core-navbar-container">
+                        <a href="#" class="core-navbar-brand">
+                            <img src="/shared/core-logo.svg" alt="CORE" class="core-navbar-logo" />
+                        </a>
+                        
+                        <ul class="core-navbar-menu">
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">Buy</a>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">Rent</a>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">Sell</a>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">Agents</a>
+                            </li>
+                            <li class="core-navbar-item">
+                                <a href="#" class="core-navbar-link">Resources</a>
+                            </li>
+                        </ul>
+                        
+                        <div class="core-navbar-actions">
+                            <button class="core-button ghost small">Saved</button>
+                            <button class="core-button primary small">List Property</button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </section>
+        
+        <!-- Section 3: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Standard Navbar --&gt;
+&lt;nav class="core-navbar"&gt;
+    &lt;div class="core-navbar-container"&gt;
+        &lt;a href="#" class="core-navbar-brand"&gt;
+            &lt;img src="logo.svg" alt="Logo" class="core-navbar-logo"&gt;
+        &lt;/a&gt;
+        
+        &lt;ul class="core-navbar-menu"&gt;
+            &lt;li class="core-navbar-item"&gt;
+                &lt;a href="#" class="core-navbar-link active"&gt;Home&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li class="core-navbar-item"&gt;
+                &lt;a href="#" class="core-navbar-link"&gt;About&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+        
+        &lt;div class="core-navbar-actions"&gt;
+            &lt;button class="core-button primary"&gt;Sign Up&lt;/button&gt;
+        &lt;/div&gt;
+        
+        &lt;button class="core-navbar-toggle" onclick="toggleMobileMenu(this)"&gt;
+            &lt;span&gt;&lt;/span&gt;
+            &lt;span&gt;&lt;/span&gt;
+            &lt;span&gt;&lt;/span&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;!-- Navbar with Dropdown --&gt;
+&lt;li class="core-navbar-item"&gt;
+    &lt;a href="#" class="core-navbar-link"&gt;
+        Services
+        &lt;svg&gt;...&lt;/svg&gt;
+    &lt;/a&gt;
+    &lt;div class="core-navbar-dropdown"&gt;
+        &lt;a href="#" class="core-navbar-dropdown-item"&gt;Service 1&lt;/a&gt;
+        &lt;a href="#" class="core-navbar-dropdown-item"&gt;Service 2&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/li&gt;</pre>
+                </div>
+                
+                <h3>JavaScript for Mobile Menu</h3>
+                <div class="code-block">
+                    <pre>// Toggle mobile menu
+function toggleMobileMenu(button) {
+    button.classList.toggle('active');
+    const menu = button.parentElement.querySelector('.core-navbar-menu');
+    menu.classList.toggle('active');
+}
+
+// Handle active state
+document.querySelectorAll('.core-navbar-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        // Remove active from all links
+        document.querySelectorAll('.core-navbar-link').forEach(l => {
+            l.classList.remove('active');
+        });
+        // Add active to clicked link
+        this.classList.add('active');
+    });
+});
+
+// Close mobile menu on outside click
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.core-navbar')) {
+        document.querySelector('.core-navbar-toggle')?.classList.remove('active');
+        document.querySelector('.core-navbar-menu')?.classList.remove('active');
+    }
+});</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Navbar.tsx
+import { useState } from 'react';
+import Link from 'next/link';
+
+interface NavItem {
+  label: string;
+  href: string;
+  dropdown?: NavItem[];
+}
+
+interface NavbarProps {
+  items: NavItem[];
+  variant?: 'light' | 'dark';
+}
+
+export const Navbar = ({ items, variant = 'light' }: NavbarProps) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState('/');
+  
+  return (
+    &lt;nav className={`core-navbar ${variant}`}&gt;
+      &lt;div className="core-navbar-container"&gt;
+        &lt;Link href="/" className="core-navbar-brand"&gt;
+          &lt;img src="/logo.svg" alt="Logo" className="core-navbar-logo" /&gt;
+        &lt;/Link&gt;
+        
+        &lt;ul className={`core-navbar-menu ${mobileMenuOpen ? 'active' : ''}`}&gt;
+          {items.map((item) => (
+            &lt;li key={item.href} className="core-navbar-item"&gt;
+              &lt;Link
+                href={item.href}
+                className={`core-navbar-link ${
+                  activeItem === item.href ? 'active' : ''
+                }`}
+                onClick={() => setActiveItem(item.href)}
+              &gt;
+                {item.label}
+                {item.dropdown && (
+                  &lt;svg width="12" height="12"&gt;
+                    &lt;path d="M19 9l-7 7-7-7" /&gt;
+                  &lt;/svg&gt;
+                )}
+              &lt;/Link&gt;
+              
+              {item.dropdown && (
+                &lt;div className="core-navbar-dropdown"&gt;
+                  {item.dropdown.map((subItem) => (
+                    &lt;Link
+                      key={subItem.href}
+                      href={subItem.href}
+                      className="core-navbar-dropdown-item"
+                    &gt;
+                      {subItem.label}
+                    &lt;/Link&gt;
+                  ))}
+                &lt;/div&gt;
+              )}
+            &lt;/li&gt;
+          ))}
+        &lt;/ul&gt;
+        
+        &lt;div className="core-navbar-actions"&gt;
+          &lt;button className="core-button primary"&gt;Get Started&lt;/button&gt;
+        &lt;/div&gt;
+        
+        &lt;button
+          className={`core-navbar-toggle ${mobileMenuOpen ? 'active' : ''}`}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        &gt;
+          &lt;span&gt;&lt;/span&gt;
+          &lt;span&gt;&lt;/span&gt;
+          &lt;span&gt;&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-navbar</code></td>
+                        <td>Main navbar container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-navbar-container</code></td>
+                        <td>Inner container with max-width</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-navbar-brand</code></td>
+                        <td>Logo/brand area</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-navbar-menu</code></td>
+                        <td>Navigation menu list</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-navbar-item</code></td>
+                        <td>Menu item container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-navbar-link</code></td>
+                        <td>Navigation link</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-navbar-dropdown</code></td>
+                        <td>Dropdown menu container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-navbar-dropdown-item</code></td>
+                        <td>Dropdown menu item</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-navbar-actions</code></td>
+                        <td>Action buttons container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-navbar-toggle</code></td>
+                        <td>Mobile menu toggle</td>
+                    </tr>
+                    <tr>
+                        <td><code>.dark</code></td>
+                        <td>Dark theme variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.active</code></td>
+                        <td>Active state for links/menu</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 5: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Keyboard Navigation</h3>
+                <ul>
+                    <li>Tab through navigation items</li>
+                    <li>Enter to activate links</li>
+                    <li>Escape to close dropdowns</li>
+                    <li>Arrow keys for dropdown navigation</li>
+                </ul>
+                
+                <h3>Screen Reader Support</h3>
+                <ul>
+                    <li>Use semantic nav element</li>
+                    <li>aria-current for active page</li>
+                    <li>aria-expanded for dropdowns</li>
+                    <li>aria-label for mobile toggle</li>
+                </ul>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Keep navigation simple and clear</li>
+                    <li>Limit top-level items to 5-7</li>
+                    <li>Use descriptive link text</li>
+                    <li>Ensure mobile-friendly design</li>
+                    <li>Provide visual feedback for interactions</li>
+                </ul>
+                
+                <h3>Responsive Design</h3>
+                <ul>
+                    <li>Collapse to hamburger menu on mobile</li>
+                    <li>Touch-friendly tap targets (44x44px min)</li>
+                    <li>Smooth transitions</li>
+                    <li>Prevent horizontal scroll</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        // Toggle mobile menu
+        function toggleMobileMenu(button) {
+            button.classList.toggle('active');
+            const menu = button.parentElement.querySelector('.core-navbar-menu');
+            if (menu) {
+                menu.classList.toggle('active');
+            }
+        }
+    </script>
+</body>
+</html>

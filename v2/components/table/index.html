@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR TABLE-SPEZIFISCHE STYLES (Erweitert master.css api-table) */
+        .core-table-container {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+        
+        .core-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .core-table th {
+            background: var(--core-gray-800);
+            color: white;
+            padding: var(--spacing-md);
+            text-align: left;
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .core-table td {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--core-line);
+            color: var(--core-text);
+            font-size: var(--font-size-sm);
+        }
+        
+        .core-table tbody tr {
+            transition: background 0.2s ease;
+        }
+        
+        .core-table tbody tr:hover {
+            background: var(--core-gray-100);
+        }
+        
+        .core-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Striped Table */
+        .core-table.striped tbody tr:nth-child(even) {
+            background: var(--core-gray-100);
+        }
+        
+        /* Compact Table */
+        .core-table.compact th,
+        .core-table.compact td {
+            padding: var(--spacing-sm);
+        }
+        
+        /* Bordered Table */
+        .core-table.bordered {
+            border: 1px solid var(--core-line);
+        }
+        
+        .core-table.bordered th,
+        .core-table.bordered td {
+            border: 1px solid var(--core-line);
+        }
+        
+        /* Status Badges in Tables */
+        .table-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .table-badge.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--core-success);
+        }
+        
+        .table-badge.warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--core-warning);
+        }
+        
+        .table-badge.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--core-error);
+        }
+        
+        .table-badge.info {
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--core-primary);
+        }
+        
+        /* Table Actions */
+        .table-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .table-action {
+            background: none;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+            color: var(--core-grey);
+            transition: all 0.2s ease;
+            border-radius: var(--radius-sm);
+        }
+        
+        .table-action:hover {
+            background: var(--core-gray-100);
+            color: var(--core-primary);
+        }
+        
+        /* Sortable Headers */
+        .core-table th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .core-table th.sortable:hover {
+            background: var(--core-gray-700);
+        }
+        
+        .sort-icon {
+            display: inline-block;
+            margin-left: var(--spacing-xs);
+            width: 12px;
+            height: 12px;
+            opacity: 0.5;
+        }
+        
+        .core-table th.sortable.asc .sort-icon,
+        .core-table th.sortable.desc .sort-icon {
+            opacity: 1;
+        }
+        
+        /* Responsive Table */
+        @media (max-width: 768px) {
+            .core-table-container {
+                overflow-x: auto;
+            }
+            
+            .core-table {
+                min-width: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item active">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Table</h1>
+        <p>Professional data tables for property listings, client management, and analytics with sorting and filtering.</p>
+        
+        <!-- Section 1: Table Variants -->
+        <section class="section">
+            <h2 class="section-title">Table Variants</h2>
+            
+            <div class="component-card">
+                <h3>Standard Table</h3>
+                <div class="core-table-container">
+                    <table class="core-table">
+                        <thead>
+                            <tr>
+                                <th>Property ID</th>
+                                <th>Address</th>
+                                <th>Type</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#LYD001</td>
+                                <td>Kurfürstendamm 123, Berlin</td>
+                                <td>Apartment</td>
+                                <td>€850,000</td>
+                                <td><span class="table-badge success">Available</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="table-action">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </button>
+                                        <button class="table-action">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#LYD002</td>
+                                <td>Prenzlauer Berg 45, Berlin</td>
+                                <td>House</td>
+                                <td>€1,250,000</td>
+                                <td><span class="table-badge warning">Pending</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="table-action">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </button>
+                                        <button class="table-action">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#LYD003</td>
+                                <td>Charlottenburg 78, Berlin</td>
+                                <td>Villa</td>
+                                <td>€2,500,000</td>
+                                <td><span class="table-badge error">Sold</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="table-action">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Striped Table</h3>
+                <div class="core-table-container">
+                    <table class="core-table striped">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Interest</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Max Mustermann</td>
+                                <td>max@example.com</td>
+                                <td>+49 30 12345678</td>
+                                <td>Apartment, 2-3 Rooms</td>
+                            </tr>
+                            <tr>
+                                <td>Anna Schmidt</td>
+                                <td>anna@example.com</td>
+                                <td>+49 30 87654321</td>
+                                <td>House, Garden</td>
+                            </tr>
+                            <tr>
+                                <td>John Doe</td>
+                                <td>john@example.com</td>
+                                <td>+49 30 11223344</td>
+                                <td>Penthouse, City View</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Sortable Table</h3>
+                <div class="core-table-container">
+                    <table class="core-table" id="sortable-table">
+                        <thead>
+                            <tr>
+                                <th class="sortable" onclick="sortTable(0)">
+                                    Date
+                                    <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+                                    </svg>
+                                </th>
+                                <th class="sortable" onclick="sortTable(1)">
+                                    Property
+                                    <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+                                    </svg>
+                                </th>
+                                <th class="sortable" onclick="sortTable(2)">
+                                    Views
+                                    <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+                                    </svg>
+                                </th>
+                                <th class="sortable" onclick="sortTable(3)">
+                                    Inquiries
+                                    <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+                                    </svg>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2024-01-15</td>
+                                <td>Kurfürstendamm 123</td>
+                                <td>245</td>
+                                <td>12</td>
+                            </tr>
+                            <tr>
+                                <td>2024-01-14</td>
+                                <td>Prenzlauer Berg 45</td>
+                                <td>189</td>
+                                <td>8</td>
+                            </tr>
+                            <tr>
+                                <td>2024-01-13</td>
+                                <td>Charlottenburg 78</td>
+                                <td>312</td>
+                                <td>15</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Standard Table --&gt;
+&lt;div class="core-table-container"&gt;
+    &lt;table class="core-table"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Column 1&lt;/th&gt;
+                &lt;th&gt;Column 2&lt;/th&gt;
+                &lt;th&gt;Column 3&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;Data 1&lt;/td&gt;
+                &lt;td&gt;Data 2&lt;/td&gt;
+                &lt;td&gt;Data 3&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;!-- Table with Status Badge --&gt;
+&lt;td&gt;
+    &lt;span class="table-badge success"&gt;Active&lt;/span&gt;
+&lt;/td&gt;
+
+&lt;!-- Table with Actions --&gt;
+&lt;td&gt;
+    &lt;div class="table-actions"&gt;
+        &lt;button class="table-action"&gt;
+            &lt;svg&gt;...&lt;/svg&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/td&gt;</pre>
+                </div>
+                
+                <h3>JavaScript for Sorting</h3>
+                <div class="code-block">
+                    <pre>function sortTable(columnIndex) {
+    const table = document.getElementById('sortable-table');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const header = table.querySelectorAll('th')[columnIndex];
+    
+    // Toggle sort direction
+    const isAsc = header.classList.contains('asc');
+    
+    // Remove all sort classes
+    table.querySelectorAll('th').forEach(th => {
+        th.classList.remove('asc', 'desc');
+    });
+    
+    // Sort rows
+    rows.sort((a, b) => {
+        const aValue = a.cells[columnIndex].textContent;
+        const bValue = b.cells[columnIndex].textContent;
+        
+        // Check if numeric
+        const aNum = parseFloat(aValue);
+        const bNum = parseFloat(bValue);
+        
+        if (!isNaN(aNum) && !isNaN(bNum)) {
+            return isAsc ? bNum - aNum : aNum - bNum;
+        }
+        
+        // String comparison
+        return isAsc ? 
+            bValue.localeCompare(aValue) : 
+            aValue.localeCompare(bValue);
+    });
+    
+    // Update header class
+    header.classList.add(isAsc ? 'desc' : 'asc');
+    
+    // Reorder rows
+    rows.forEach(row => tbody.appendChild(row));
+}</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Table.tsx
+import { useState } from 'react';
+
+interface Column {
+  key: string;
+  label: string;
+  sortable?: boolean;
+}
+
+interface TableProps {
+  columns: Column[];
+  data: any[];
+  striped?: boolean;
+  compact?: boolean;
+}
+
+export const Table = ({ columns, data, striped = false, compact = false }: TableProps) => {
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: 'asc' | 'desc';
+  } | null>(null);
+  
+  const handleSort = (key: string) => {
+    let direction: 'asc' | 'desc' = 'asc';
+    
+    if (sortConfig?.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    
+    setSortConfig({ key, direction });
+  };
+  
+  const sortedData = sortConfig
+    ? [...data].sort((a, b) => {
+        const aValue = a[sortConfig.key];
+        const bValue = b[sortConfig.key];
+        
+        if (aValue < bValue) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      })
+    : data;
+  
+  return (
+    &lt;div className="core-table-container"&gt;
+      &lt;table className={`core-table ${striped ? 'striped' : ''} ${compact ? 'compact' : ''}`}&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            {columns.map((column) => (
+              &lt;th
+                key={column.key}
+                className={column.sortable ? 'sortable' : ''}
+                onClick={() => column.sortable && handleSort(column.key)}
+              &gt;
+                {column.label}
+                {column.sortable && (
+                  &lt;svg className="sort-icon" viewBox="0 0 24 24"&gt;
+                    &lt;path d="M7 11l5-5m0 0l5 5m-5-5v12" /&gt;
+                  &lt;/svg&gt;
+                )}
+              &lt;/th&gt;
+            ))}
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          {sortedData.map((row, index) => (
+            &lt;tr key={index}&gt;
+              {columns.map((column) => (
+                &lt;td key={column.key}&gt;{row[column.key]}&lt;/td&gt;
+              ))}
+            &lt;/tr&gt;
+          ))}
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-table-container</code></td>
+                        <td>Container for responsive tables</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-table</code></td>
+                        <td>Base table class</td>
+                    </tr>
+                    <tr>
+                        <td><code>.striped</code></td>
+                        <td>Alternating row colors</td>
+                    </tr>
+                    <tr>
+                        <td><code>.compact</code></td>
+                        <td>Reduced padding variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.bordered</code></td>
+                        <td>Full border variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.sortable</code></td>
+                        <td>Sortable column header</td>
+                    </tr>
+                    <tr>
+                        <td><code>.table-badge</code></td>
+                        <td>Status badge in table cells</td>
+                    </tr>
+                    <tr>
+                        <td><code>.table-actions</code></td>
+                        <td>Action buttons container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.table-action</code></td>
+                        <td>Individual action button</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 4: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Accessibility Features</h3>
+                <ul>
+                    <li>Use semantic table elements</li>
+                    <li>Include table captions for context</li>
+                    <li>Provide scope attributes for headers</li>
+                    <li>Ensure keyboard navigation</li>
+                    <li>Add ARIA labels for actions</li>
+                </ul>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Keep tables simple and scannable</li>
+                    <li>Use consistent alignment</li>
+                    <li>Provide sorting and filtering</li>
+                    <li>Make tables responsive</li>
+                    <li>Use appropriate column widths</li>
+                    <li>Include hover states for rows</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        function sortTable(columnIndex) {
+            const table = document.getElementById('sortable-table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const header = table.querySelectorAll('th')[columnIndex];
+            
+            // Toggle sort direction
+            const isAsc = header.classList.contains('asc');
+            
+            // Remove all sort classes
+            table.querySelectorAll('th').forEach(th => {
+                th.classList.remove('asc', 'desc');
+            });
+            
+            // Sort rows
+            rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent;
+                const bValue = b.cells[columnIndex].textContent;
+                
+                // Check if numeric
+                const aNum = parseFloat(aValue);
+                const bNum = parseFloat(bValue);
+                
+                if (!isNaN(aNum) && !isNaN(bNum)) {
+                    return isAsc ? bNum - aNum : aNum - bNum;
+                }
+                
+                // String comparison
+                return isAsc ? 
+                    bValue.localeCompare(aValue) : 
+                    aValue.localeCompare(bValue);
+            });
+            
+            // Update header class
+            header.classList.add(isAsc ? 'desc' : 'asc');
+            
+            // Update icon rotation
+            const icon = header.querySelector('.sort-icon');
+            if (icon) {
+                icon.style.transform = isAsc ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+            
+            // Reorder rows
+            rows.forEach(row => tbody.appendChild(row));
+        }
+    </script>
+</body>
+</html>

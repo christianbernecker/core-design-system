@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR RADIO-SPEZIFISCHE STYLES */
+        .core-radio-group {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .core-radio-input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .core-radio {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 2px solid var(--core-line);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        
+        .core-radio-group:hover .core-radio {
+            border-color: var(--core-primary);
+        }
+        
+        .core-radio-input:checked ~ .core-radio {
+            border-color: var(--core-primary);
+        }
+        
+        .core-radio-input:checked ~ .core-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+        }
+        
+        .core-radio-label {
+            font-size: var(--font-size-base);
+            color: var(--core-text);
+            line-height: 1.5;
+        }
+        
+        .core-radio-description {
+            font-size: var(--font-size-sm);
+            color: var(--core-grey);
+            margin-top: var(--spacing-xs);
+        }
+        
+        /* States */
+        .core-radio-input:disabled ~ .core-radio {
+            background: var(--core-gray-100);
+            border-color: var(--core-gray-300);
+            cursor: not-allowed;
+        }
+        
+        .core-radio-input:disabled ~ .core-radio-label {
+            color: var(--core-gray-500);
+            cursor: not-allowed;
+        }
+        
+        .core-radio-group.error .core-radio {
+            border-color: var(--core-error);
+        }
+        
+        /* Sizes */
+        .core-radio-group.small .core-radio {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .core-radio-group.small .core-radio-input:checked ~ .core-radio::after {
+            width: 8px;
+            height: 8px;
+        }
+        
+        .core-radio-group.large .core-radio {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .core-radio-group.large .core-radio-input:checked ~ .core-radio::after {
+            width: 12px;
+            height: 12px;
+        }
+        
+        /* Radio Set Container */
+        .core-radio-set {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        .core-radio-set.horizontal {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item active">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Radio</h1>
+        <p>Professional radio button components for single-choice selections with smooth animations.</p>
+        
+        <!-- Section 1: Radio Variants -->
+        <section class="section">
+            <h2 class="section-title">Radio Variants</h2>
+            
+            <div class="component-card">
+                <h3>Standard Radio Group</h3>
+                <p>Basic radio button group</p>
+                
+                <div class="core-radio-set">
+                    <label class="core-radio-group">
+                        <input type="radio" name="property-type" class="core-radio-input" checked>
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Apartment</span>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="property-type" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">House</span>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="property-type" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Villa</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Radio with Description</h3>
+                <p>Radio buttons with additional helper text</p>
+                
+                <div class="core-radio-set">
+                    <label class="core-radio-group">
+                        <input type="radio" name="price-range" class="core-radio-input" checked>
+                        <span class="core-radio"></span>
+                        <div>
+                            <div class="core-radio-label">Budget</div>
+                            <div class="core-radio-description">Up to €500,000</div>
+                        </div>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="price-range" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <div>
+                            <div class="core-radio-label">Premium</div>
+                            <div class="core-radio-description">€500,000 - €1,000,000</div>
+                        </div>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="price-range" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <div>
+                            <div class="core-radio-label">Luxury</div>
+                            <div class="core-radio-description">Above €1,000,000</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Horizontal Radio Group</h3>
+                <p>Radio buttons in horizontal layout</p>
+                
+                <div class="core-radio-set horizontal">
+                    <label class="core-radio-group">
+                        <input type="radio" name="bedrooms" class="core-radio-input" checked>
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">1 Bedroom</span>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="bedrooms" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">2 Bedrooms</span>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="bedrooms" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">3+ Bedrooms</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Radio Sizes</h3>
+                <p>Different size variants</p>
+                
+                <div class="core-radio-set">
+                    <label class="core-radio-group small">
+                        <input type="radio" name="size" class="core-radio-input" checked>
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Small</span>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="size" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Default</span>
+                    </label>
+                    
+                    <label class="core-radio-group large">
+                        <input type="radio" name="size" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Large</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Radio States</h3>
+                <p>Different radio button states</p>
+                
+                <div class="core-radio-set">
+                    <label class="core-radio-group">
+                        <input type="radio" name="states" class="core-radio-input" checked>
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Selected</span>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="states" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Unselected</span>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="states-disabled" class="core-radio-input" disabled>
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Disabled</span>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="states-disabled" class="core-radio-input" checked disabled>
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Disabled Selected</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            
+            <div class="component-card">
+                <h3>Property Condition</h3>
+                
+                <div class="core-radio-set">
+                    <label class="core-radio-group">
+                        <input type="radio" name="condition" class="core-radio-input" checked>
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">New Construction</span>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="condition" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Recently Renovated</span>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="condition" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Good Condition</span>
+                    </label>
+                    
+                    <label class="core-radio-group">
+                        <input type="radio" name="condition" class="core-radio-input">
+                        <span class="core-radio"></span>
+                        <span class="core-radio-label">Needs Renovation</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Radio Group --&gt;
+&lt;div class="core-radio-set"&gt;
+    &lt;label class="core-radio-group"&gt;
+        &lt;input type="radio" name="group-name" class="core-radio-input"&gt;
+        &lt;span class="core-radio"&gt;&lt;/span&gt;
+        &lt;span class="core-radio-label"&gt;Option 1&lt;/span&gt;
+    &lt;/label&gt;
+    
+    &lt;label class="core-radio-group"&gt;
+        &lt;input type="radio" name="group-name" class="core-radio-input"&gt;
+        &lt;span class="core-radio"&gt;&lt;/span&gt;
+        &lt;span class="core-radio-label"&gt;Option 2&lt;/span&gt;
+    &lt;/label&gt;
+&lt;/div&gt;
+
+&lt;!-- Radio with Description --&gt;
+&lt;label class="core-radio-group"&gt;
+    &lt;input type="radio" name="group" class="core-radio-input"&gt;
+    &lt;span class="core-radio"&gt;&lt;/span&gt;
+    &lt;div&gt;
+        &lt;div class="core-radio-label"&gt;Main Label&lt;/div&gt;
+        &lt;div class="core-radio-description"&gt;Helper text&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/label&gt;</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/RadioGroup.tsx
+import { InputHTMLAttributes, forwardRef } from 'react';
+
+interface RadioOption {
+  value: string;
+  label: string;
+  description?: string;
+}
+
+interface RadioGroupProps {
+  name: string;
+  options: RadioOption[];
+  value?: string;
+  onChange?: (value: string) => void;
+  orientation?: 'vertical' | 'horizontal';
+  size?: 'small' | 'medium' | 'large';
+  disabled?: boolean;
+}
+
+export const RadioGroup = ({
+  name,
+  options,
+  value,
+  onChange,
+  orientation = 'vertical',
+  size = 'medium',
+  disabled = false
+}: RadioGroupProps) => {
+  return (
+    &lt;div className={`core-radio-set ${orientation === 'horizontal' ? 'horizontal' : ''}`}&gt;
+      {options.map((option) => (
+        &lt;label key={option.value} className={`core-radio-group ${size}`}&gt;
+          &lt;input
+            type="radio"
+            name={name}
+            value={option.value}
+            checked={value === option.value}
+            onChange={(e) => onChange?.(e.target.value)}
+            className="core-radio-input"
+            disabled={disabled}
+          /&gt;
+          &lt;span className="core-radio" /&gt;
+          {option.description ? (
+            &lt;div&gt;
+              &lt;div className="core-radio-label"&gt;{option.label}&lt;/div&gt;
+              &lt;div className="core-radio-description"&gt;{option.description}&lt;/div&gt;
+            &lt;/div&gt;
+          ) : (
+            &lt;span className="core-radio-label"&gt;{option.label}&lt;/span&gt;
+          )}
+        &lt;/label&gt;
+      ))}
+    &lt;/div&gt;
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-radio-set</code></td>
+                        <td>Container for radio button group</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-radio-group</code></td>
+                        <td>Container for radio and label</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-radio-input</code></td>
+                        <td>Hidden native radio input</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-radio</code></td>
+                        <td>Custom radio visual</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-radio-label</code></td>
+                        <td>Radio label text</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-radio-description</code></td>
+                        <td>Helper text below label</td>
+                    </tr>
+                    <tr>
+                        <td><code>.horizontal</code></td>
+                        <td>Horizontal layout for radio set</td>
+                    </tr>
+                    <tr>
+                        <td><code>.small</code></td>
+                        <td>Small size variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.large</code></td>
+                        <td>Large size variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.error</code></td>
+                        <td>Error state styling</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 5: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Keyboard Navigation</h3>
+                <ul>
+                    <li>Arrow keys to navigate between options</li>
+                    <li>Space to select option</li>
+                    <li>Tab to move to next element</li>
+                </ul>
+                
+                <h3>Screen Reader Support</h3>
+                <ul>
+                    <li>Use semantic radio inputs</li>
+                    <li>Group with fieldset and legend</li>
+                    <li>Provide clear, descriptive labels</li>
+                    <li>Announce selected state</li>
+                </ul>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Always provide a default selection</li>
+                    <li>Use consistent naming for groups</li>
+                    <li>Keep options concise</li>
+                    <li>Limit to 5-7 options</li>
+                    <li>Consider dropdown for many options</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

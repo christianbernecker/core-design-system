@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR PAGINATION-SPEZIFISCHE STYLES */
+        .core-pagination {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .core-pagination-item {
+            min-width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 12px;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--core-text);
+            background: white;
+            border: 1px solid var(--core-line);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .core-pagination-item:hover {
+            background: var(--core-gray-100);
+            border-color: var(--core-primary);
+        }
+        
+        .core-pagination-item.active {
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .core-pagination-item:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .core-pagination-item:disabled:hover {
+            background: white;
+            border-color: var(--core-line);
+        }
+        
+        .core-pagination-ellipsis {
+            min-width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--core-grey);
+            pointer-events: none;
+        }
+        
+        /* Pagination Sizes */
+        .core-pagination.small .core-pagination-item {
+            min-width: 32px;
+            height: 32px;
+            font-size: var(--font-size-xs);
+        }
+        
+        .core-pagination.large .core-pagination-item {
+            min-width: 48px;
+            height: 48px;
+            font-size: var(--font-size-base);
+        }
+        
+        /* Pagination with Info */
+        .core-pagination-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+        
+        .core-pagination-info {
+            font-size: var(--font-size-sm);
+            color: var(--core-grey);
+        }
+        
+        /* Simple Pagination */
+        .core-pagination-simple {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .core-pagination-simple-text {
+            font-size: var(--font-size-sm);
+            color: var(--core-text);
+        }
+        
+        /* Mini Pagination */
+        .core-pagination-mini {
+            display: inline-flex;
+            align-items: center;
+            background: white;
+            border: 1px solid var(--core-line);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        
+        .core-pagination-mini button {
+            padding: 8px 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--core-text);
+            transition: all 0.2s ease;
+        }
+        
+        .core-pagination-mini button:hover:not(:disabled) {
+            background: var(--core-gray-100);
+        }
+        
+        .core-pagination-mini button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .core-pagination-mini-text {
+            padding: 8px 16px;
+            font-size: var(--font-size-sm);
+            color: var(--core-text);
+            border-left: 1px solid var(--core-line);
+            border-right: 1px solid var(--core-line);
+        }
+        
+        /* Load More Style */
+        .core-pagination-loadmore {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .core-pagination-loadmore-btn {
+            padding: 12px 32px;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--core-primary);
+            background: white;
+            border: 2px solid var(--core-primary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .core-pagination-loadmore-btn:hover {
+            background: var(--core-primary);
+            color: white;
+        }
+        
+        .core-pagination-loadmore-text {
+            font-size: var(--font-size-sm);
+            color: var(--core-grey);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item active">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Pagination</h1>
+        <p>Navigate through pages of property listings, search results, and data tables.</p>
+        
+        <!-- Section 1: Standard Pagination -->
+        <section class="section">
+            <h2 class="section-title">Standard Pagination</h2>
+            
+            <div class="component-card">
+                <h3>Default Pagination</h3>
+                <div class="core-pagination">
+                    <button class="core-pagination-item" disabled>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button class="core-pagination-item">1</button>
+                    <button class="core-pagination-item">2</button>
+                    <button class="core-pagination-item active">3</button>
+                    <button class="core-pagination-item">4</button>
+                    <button class="core-pagination-item">5</button>
+                    <button class="core-pagination-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>With Ellipsis</h3>
+                <div class="core-pagination">
+                    <button class="core-pagination-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button class="core-pagination-item">1</button>
+                    <span class="core-pagination-ellipsis">...</span>
+                    <button class="core-pagination-item">5</button>
+                    <button class="core-pagination-item">6</button>
+                    <button class="core-pagination-item active">7</button>
+                    <button class="core-pagination-item">8</button>
+                    <button class="core-pagination-item">9</button>
+                    <span class="core-pagination-ellipsis">...</span>
+                    <button class="core-pagination-item">20</button>
+                    <button class="core-pagination-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Size Variants</h3>
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div class="core-pagination small">
+                        <button class="core-pagination-item">1</button>
+                        <button class="core-pagination-item active">2</button>
+                        <button class="core-pagination-item">3</button>
+                    </div>
+                    
+                    <div class="core-pagination">
+                        <button class="core-pagination-item">1</button>
+                        <button class="core-pagination-item active">2</button>
+                        <button class="core-pagination-item">3</button>
+                    </div>
+                    
+                    <div class="core-pagination large">
+                        <button class="core-pagination-item">1</button>
+                        <button class="core-pagination-item active">2</button>
+                        <button class="core-pagination-item">3</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 2: Pagination with Info -->
+        <section class="section">
+            <h2 class="section-title">Pagination with Info</h2>
+            
+            <div class="component-card">
+                <h3>Property Listings</h3>
+                <div class="core-pagination-wrapper">
+                    <div class="core-pagination-info">
+                        Showing 21-30 of 157 properties
+                    </div>
+                    <div class="core-pagination">
+                        <button class="core-pagination-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button class="core-pagination-item">1</button>
+                        <button class="core-pagination-item">2</button>
+                        <button class="core-pagination-item active">3</button>
+                        <button class="core-pagination-item">4</button>
+                        <button class="core-pagination-item">5</button>
+                        <button class="core-pagination-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Alternative Styles -->
+        <section class="section">
+            <h2 class="section-title">Alternative Styles</h2>
+            
+            <div class="component-card">
+                <h3>Simple Pagination</h3>
+                <div class="core-pagination-simple">
+                    <button class="core-pagination-item">Previous</button>
+                    <span class="core-pagination-simple-text">Page 3 of 16</span>
+                    <button class="core-pagination-item">Next</button>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Mini Pagination</h3>
+                <div class="core-pagination-mini">
+                    <button>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <span class="core-pagination-mini-text">3 / 16</span>
+                    <button>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="component-card">
+                <h3>Load More</h3>
+                <div class="core-pagination-loadmore">
+                    <button class="core-pagination-loadmore-btn">Load More Properties</button>
+                    <span class="core-pagination-loadmore-text">Showing 20 of 157 properties</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Standard Pagination --&gt;
+&lt;div class="core-pagination"&gt;
+    &lt;button class="core-pagination-item" disabled&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;button class="core-pagination-item"&gt;1&lt;/button&gt;
+    &lt;button class="core-pagination-item active"&gt;2&lt;/button&gt;
+    &lt;button class="core-pagination-item"&gt;3&lt;/button&gt;
+    &lt;span class="core-pagination-ellipsis"&gt;...&lt;/span&gt;
+    &lt;button class="core-pagination-item"&gt;10&lt;/button&gt;
+    &lt;button class="core-pagination-item"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+    &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- With Info --&gt;
+&lt;div class="core-pagination-wrapper"&gt;
+    &lt;div class="core-pagination-info"&gt;
+        Showing 1-10 of 100 results
+    &lt;/div&gt;
+    &lt;div class="core-pagination"&gt;
+        &lt;!-- Pagination items --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Pagination.tsx
+interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  showInfo?: boolean;
+  totalItems?: number;
+  itemsPerPage?: number;
+  size?: 'small' | 'medium' | 'large';
+}
+
+export const Pagination = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+  showInfo = false,
+  totalItems = 0,
+  itemsPerPage = 10,
+  size = 'medium'
+}: PaginationProps) => {
+  const getPageNumbers = () => {
+    const pages = [];
+    const showEllipsis = totalPages > 7;
+    
+    if (!showEllipsis) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 4) {
+        for (let i = 1; i <= 5; i++) pages.push(i);
+        pages.push('...');
+        pages.push(totalPages);
+      } else if (currentPage >= totalPages - 3) {
+        pages.push(1);
+        pages.push('...');
+        for (let i = totalPages - 4; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        pages.push('...');
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
+        pages.push('...');
+        pages.push(totalPages);
+      }
+    }
+    
+    return pages;
+  };
+  
+  const startItem = (currentPage - 1) * itemsPerPage + 1;
+  const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+  
+  return (
+    &lt;div className="core-pagination-wrapper"&gt;
+      {showInfo && (
+        &lt;div className="core-pagination-info"&gt;
+          Showing {startItem}-{endItem} of {totalItems} results
+        &lt;/div&gt;
+      )}
+      
+      &lt;div className={`core-pagination ${size}`}&gt;
+        &lt;button
+          className="core-pagination-item"
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        &gt;
+          &lt;svg width="16" height="16" viewBox="0 0 24 24"&gt;
+            &lt;path d="M15 19l-7-7 7-7" /&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
+        
+        {getPageNumbers().map((page, index) => (
+          page === '...' ? (
+            &lt;span key={index} className="core-pagination-ellipsis"&gt;...&lt;/span&gt;
+          ) : (
+            &lt;button
+              key={index}
+              className={`core-pagination-item ${page === currentPage ? 'active' : ''}`}
+              onClick={() => onPageChange(page as number)}
+            &gt;
+              {page}
+            &lt;/button&gt;
+          )
+        ))}
+        
+        &lt;button
+          className="core-pagination-item"
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        &gt;
+          &lt;svg width="16" height="16" viewBox="0 0 24 24"&gt;
+            &lt;path d="M9 5l7 7-7 7" /&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 5: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-pagination</code></td>
+                        <td>Pagination container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-pagination-item</code></td>
+                        <td>Individual page button</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-pagination-ellipsis</code></td>
+                        <td>Ellipsis separator</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-pagination-wrapper</code></td>
+                        <td>Container with info</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-pagination-info</code></td>
+                        <td>Results info text</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-pagination-simple</code></td>
+                        <td>Simple pagination style</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-pagination-mini</code></td>
+                        <td>Compact pagination</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-pagination-loadmore</code></td>
+                        <td>Load more container</td>
+                    </tr>
+                    <tr>
+                        <td><code>.active</code></td>
+                        <td>Current page indicator</td>
+                    </tr>
+                    <tr>
+                        <td><code>.small, .large</code></td>
+                        <td>Size variants</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

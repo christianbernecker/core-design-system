@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox - CORE Design System V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ZENTRALES CSS SYSTEM -->
+    <link rel="stylesheet" href="/shared/master.css">
+    
+    <style>
+        /* NUR CHECKBOX-SPEZIFISCHE STYLES */
+        .core-checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .core-checkbox-input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .core-checkbox {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 2px solid var(--core-line);
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        
+        .core-checkbox-group:hover .core-checkbox {
+            border-color: var(--core-primary);
+        }
+        
+        .core-checkbox-input:checked ~ .core-checkbox {
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            border-color: var(--core-primary);
+        }
+        
+        .core-checkbox-checkmark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 12px;
+            height: 12px;
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+        
+        .core-checkbox-input:checked ~ .core-checkbox .core-checkbox-checkmark {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(0.75);
+        }
+        
+        .core-checkbox-label {
+            font-size: var(--font-size-base);
+            color: var(--core-text);
+            line-height: 1.5;
+        }
+        
+        .core-checkbox-description {
+            font-size: var(--font-size-sm);
+            color: var(--core-grey);
+            margin-top: var(--spacing-xs);
+        }
+        
+        /* States */
+        .core-checkbox-input:disabled ~ .core-checkbox {
+            background: var(--core-gray-100);
+            border-color: var(--core-gray-300);
+            cursor: not-allowed;
+        }
+        
+        .core-checkbox-input:disabled ~ .core-checkbox-label {
+            color: var(--core-gray-500);
+            cursor: not-allowed;
+        }
+        
+        .core-checkbox-group.error .core-checkbox {
+            border-color: var(--core-error);
+        }
+        
+        /* Indeterminate State */
+        .core-checkbox-input:indeterminate ~ .core-checkbox {
+            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            border-color: var(--core-primary);
+        }
+        
+        .core-checkbox-input:indeterminate ~ .core-checkbox .core-checkbox-indeterminate {
+            opacity: 1;
+        }
+        
+        .core-checkbox-indeterminate {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 2px;
+            background: white;
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+        
+        /* Variants */
+        .core-checkbox-group.large .core-checkbox {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .core-checkbox-group.small .core-checkbox {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .core-checkbox-group.switch .core-checkbox {
+            width: 44px;
+            height: 24px;
+            border-radius: var(--radius-full);
+        }
+        
+        .core-checkbox-group.switch .core-checkbox::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .core-checkbox-group.switch .core-checkbox-input:checked ~ .core-checkbox::after {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="/shared/core-logo.svg" alt="CORE" class="core-logo" />            <div class="logo-subtitle">Design System V2</div>
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Design Principles</div>
+                <a href="/design-principles/overview/" class="nav-item">Overview</a>
+                <a href="/design-principles/colors/" class="nav-item">Colors</a>
+                <a href="/design-principles/typography/" class="nav-item">Typography</a>
+                <a href="/design-principles/grid/" class="nav-item">Grid</a>
+                <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Implementation Guide</div>
+                <a href="/implementation/overview/" class="nav-item">Overview</a>
+                <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
+                <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="/components/overview/" class="nav-item">Overview</a>
+                <a href="/components/buttons/" class="nav-item">Button</a>
+                <a href="/components/inputs/" class="nav-item">Input</a>
+                <a href="/components/cards/" class="nav-item">Card</a>
+                <a href="/components/select/" class="nav-item">Select</a>
+                <a href="/components/accordion/" class="nav-item">Accordion</a>
+                <a href="/components/modal/" class="nav-item">Modal</a>
+                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
+                <a href="/components/checkbox/" class="nav-item active">Checkbox</a>
+                <a href="/components/radio/" class="nav-item">Radio</a>
+                <a href="/components/toast/" class="nav-item">Toast</a>
+                <a href="/components/table/" class="nav-item">Table</a>
+                <a href="/components/textarea/" class="nav-item">Textarea</a>
+                <a href="/components/switch/" class="nav-item">Switch</a>
+                <a href="/components/slider/" class="nav-item">Slider</a>
+                <a href="/components/alert/" class="nav-item">Alert</a>
+                <a href="/components/badge/" class="nav-item">Badge</a>
+                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
+                <a href="/components/avatar/" class="nav-item">Avatar</a>
+                <a href="/components/navbar/" class="nav-item">Navbar</a>
+                <a href="/components/tabs/" class="nav-item">Tabs</a>
+                <a href="/components/progress/" class="nav-item">Progress</a>
+                <a href="/components/calendar/" class="nav-item">Calendar</a>
+                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
+                <a href="/components/pagination/" class="nav-item">Pagination</a>
+                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
+                <a href="/components/spinner/" class="nav-item">Spinner</a>
+                </div>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+        <h1>Checkbox</h1>
+        <p>Professional checkbox components for forms and settings with smooth animations and multiple states.</p>
+        
+        <!-- Section 1: Checkbox Variants -->
+        <section class="section">
+            <h2 class="section-title">Checkbox Variants</h2>
+            
+            <div class="component-card">
+                <h3>Standard Checkbox</h3>
+                <p>Basic checkbox with label</p>
+                
+                <label class="core-checkbox-group">
+                    <input type="checkbox" class="core-checkbox-input" checked>
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="core-checkbox-label">I agree to the terms and conditions</span>
+                </label>
+                
+                <label class="core-checkbox-group">
+                    <input type="checkbox" class="core-checkbox-input">
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="core-checkbox-label">Subscribe to newsletter</span>
+                </label>
+            </div>
+            
+            <div class="component-card">
+                <h3>Checkbox with Description</h3>
+                <p>Checkbox with additional helper text</p>
+                
+                <label class="core-checkbox-group">
+                    <input type="checkbox" class="core-checkbox-input" checked>
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <div>
+                        <div class="core-checkbox-label">Email notifications</div>
+                        <div class="core-checkbox-description">Receive updates about new properties matching your criteria</div>
+                    </div>
+                </label>
+                
+                <label class="core-checkbox-group">
+                    <input type="checkbox" class="core-checkbox-input">
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <div>
+                        <div class="core-checkbox-label">SMS alerts</div>
+                        <div class="core-checkbox-description">Get instant notifications for urgent property matters</div>
+                    </div>
+                </label>
+            </div>
+            
+            <div class="component-card">
+                <h3>Checkbox States</h3>
+                <p>Different checkbox states</p>
+                
+                <label class="core-checkbox-group">
+                    <input type="checkbox" class="core-checkbox-input" checked>
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="core-checkbox-label">Checked</span>
+                </label>
+                
+                <label class="core-checkbox-group">
+                    <input type="checkbox" class="core-checkbox-input">
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="core-checkbox-label">Unchecked</span>
+                </label>
+                
+                <label class="core-checkbox-group">
+                    <input type="checkbox" class="core-checkbox-input" id="indeterminate">
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="core-checkbox-indeterminate"></span>
+                    </span>
+                    <span class="core-checkbox-label">Indeterminate</span>
+                </label>
+                
+                <label class="core-checkbox-group">
+                    <input type="checkbox" class="core-checkbox-input" disabled>
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="core-checkbox-label">Disabled</span>
+                </label>
+                
+                <label class="core-checkbox-group">
+                    <input type="checkbox" class="core-checkbox-input" checked disabled>
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="core-checkbox-label">Disabled Checked</span>
+                </label>
+            </div>
+            
+            <div class="component-card">
+                <h3>Checkbox Sizes</h3>
+                <p>Different size variants</p>
+                
+                <label class="core-checkbox-group small">
+                    <input type="checkbox" class="core-checkbox-input" checked>
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="core-checkbox-label">Small</span>
+                </label>
+                
+                <label class="core-checkbox-group">
+                    <input type="checkbox" class="core-checkbox-input" checked>
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="core-checkbox-label">Default</span>
+                </label>
+                
+                <label class="core-checkbox-group large">
+                    <input type="checkbox" class="core-checkbox-input" checked>
+                    <span class="core-checkbox">
+                        <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="core-checkbox-label">Large</span>
+                </label>
+            </div>
+        </section>
+        
+        <!-- Section 2: Real Estate Use Cases -->
+        <section class="section">
+            <h2 class="section-title">Real Estate Use Cases</h2>
+            
+            <div class="component-card">
+                <h3>Property Features</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                    <label class="core-checkbox-group">
+                        <input type="checkbox" class="core-checkbox-input" checked>
+                        <span class="core-checkbox">
+                            <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                        <span class="core-checkbox-label">Parking</span>
+                    </label>
+                    
+                    <label class="core-checkbox-group">
+                        <input type="checkbox" class="core-checkbox-input" checked>
+                        <span class="core-checkbox">
+                            <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                        <span class="core-checkbox-label">Balcony</span>
+                    </label>
+                    
+                    <label class="core-checkbox-group">
+                        <input type="checkbox" class="core-checkbox-input">
+                        <span class="core-checkbox">
+                            <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                        <span class="core-checkbox-label">Garden</span>
+                    </label>
+                    
+                    <label class="core-checkbox-group">
+                        <input type="checkbox" class="core-checkbox-input" checked>
+                        <span class="core-checkbox">
+                            <svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                        <span class="core-checkbox-label">Elevator</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Implementation Guide -->
+        <section class="section">
+            <h2 class="section-title">Implementation Guide</h2>
+            
+            <div class="implementation-section">
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+                    <pre>&lt;!-- Standard Checkbox --&gt;
+&lt;label class="core-checkbox-group"&gt;
+    &lt;input type="checkbox" class="core-checkbox-input"&gt;
+    &lt;span class="core-checkbox"&gt;
+        &lt;svg class="core-checkbox-checkmark" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"&gt;
+            &lt;path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" /&gt;
+        &lt;/svg&gt;
+    &lt;/span&gt;
+    &lt;span class="core-checkbox-label"&gt;Checkbox Label&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Checkbox with Description --&gt;
+&lt;label class="core-checkbox-group"&gt;
+    &lt;input type="checkbox" class="core-checkbox-input"&gt;
+    &lt;span class="core-checkbox"&gt;
+        &lt;svg class="core-checkbox-checkmark"&gt;...&lt;/svg&gt;
+    &lt;/span&gt;
+    &lt;div&gt;
+        &lt;div class="core-checkbox-label"&gt;Main Label&lt;/div&gt;
+        &lt;div class="core-checkbox-description"&gt;Helper text&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/label&gt;</pre>
+                </div>
+                
+                <h3>JavaScript for Indeterminate State</h3>
+                <div class="code-block">
+                    <pre>// Set indeterminate state
+const checkbox = document.getElementById('indeterminate');
+checkbox.indeterminate = true;
+
+// Handle checkbox group (parent-children relationship)
+function updateParentCheckbox(parentId, childrenSelector) {
+    const parent = document.getElementById(parentId);
+    const children = document.querySelectorAll(childrenSelector);
+    
+    const checkedCount = Array.from(children).filter(c => c.checked).length;
+    
+    if (checkedCount === 0) {
+        parent.checked = false;
+        parent.indeterminate = false;
+    } else if (checkedCount === children.length) {
+        parent.checked = true;
+        parent.indeterminate = false;
+    } else {
+        parent.checked = false;
+        parent.indeterminate = true;
+    }
+}</pre>
+                </div>
+                
+                <h3>React/Next.js Component</h3>
+                <div class="code-block">
+                    <pre>// components/Checkbox.tsx
+import { InputHTMLAttributes, forwardRef } from 'react';
+
+interface CheckboxProps extends Omit&lt;InputHTMLAttributes&lt;HTMLInputElement&gt;, 'type'&gt; {
+  label?: string;
+  description?: string;
+  size?: 'small' | 'medium' | 'large';
+  error?: boolean;
+}
+
+export const Checkbox = forwardRef&lt;HTMLInputElement, CheckboxProps&gt;(({
+  label,
+  description,
+  size = 'medium',
+  error = false,
+  className = '',
+  ...props
+}, ref) => {
+  return (
+    &lt;label className={`core-checkbox-group ${size} ${error ? 'error' : ''} ${className}`}&gt;
+      &lt;input
+        ref={ref}
+        type="checkbox"
+        className="core-checkbox-input"
+        {...props}
+      /&gt;
+      &lt;span className="core-checkbox"&gt;
+        &lt;svg className="core-checkbox-checkmark" viewBox="0 0 24 24"&gt;
+          &lt;path d="M20 6L9 17l-5-5" /&gt;
+        &lt;/svg&gt;
+        {props.indeterminate && &lt;span className="core-checkbox-indeterminate" /&gt;}
+      &lt;/span&gt;
+      {(label || description) && (
+        &lt;div&gt;
+          {label && &lt;div className="core-checkbox-label"&gt;{label}&lt;/div&gt;}
+          {description && &lt;div className="core-checkbox-description"&gt;{description}&lt;/div&gt;}
+        &lt;/div&gt;
+      )}
+    &lt;/label&gt;
+  );
+});</pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: API Reference -->
+        <section class="section">
+            <h2 class="section-title">API Reference</h2>
+            
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.core-checkbox-group</code></td>
+                        <td>Container for checkbox and label</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-checkbox-input</code></td>
+                        <td>Hidden native checkbox input</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-checkbox</code></td>
+                        <td>Custom checkbox visual</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-checkbox-checkmark</code></td>
+                        <td>Checkmark icon</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-checkbox-label</code></td>
+                        <td>Checkbox label text</td>
+                    </tr>
+                    <tr>
+                        <td><code>.core-checkbox-description</code></td>
+                        <td>Helper text below label</td>
+                    </tr>
+                    <tr>
+                        <td><code>.small</code></td>
+                        <td>Small size variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.large</code></td>
+                        <td>Large size variant</td>
+                    </tr>
+                    <tr>
+                        <td><code>.error</code></td>
+                        <td>Error state styling</td>
+                    </tr>
+                    <tr>
+                        <td><code>.switch</code></td>
+                        <td>Switch-style checkbox</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 5: Accessibility -->
+        <section class="section">
+            <h2 class="section-title">Accessibility & Best Practices</h2>
+            
+            <div class="component-card">
+                <h3>Keyboard Navigation</h3>
+                <ul>
+                    <li>Space to toggle checkbox</li>
+                    <li>Tab to navigate between checkboxes</li>
+                    <li>Enter in forms to submit</li>
+                </ul>
+                
+                <h3>Screen Reader Support</h3>
+                <ul>
+                    <li>Use semantic label elements</li>
+                    <li>Provide clear, descriptive labels</li>
+                    <li>Announce state changes</li>
+                    <li>Group related checkboxes with fieldset</li>
+                </ul>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Always provide a label</li>
+                    <li>Make click target include label</li>
+                    <li>Use clear, actionable text</li>
+                    <li>Group related options</li>
+                    <li>Provide visual feedback on interaction</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        // Set indeterminate state for demo
+        document.getElementById('indeterminate').indeterminate = true;
+    </script>
+</body>
+</html>
