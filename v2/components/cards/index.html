@@ -115,48 +115,6 @@
             flex: 1;
         }
         
-        /* Property Card Specific */
-        .property-badge {
-            position: absolute;
-            top: var(--spacing-md);
-            right: var(--spacing-md);
-            background: var(--core-primary);
-            color: white;
-            padding: 4px 12px;
-            border-radius: var(--radius-full);
-            font-size: var(--font-size-xs);
-            font-weight: var(--font-weight-semibold);
-        }
-        
-        .property-features {
-            display: flex;
-            gap: var(--spacing-md);
-            margin: var(--spacing-md) 0;
-        }
-        
-        .property-feature {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-            font-size: var(--font-size-sm);
-            color: var(--core-grey);
-        }
-        
-        .property-tags {
-            display: flex;
-            gap: var(--spacing-sm);
-            flex-wrap: wrap;
-            margin: var(--spacing-md) 0;
-        }
-        
-        .property-tag {
-            padding: 4px 8px;
-            background: var(--core-gray-100);
-            border-radius: var(--radius-sm);
-            font-size: var(--font-size-xs);
-            color: var(--core-grey);
-        }
-    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -345,67 +303,7 @@
                 </div>
             </div>
         </section>
-        
-        <!-- Section 3: Real Estate Use Cases -->
-        <section class="section">
-            <h2 class="section-title">Real Estate Use Cases</h2>
-            
-            <div class="component-card">
-                <h3>Property Card</h3>
-                
-                <div class="core-card clickable">
-                    <span class="property-badge">New</span>
-                    <div class="core-card-image" style="background: var(--core-gradient-primary); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: var(--font-size-xl); font-weight: var(--font-weight-bold);">
-                        🏠 Property Image
-                    </div>
-                    <div class="core-card-header">
-                        <h3 class="core-card-title">€850,000</h3>
-                    </div>
-                    <div class="core-card-body">
-                        <div class="property-features">
-                            <span class="property-feature">3 Bed</span>
-                            <span>•</span>
-                            <span class="property-feature">2 Bath</span>
-                            <span>•</span>
-                            <span class="property-feature">150m²</span>
-                        </div>
-                        <p>Modern apartment in city center with panoramic views.</p>
-                        <div class="property-tags">
-                            <span class="property-tag">Parking</span>
-                            <span class="property-tag">Balcony</span>
-                            <span class="property-tag">Elevator</span>
-                        </div>
-                    </div>
-                    <div class="core-card-footer">
-                        <button class="core-button outline small">Save</button>
-                        <button class="core-button primary small">View Details</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="component-card">
-                <h3>Agent Card</h3>
-                
-                <div class="core-card">
-                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-                        <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);"></div>
-                        <div>
-                            <h3 class="core-card-title" style="margin: 0;">John Smith</h3>
-                            <div class="core-card-subtitle">Senior Real Estate Agent</div>
-                        </div>
-                    </div>
-                    <div class="core-card-body">
-                        <p>15+ years experience • 200+ properties sold</p>
-                    </div>
-                    <div class="core-card-footer">
-                        <button class="core-button secondary">Contact</button>
-                        <button class="core-button primary">View Profile</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Section 4: Implementation Guide -->
+<!-- Section 4: Implementation Guide -->
         <section class="section">
             <h2 class="section-title">Implementation Guide</h2>
             

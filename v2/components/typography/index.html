@@ -217,50 +217,6 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
-        /* Real Estate Specific Styles */
-        .price-display {
-            font-size: var(--font-size-4xl);
-            font-weight: 800;
-            color: var(--core-deep-blue);
-            line-height: var(--line-height-tight);
-        }
-        
-        .price-currency {
-            font-size: var(--font-size-2xl);
-            font-weight: 600;
-            color: var(--core-royal-blue);
-        }
-        
-        .property-title {
-            font-size: var(--font-size-2xl);
-            font-weight: 700;
-            color: var(--core-text);
-            line-height: var(--line-height-tight);
-            margin-bottom: var(--spacing-sm);
-        }
-        
-        .property-subtitle {
-            font-size: var(--font-size-lg);
-            color: var(--core-grey);
-            font-weight: 400;
-            line-height: var(--line-height-normal);
-        }
-        
-        .feature-list {
-            font-size: var(--font-size-base);
-            line-height: var(--line-height-relaxed);
-            color: var(--core-text);
-            padding-left: var(--spacing-lg);
-        }
-        
-        .feature-list li {
-            margin-bottom: var(--spacing-xs);
-            padding-left: var(--spacing-sm);
-        }
-        
-        .feature-list li::marker {
-            color: var(--core-royal-blue);
-        }
         
         /* Code Block */
         .code-block {
@@ -474,7 +430,6 @@
         <div class="nav-section">
             <div class="nav-section-title">Patterns</div>
             <a href="/patterns/" class="nav-item">Introduction</a>
-            <a href="/patterns/property-cards/" class="nav-item">Property Cards</a>
             <a href="/patterns/header/" class="nav-item">Header</a>
             <a href="/patterns/footer/" class="nav-item">Footer</a>
             <a href="/patterns/forms/" class="nav-item">Forms</a>
@@ -487,7 +442,7 @@
         <!-- Page Header -->
         <div class="page-header">
             <h1 class="page-title">Typography</h1>
-            <p class="page-subtitle">Professional typography system based on CORE CI guidelines with optimized hierarchies for real estate content and digital experiences.</p>
+            <p class="page-subtitle">Professional typography system based on CORE CI guidelines with optimized hierarchies for digital experiences.</p>
         </div>
         
         <!-- Section 1: Typography Scale -->
@@ -513,7 +468,7 @@
                     <div class="typography-demo">
                         <h1 class="headline-h1">Management Summary</h1>
                         <h2 class="headline-h2">Geschaeftsmodell & Value Proposition</h2>
-                        <p class="body-text">Wir durchbrechen das traditionelle erfolgsabhaengige Provisionsmodell mit einem Festpreis‑Service fuer Real Estateverkaeufer.</p>
+                        <p class="body-text">Wir durchbrechen das traditionelle erfolgsabhaengige Provisionsmodell mit einem Festpreis‑Service fuer Verkaeufer.</p>
                     </div>
                 </div>
                 
@@ -596,65 +551,6 @@
             </div>
         </section>
         
-        <!-- Section 2: Real Estate Typography -->
-        <section class="section">
-            <h2 class="section-title">Real Estate Typography</h2>
-            
-            <div class="examples-grid">
-                <!-- Property Pricing -->
-                <div class="example-item">
-                    <h3 class="example-title">Property Pricing Display</h3>
-                    <p class="example-description">Optimierte Darstellung von Real Estatepreisen mit klarer Hierarchie</p>
-                    <div class="example-demo">
-                        <div class="price-display">
-                            850.000 <span class="price-currency">€</span>
-                        </div>
-                        <p class="body-small" style="margin-top: 8px;">zzgl. Nebenkosten • Energieausweis: B</p>
-                    </div>
-                </div>
-                
-                <!-- Property Titles -->
-                <div class="example-item">
-                    <h3 class="example-title">Property Titles & Descriptions</h3>
-                    <p class="example-description">Strukturierte Darstellung von Real Estatetiteln und -beschreibungen</p>
-                    <div class="example-demo">
-                        <h2 class="property-title">Exklusive 4-Zimmer-Apartment in Muenchen-Schwabing</h2>
-                        <p class="property-subtitle">Neubau • 120 m² • Balkon • Tiefgarage</p>
-                        <p class="body-text" style="margin-top: 16px;">Hochwertige Ausstattung mit Parkett, Fussbodenheizung und modernem Badezimmer. Ruhige Lage mit optimaler Verkehrsanbindung.</p>
-                    </div>
-                </div>
-                
-                <!-- Feature Lists -->
-                <div class="example-item">
-                    <h3 class="example-title">Feature Lists</h3>
-                    <p class="example-description">Strukturierte Auflistung von Real Estatemerkmalen</p>
-                    <div class="example-demo">
-                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--core-deep-blue);">Ausstattung & Merkmale</h4>
-                        <ul class="feature-list">
-                            <li>Parkett in allen Wohnraeumen</li>
-                            <li>Fussbodenheizung</li>
-                            <li>Balkon mit Suedausrichtung</li>
-                            <li>Einbaukueche (optional)</li>
-                            <li>Tiefgaragenstellplatz inklusive</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Status Labels -->
-                <div class="example-item">
-                    <h3 class="example-title">Status Labels & Tags</h3>
-                    <p class="example-description">Verschiedene Label-Styles fuer Status und Kategorien</p>
-                    <div class="example-demo">
-                        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-                            <span style="background: var(--core-royal-blue); color: white; padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Verfuegbar</span>
-                            <span style="background: var(--core-accent); color: var(--core-deep-blue); padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Neubau</span>
-                            <span style="background: #f0f9ff; color: #0369a1; padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Premium</span>
-                            <span style="background: #fef3c7; color: #d97706; padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Reserviert</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         
         <!-- Section 3: Implementation Guide -->
         <section class="section">
@@ -850,16 +746,6 @@ module.exports = {
                             <td>12px</td>
                             <td>Labels, captions, small text</td>
                         </tr>
-                        <tr>
-                            <td><code>.price-display</code></td>
-                            <td>36px</td>
-                            <td>Property prices, important numbers</td>
-                        </tr>
-                        <tr>
-                            <td><code>.property-title</code></td>
-                            <td>24px</td>
-                            <td>Property names, listing titles</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -944,7 +830,6 @@ module.exports = {
                     <li><strong>Schriftarten:</strong> Inter/Helvetica fuer Headlines (Bold/SemiBold), Regular fuer Body Text</li>
                     <li><strong>Groessen:</strong> H1 26px, H2 19px, Body 16px (direkt aus CI-Strategie uebernommen)</li>
                     <li><strong>Tonalitaet:</strong> Praezise, freundlich, loesungsorientiert - "fair & transparent" als Leitmotiv</li>
-                    <li><strong>Real Estate-Fokus:</strong> Optimiert fuer Exposés, Preisdarstellung und Property-Listings</li>
                 </ul>
             </div>
         </section>
