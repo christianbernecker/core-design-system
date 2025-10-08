@@ -19,15 +19,15 @@
         .core-button.glass {
             background: rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(10px);
-            color: var(--core-primary);
+            color: var(--core-primary-blue);
             border: 1px solid rgba(255, 255, 255, 0.4);
             font-weight: var(--font-weight-semibold);
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
-        
+
         .core-button.glass:hover {
             background: rgba(255, 255, 255, 0.35);
-            border-color: var(--core-primary);
+            border-color: var(--core-primary-blue);
             transform: translateY(-2px) scale(1.02);
             box-shadow: var(--shadow-glow);
         }
@@ -65,14 +65,14 @@
         /* Ghost Button - Spezielle Variante */
         .core-button.ghost {
             background: transparent;
-            color: var(--core-primary);
+            color: var(--core-primary-blue);
             border: none;
             font-weight: var(--font-weight-medium);
         }
-        
+
         .core-button.ghost:hover {
-            background: rgba(51, 102, 204, 0.1);
-            color: var(--core-primary);
+            background: rgba(8, 32, 74, 0.1);
+            color: var(--core-primary-blue);
             transform: translateY(-1px);
         }
         
@@ -185,7 +185,7 @@
             <div class="component-grid">
                 <div class="component-card">
                     <h3>Primary Button</h3>
-                    <p class="text-muted">Main call to action with Core primary blue</p>
+                    <p class="text-muted">Main call to action with Core primary orange</p>
                     <div class="component-preview">
                         <button class="core-button primary">
                             Primary Button
@@ -201,7 +201,7 @@
                 
                 <div class="component-card">
                     <h3>Secondary Button</h3>
-                    <p class="text-muted">Alternative action with Core orange accent</p>
+                    <p class="text-muted">Alternative action with orange gradient</p>
                     <div class="component-preview">
                         <button class="core-button secondary">
                             Secondary Button
@@ -473,17 +473,17 @@ function addRippleEffect(button) {
                         </tr>
                         <tr>
                             <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.primary</code></td>
-                            <td>Primary button variant</td>
+                            <td>Primary button - Orange (#FF5A10)</td>
                             <td>Main CTAs</td>
                         </tr>
                         <tr>
                             <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.secondary</code></td>
-                            <td>Secondary button variant</td>
+                            <td>Secondary button - Orange gradient</td>
                             <td>Alternative actions</td>
                         </tr>
                         <tr>
                             <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.outline</code></td>
-                            <td>Outline button variant</td>
+                            <td>Outline button - Blue border (#08204A)</td>
                             <td>Tertiary actions</td>
                         </tr>
                         <tr>
@@ -541,8 +541,9 @@ function addRippleEffect(button) {
                 <div class="component-card">
                     <h3>Design System Guidelines</h3>
                     <ul class="best-practices-list">
-                        <li>Primary buttons use Core primary blue</li>
-                        <li>Secondary buttons use Core accent orange</li>
+                        <li>Primary buttons use Core primary orange (#FF5A10)</li>
+                        <li>Secondary buttons use orange gradient (#FF5A10 to #FFAD75)</li>
+                        <li>Outline buttons use Core primary blue (#08204A)</li>
                         <li>Maintain consistent button heights across the application</li>
                         <li>Use SVG icons with <code style="font-family: var(--font-family-mono); font-size: 12px; background: var(--core-gray-100); padding: 2px 6px; border-radius: 4px;">stroke="currentColor"</code> for color inheritance</li>
                         <li>Apply hover effects for better interactivity</li>
