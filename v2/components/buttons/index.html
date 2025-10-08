@@ -101,38 +101,7 @@
             height: 24px;
         }
         
-        /* Secondary Button - Alternative Gestaltung */
-        .core-button.secondary {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            color: var(--core-deep-blue);
-            border: 2px solid var(--core-royal-blue);
-            font-weight: var(--font-weight-semibold);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .core-button.secondary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(51,102,204,0.1), transparent);
-            transition: left 0.6s;
-        }
-        
-        .core-button.secondary:hover {
-            background: var(--core-royal-blue);
-            color: white;
-            border-color: var(--core-primary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .core-button.secondary:hover::before {
-            left: 100%;
-        }
+        /* Secondary Button kommt aus master.css - verwendet Orange Gradient */
         
         /* BUTTON ALIGNMENT IN GRUPPEN */
         .component-preview {
@@ -208,15 +177,15 @@
     
     <main class="main-content">
         <h1>Button</h1>
-        <p>Interactive button components with LYD brand colors, premium gradients, and premium styling .</p>
-        
+        <p>Interactive button components with Core Design System colors, neon gradients, and premium styling.</p>
+
         <!-- Section 1: Button Variants -->
         <section class="section">
-            <h2 class="section-title">Button Variants</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 14px; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">BUTTON VARIANTS</h2>
             <div class="component-grid">
                 <div class="component-card">
                     <h3>Primary Button</h3>
-                    <p class="text-muted">Main call to action with LYD primary gradient</p>
+                    <p class="text-muted">Main call to action with Core primary blue</p>
                     <div class="component-preview">
                         <button class="core-button primary">
                             Primary Button
@@ -232,7 +201,7 @@
                 
                 <div class="component-card">
                     <h3>Secondary Button</h3>
-                    <p class="text-muted">Alternative action with Royal Blue</p>
+                    <p class="text-muted">Alternative action with Core orange accent</p>
                     <div class="component-preview">
                         <button class="core-button secondary">
                             Secondary Button
@@ -326,7 +295,7 @@
         
         <!-- Section 2: Button States -->
         <section class="section">
-            <h2 class="section-title">Button States</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 14px; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">BUTTON STATES</h2>
             <div class="component-grid">
                 <div class="component-card">
                     <h3>Loading State</h3>
@@ -358,7 +327,7 @@
         
         <!-- Section 3: Button Sizes -->
         <section class="section">
-            <h2 class="section-title">Button Sizes</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 14px; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">BUTTON SIZES</h2>
             <div class="component-card">
                 <h3>Size Variations</h3>
                 <p class="text-muted">Different button sizes for various use cases</p>
@@ -371,26 +340,31 @@
         </section>
 <!-- Section 5: Implementation Guide -->
         <section class="section">
-            <h2 class="section-title">Implementation Guide</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 14px; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">IMPLEMENTATION GUIDE</h2>
             
             <div class="implementation-section">
                 <h3>HTML Implementation</h3>
                 <div class="code-block">
                     <pre><code>&lt;!-- Primary Button --&gt;
-&lt;button class="core-button core-button-primary"&gt;
+&lt;button class="core-button primary"&gt;
     Primary Button
 &lt;/button&gt;
 
 &lt;!-- Button with Icon --&gt;
-&lt;button class="core-button core-button-secondary"&gt;
-    &lt;svg viewBox="0 0 24 24"&gt;
-        &lt;path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10..."&gt;
+&lt;button class="core-button secondary"&gt;
+    &lt;svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"&gt;
+        &lt;circle cx="12" cy="12" r="10"/&gt;
     &lt;/svg&gt;
     With Icon
 &lt;/button&gt;
 
+&lt;!-- Outline Button --&gt;
+&lt;button class="core-button outline"&gt;
+    Outline Button
+&lt;/button&gt;
+
 &lt;!-- Loading Button --&gt;
-&lt;button class="core-button core-button-primary loading"&gt;
+&lt;button class="core-button primary loading"&gt;
     Loading...
 &lt;/button&gt;</code></pre>
                 </div>
@@ -422,13 +396,13 @@ export const Button: React.FC&lt;ButtonProps&gt; = ({
 }) => {
     const classes = [
         'core-button',
-        `core-button-${variant}`,
-        size !== 'default' && `core-button-${size}`,
+        variant,
+        size !== 'default' && size,
         loading && 'loading'
     ].filter(Boolean).join(' ');
-    
+
     return (
-        &lt;button 
+        &lt;button
             className={classes}
             disabled={disabled || loading}
             onClick={onClick}
@@ -481,7 +455,7 @@ function addRippleEffect(button) {
         
         <!-- Section 6: API Reference -->
         <section class="section">
-            <h2 class="section-title">API Reference</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 14px; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">API REFERENCE</h2>
             <div class="api-table-container">
                 <table class="api-table">
                     <thead>
@@ -493,52 +467,52 @@ function addRippleEffect(button) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>.core-button</code></td>
+                            <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.core-button</code></td>
                             <td>Base button class</td>
                             <td>Required on all buttons</td>
                         </tr>
                         <tr>
-                            <td><code>.core-button-primary</code></td>
+                            <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.primary</code></td>
                             <td>Primary button variant</td>
                             <td>Main CTAs</td>
                         </tr>
                         <tr>
-                            <td><code>.core-button-secondary</code></td>
+                            <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.secondary</code></td>
                             <td>Secondary button variant</td>
                             <td>Alternative actions</td>
                         </tr>
                         <tr>
-                            <td><code>.core-button-outline</code></td>
+                            <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.outline</code></td>
                             <td>Outline button variant</td>
                             <td>Tertiary actions</td>
                         </tr>
                         <tr>
-                            <td><code>.core-button-ghost</code></td>
+                            <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.ghost</code></td>
                             <td>Ghost button variant</td>
                             <td>Minimal emphasis</td>
                         </tr>
                         <tr>
-                            <td><code>.core-button-glass</code></td>
+                            <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.glass</code></td>
                             <td>Glassmorphism button</td>
                             <td>Premium sections</td>
                         </tr>
                         <tr>
-                            <td><code>.core-button-small</code></td>
+                            <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.small</code></td>
                             <td>Small size modifier</td>
                             <td>Compact layouts</td>
                         </tr>
                         <tr>
-                            <td><code>.core-button-large</code></td>
+                            <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.large</code></td>
                             <td>Large size modifier</td>
                             <td>Hero sections</td>
                         </tr>
                         <tr>
-                            <td><code>.core-button-icon-only</code></td>
+                            <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.icon-only</code></td>
                             <td>Icon-only button</td>
                             <td>Toolbars, actions</td>
                         </tr>
                         <tr>
-                            <td><code>.loading</code></td>
+                            <td><code style="font-family: var(--font-family-mono); background: var(--core-gray-100); padding: 4px 8px; border-radius: 4px;">.loading</code></td>
                             <td>Loading state</td>
                             <td>Async operations</td>
                         </tr>
@@ -549,7 +523,7 @@ function addRippleEffect(button) {
         
         <!-- Section 7: Accessibility & Best Practices -->
         <section class="section">
-            <h2 class="section-title">Accessibility & Best Practices</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 14px; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">ACCESSIBILITY & BEST PRACTICES</h2>
             <div class="component-grid">
                 <div class="component-card">
                     <h3>Accessibility Guidelines</h3>
@@ -565,11 +539,12 @@ function addRippleEffect(button) {
                 </div>
                 
                 <div class="component-card">
-                    <h3>LYD Brand Guidelines</h3>
+                    <h3>Design System Guidelines</h3>
                     <ul class="best-practices-list">
-                        <li>Primary buttons use the CORE gradient</li>
+                        <li>Primary buttons use Core primary blue</li>
+                        <li>Secondary buttons use Core accent orange</li>
                         <li>Maintain consistent button heights across the application</li>
-                        <li>Use SVG icons for sharp rendering at all sizes</li>
+                        <li>Use SVG icons with <code style="font-family: var(--font-family-mono); font-size: 12px; background: var(--core-gray-100); padding: 2px 6px; border-radius: 4px;">stroke="currentColor"</code> for color inheritance</li>
                         <li>Apply hover effects for better interactivity</li>
                         <li>Keep button text concise and action-oriented</li>
                         <li>Group related buttons with consistent spacing</li>
