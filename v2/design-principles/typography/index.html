@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typography - CORE Design System V2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
     
     <!-- CENTRAL CSS SYSTEM -->
     <link rel="stylesheet" href="/shared/master.css">
@@ -277,39 +276,27 @@
         <section class="section">
             <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 14px; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">FONT FAMILIES</h2>
 
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-lg);">
-                <!-- Inter - Primary Font -->
-                <div style="border: 2px solid var(--core-primary-blue); border-radius: var(--radius-md); padding: var(--spacing-xl); background: var(--core-gray-50);">
-                    <h3 style="color: var(--core-primary-blue); font-size: 16px; font-weight: 700; margin-bottom: var(--spacing-lg);">Inter - Primary Font</h3>
-                    <div style="font-family: var(--font-family-primary); font-size: 18px; margin-bottom: var(--spacing-lg); line-height: 1.6;">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-xl);">
+                <!-- Inter - Primary Font (Grotesk) -->
+                <div style="border: 2px solid var(--core-primary-blue); border-radius: var(--radius-md); padding: var(--spacing-2xl); background: var(--core-gray-50);">
+                    <h3 style="color: var(--core-primary-blue); font-size: 18px; font-weight: 700; margin-bottom: var(--spacing-lg);">Inter - Grotesk Font</h3>
+                    <div style="font-family: var(--font-family-primary); font-size: 24px; margin-bottom: var(--spacing-lg); line-height: 1.4;">
                         The quick brown fox jumps over the lazy dog
                     </div>
                     <p style="font-size: 14px; color: var(--core-grey); margin-bottom: var(--spacing-md); line-height: 1.6;">
-                        Used for body text, UI elements, and general content. Excellent readability across all sizes.
+                        Clarity for humans — Used for all text, UI elements, and content. Optimized for fast scanning, accessibility, and focus.
                     </p>
                     <code style="font-size: 12px; color: var(--core-primary-blue); font-family: var(--font-family-mono); background: white; padding: 4px 8px; border-radius: 4px;">--font-family-primary</code>
                 </div>
 
-                <!-- Playfair Display - Premium Font -->
-                <div style="border: 2px solid var(--core-primary-blue); border-radius: var(--radius-md); padding: var(--spacing-xl); background: var(--core-gray-50);">
-                    <h3 style="color: var(--core-primary-blue); font-size: 16px; font-weight: 700; margin-bottom: var(--spacing-lg);">Playfair Display - Premium Font</h3>
-                    <div style="font-family: var(--font-family-premium); font-size: 18px; margin-bottom: var(--spacing-lg); line-height: 1.6; font-style: italic;">
-                        The quick brown fox jumps over the lazy dog
+                <!-- JetBrains Mono - Monospace Font -->
+                <div style="border: 2px solid var(--core-primary-blue); border-radius: var(--radius-md); padding: var(--spacing-2xl); background: var(--core-gray-50);">
+                    <h3 style="color: var(--core-primary-blue); font-size: 18px; font-weight: 700; margin-bottom: var(--spacing-lg);">JetBrains Mono - Monospace</h3>
+                    <div style="font-family: var(--font-family-mono); font-size: 16px; margin-bottom: var(--spacing-lg); line-height: 1.8; background: white; padding: var(--spacing-md); border-radius: var(--radius-sm);">
+                        const data = "21.2 99,9 %";
                     </div>
                     <p style="font-size: 14px; color: var(--core-grey); margin-bottom: var(--spacing-md); line-height: 1.6;">
-                        Reserved for premium headlines and premium accents. Adds elegance and sophistication.
-                    </p>
-                    <code style="font-size: 12px; color: var(--core-primary-blue); font-family: var(--font-family-mono); background: white; padding: 4px 8px; border-radius: 4px;">--font-family-premium</code>
-                </div>
-
-                <!-- JetBrains Mono - Code Font -->
-                <div style="border: 2px solid var(--core-primary-blue); border-radius: var(--radius-md); padding: var(--spacing-xl); background: var(--core-gray-50);">
-                    <h3 style="color: var(--core-primary-blue); font-size: 16px; font-weight: 700; margin-bottom: var(--spacing-lg);">JetBrains Mono - Code Font</h3>
-                    <div style="font-family: var(--font-family-mono); font-size: 14px; margin-bottom: var(--spacing-lg); line-height: 1.8; background: white; padding: var(--spacing-md); border-radius: var(--radius-sm);">
-                        const premium = "CORE Design System";
-                    </div>
-                    <p style="font-size: 14px; color: var(--core-grey); margin-bottom: var(--spacing-md); line-height: 1.6;">
-                        For code snippets, technical values, and monospaced requirements.
+                        Precision for machines — For code snippets, technical values, data, structure, and logic.
                     </p>
                     <code style="font-size: 12px; color: var(--core-primary-blue); font-family: var(--font-family-mono); background: white; padding: 4px 8px; border-radius: 4px;">--font-family-mono</code>
                 </div>
@@ -483,12 +470,12 @@
             
             <div class="type-specimen">
                 <div class="type-example">
-                    <div class="type-example-label">Display Heading - Premium</div>
-                    <h1 style="font-family: var(--font-family-premium); font-size: var(--font-size-5xl); font-weight: var(--font-weight-bold); line-height: var(--line-height-tight); background: var(--core-gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    <div class="type-example-label">Display Heading - Large</div>
+                    <h1 style="font-size: var(--font-size-5xl); font-weight: var(--font-weight-bold); line-height: var(--line-height-tight); background: var(--core-gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
                         Premium Solutions
                     </h1>
                 </div>
-                
+
                 <div class="type-example">
                     <div class="type-example-label">Page Heading</div>
                     <h1 style="font-size: var(--font-size-4xl); font-weight: var(--font-weight-bold); color: var(--core-primary);">
