@@ -29,7 +29,10 @@
             background: rgba(255, 255, 255, 0.35);
             border-color: var(--core-primary-blue);
             transform: translateY(-2px) scale(1.02);
-            box-shadow: var(--shadow-glow);
+            box-shadow:
+                0 0 20px rgba(0, 240, 255, 0.4),    /* Neon Cyan Glow */
+                0 0 40px rgba(255, 0, 255, 0.3),    /* Neon Magenta Glow */
+                0 8px 32px rgba(0, 240, 255, 0.2);  /* Premium Shadow */
         }
         
         /* EINHEITLICHE BUTTON-DIMENSIONEN */
@@ -88,6 +91,11 @@
             flex-shrink: 0;
             vertical-align: middle;
             transition: var(--transition-premium);
+        }
+
+        /* Outline Button Icon - Sofortige Farbänderung beim Hover */
+        .core-button.outline svg {
+            transition: none;
         }
         
         /* Icon sizes for different button sizes */
@@ -268,7 +276,7 @@
                 
                 <div class="component-card">
                     <h3>Icon Only Buttons</h3>
-                    <p class="text-muted">Compact buttons with icons only</p>
+                    <p class="text-muted">Compact buttons with icons only - Orange & Blue</p>
                     <div class="component-preview">
                         <button class="core-button primary icon-only">
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -280,12 +288,6 @@
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
                                 <path d="M12 1v6m0 8v6M4.22 4.22l4.24 4.24m8.48 8.48l4.24 4.24M1 12h6m8 0h6M4.22 19.78l4.24-4.24m8.48-8.48l4.24-4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                            </svg>
-                        </button>
-                        <button class="core-button outline icon-only">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="11" width="18" height="10" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"/>
-                                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
                             </svg>
                         </button>
                     </div>
