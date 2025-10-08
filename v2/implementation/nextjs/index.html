@@ -266,7 +266,7 @@ cp path/to/master.css public/css/master.css
 <span class="keyword">import</span> { cn } <span class="keyword">from</span> <span class="string">'@/lib/utils'</span>
 
 <span class="keyword">interface</span> ButtonProps <span class="keyword">extends</span> ButtonHTMLAttributes&lt;HTMLButtonElement&gt; {
-  variant?: <span class="string">'primary'</span> | <span class="string">'secondary'</span> | <span class="string">'outline'</span> | <span class="string">'ghost'</span> | <span class="string">'luxury'</span>
+  variant?: <span class="string">'primary'</span> | <span class="string">'secondary'</span> | <span class="string">'outline'</span> | <span class="string">'ghost'</span> | <span class="string">'premium'</span>
   size?: <span class="string">'small'</span> | <span class="string">'default'</span> | <span class="string">'large'</span>
   loading?: <span class="keyword">boolean</span>
   icon?: React.ReactNode
@@ -299,7 +299,7 @@ cp path/to/master.css public/css/master.css
           {icon}
         &lt;/<span class="tag">svg</span>&gt;
       )}
-      {loading && &lt;<span class="tag">span</span> <span class="attr">className</span>=<span class="string">"luxury-spinner"</span> /&gt;}
+      {loading && &lt;<span class="tag">span</span> <span class="attr">className</span>=<span class="string">"premium-spinner"</span> /&gt;}
       {children}
     &lt;/<span class="tag">button</span>&gt;
   )

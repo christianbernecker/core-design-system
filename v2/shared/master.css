@@ -1,7 +1,7 @@
 /* ========================================
    LIVE YOUR DREAMS - MASTER CSS SYSTEM
    Zentrales CSS für alle Komponenten
-   Version: 2.0 - LUXURY EDITION
+   Version: 2.0 - PREMIUM EDITION
    ======================================== */
 
 /* PREMIUM FONT IMPORTS */
@@ -22,7 +22,7 @@
     --core-text: #111111;
     --core-bg: #ffffff;
     
-    /* LUXURY GRADIENTS - Zentrale Elemente */
+    /* PREMIUM GRADIENTS - Zentrale Elemente */
     --core-gradient-primary: linear-gradient(135deg, #000066 0%, #3366CC 100%);
     --core-gradient-hover: linear-gradient(135deg, #3366CC 0%, #000066 100%);
     --core-gradient-subtle: linear-gradient(180deg, rgba(0,0,102,0.03) 0%, rgba(51,102,204,0.05) 100%);
@@ -46,14 +46,14 @@
     --core-gray-800: #1f2937;
     --core-gray-900: #111827;
     
-    /* PREMIUM TYPOGRAPHY - Luxury Schriften */
+    /* PREMIUM TYPOGRAPHY - Premium Fonts */
     --font-family-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, 'Noto Sans', sans-serif;
     --font-family-display: 'Inter', system-ui, -apple-system, sans-serif;
-    --font-family-luxury: 'Playfair Display', 'Georgia', serif;
+    --font-family-premium: 'Playfair Display', 'Georgia', serif;
     --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
     
-    /* Letter Spacing für Luxury Feel */
-    --letter-spacing-luxury: 0.15em;
+    /* Letter Spacing for Premium Feel */
+    --letter-spacing-premium: 0.15em;
     --letter-spacing-wide: 0.1em;
     --letter-spacing-normal: 0.05em;
     --letter-spacing-tight: 0.02em;
@@ -95,13 +95,13 @@
     --radius-xl: 16px;
     --radius-full: 9999px;
     
-    /* LUXURY SHADOWS & GLASSMORPHISM */
+    /* PREMIUM SHADOWS & GLASSMORPHISM */
     --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --shadow-luxury: 0 25px 50px -12px rgba(0, 0, 102, 0.25);
+    --shadow-premium: 0 25px 50px -12px rgba(0, 0, 102, 0.25);
     --shadow-glow: 0 0 40px rgba(51, 102, 204, 0.3);
     --shadow-inner: inset 0 2px 4px rgba(0, 0, 102, 0.06);
     
@@ -125,7 +125,7 @@
     --z-dropdown-container: 50000;
     
     /* PREMIUM TRANSITIONS */
-    --transition-luxury: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-premium: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
@@ -460,7 +460,7 @@ p {
     margin-bottom: var(--spacing-xl);
     box-shadow: var(--shadow-sm);
     border: var(--glass-border);
-    transition: var(--transition-luxury);
+    transition: var(--transition-premium);
     position: relative;
     overflow: visible; /* Fix für Dropdown z-index Problem */
     min-height: 200px; /* Mindesthöhe für Dropdown-Komponenten */
@@ -479,7 +479,7 @@ p {
 }
 
 .component-card:hover {
-    box-shadow: var(--shadow-luxury);
+    box-shadow: var(--shadow-premium);
     border-color: rgba(0, 0, 102, 0.2);
     /* transform entfernt um Stacking Context Probleme zu vermeiden */
 }
@@ -513,11 +513,11 @@ p {
     background: var(--core-gradient-primary);
     background-size: 200% 200%;
     color: white;
-    box-shadow: var(--shadow-luxury);
+    box-shadow: var(--shadow-premium);
     border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
-    transition: var(--transition-luxury);
+    transition: var(--transition-premium);
 }
 
 .core-button.primary::before {
@@ -606,10 +606,10 @@ div.core-modal-footer button.core-button.outline {
 
 /* TOAST-SPEZIFISCHE BUTTON-OPTIMIERUNG - KOMPAKT */
 .core-toast button.core-button,
-.luxury-toast button.core-button,
+.premium-toast button.core-button,
 .toast-container button.core-button,
 div.core-toast .core-button,
-div.luxury-toast .core-button,
+div.premium-toast .core-button,
 div.toast-container .core-button {
     width: fit-content !important;
     max-width: min(110px, 20vw) !important;
@@ -671,8 +671,8 @@ button.core-button.large {
     to { transform: rotate(360deg); }
 }
 
-/* LUXURY ANIMATED BUTTON */
-.core-button.luxury {
+/* PREMIUM ANIMATED BUTTON */
+.core-button.premium {
     background: var(--core-gradient-premium);
     background-size: 200% 100%;
     animation: gradientShift 3s ease infinite;
@@ -685,7 +685,7 @@ button.core-button.large {
     overflow: hidden;
 }
 
-.core-button.luxury::after {
+.core-button.premium::after {
     content: '';
     position: absolute;
     top: 0;
@@ -696,7 +696,7 @@ button.core-button.large {
     transition: left 0.5s;
 }
 
-.core-button.luxury:hover::after {
+.core-button.premium:hover::after {
     left: 100%;
 }
 
@@ -726,7 +726,7 @@ button.core-button.large {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     color: var(--core-text);
-    transition: var(--transition-luxury);
+    transition: var(--transition-premium);
     position: relative;
 }
 
@@ -1135,14 +1135,14 @@ button.core-button.large {
 .overflow-auto { overflow: auto !important; }
 .overflow-visible { overflow: visible !important; }
 
-/* LUXURY HOVER EFFECTS */
-.luxury-hover {
-    transition: var(--transition-luxury);
+/* PREMIUM HOVER EFFECTS */
+.premium-hover {
+    transition: var(--transition-premium);
     transform: translateZ(0);
     backface-visibility: hidden;
 }
 
-.luxury-hover:hover {
+.premium-hover:hover {
     transform: translateY(-2px) scale(1.01);
     filter: brightness(1.05);
 }
@@ -1161,11 +1161,11 @@ button.core-button.large {
     backdrop-filter: var(--glass-blur);
     border: var(--glass-border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-luxury);
+    box-shadow: var(--shadow-premium);
 }
 
-/* LUXURY BADGE */
-.luxury-badge {
+/* PREMIUM BADGE */
+.premium-badge {
     display: inline-flex;
     padding: 4px 12px;
     background: var(--core-gradient-primary);
@@ -1179,7 +1179,7 @@ button.core-button.large {
 }
 
 /* PREMIUM DIVIDER */
-.luxury-divider {
+.premium-divider {
     height: 1px;
     background: var(--core-gradient-primary);
     margin: var(--spacing-2xl) 0;
@@ -1187,7 +1187,7 @@ button.core-button.large {
     overflow: visible;
 }
 
-.luxury-divider::before {
+.premium-divider::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -1214,7 +1214,7 @@ button.core-button.large {
     stroke-linecap: round;
     stroke-linejoin: round;
     fill: none;
-    transition: var(--transition-luxury);
+    transition: var(--transition-premium);
     flex-shrink: 0;
 }
 
@@ -1255,8 +1255,8 @@ button.core-button.large {
     stroke: var(--core-primary);
 }
 
-/* LUXURY LOADING SPINNER */
-.luxury-spinner {
+/* PREMIUM LOADING SPINNER */
+.premium-spinner {
     width: 40px;
     height: 40px;
     border: 3px solid var(--glass-white);
@@ -1267,12 +1267,12 @@ button.core-button.large {
 }
 
 /* PREMIUM TOOLTIP */
-.luxury-tooltip {
+.premium-tooltip {
     position: relative;
     cursor: help;
 }
 
-.luxury-tooltip::before {
+.premium-tooltip::before {
     content: attr(data-tooltip);
     position: absolute;
     bottom: 125%;
@@ -1286,12 +1286,12 @@ button.core-button.large {
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: var(--transition-luxury);
-    box-shadow: var(--shadow-luxury);
+    transition: var(--transition-premium);
+    box-shadow: var(--shadow-premium);
     backdrop-filter: var(--glass-blur);
 }
 
-.luxury-tooltip::after {
+.premium-tooltip::after {
     content: '';
     position: absolute;
     bottom: calc(125% - 8px);
@@ -1300,23 +1300,23 @@ button.core-button.large {
     border: 6px solid transparent;
     border-top-color: var(--core-primary);
     opacity: 0;
-    transition: var(--transition-luxury);
+    transition: var(--transition-premium);
 }
 
-.luxury-tooltip:hover::before,
-.luxury-tooltip:hover::after {
+.premium-tooltip:hover::before,
+.premium-tooltip:hover::after {
     opacity: 1;
     transform: translateX(-50%) scale(1);
 }
 
-/* LUXURY NOTIFICATION / TOAST */
-.luxury-toast {
+/* PREMIUM NOTIFICATION / TOAST */
+.premium-toast {
     padding: 16px 24px;
     background: linear-gradient(135deg, var(--glass-white), rgba(255,255,255,0.95));
     backdrop-filter: var(--glass-blur);
     border: var(--glass-border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-luxury);
+    box-shadow: var(--shadow-premium);
     display: flex;
     align-items: center;
     gap: 16px;
@@ -1549,7 +1549,7 @@ body.modal-open {
     pointer-events: none;
 }
 
-.luxury-toast::before {
+.premium-toast::before {
     content: '';
     position: absolute;
     left: 0;
@@ -1559,15 +1559,15 @@ body.modal-open {
     background: var(--core-gradient-primary);
 }
 
-.luxury-toast.success::before {
+.premium-toast.success::before {
     background: linear-gradient(135deg, var(--core-success) 0%, #059669 100%);
 }
 
-.luxury-toast.error::before {
+.premium-toast.error::before {
     background: linear-gradient(135deg, var(--core-error) 0%, #dc2626 100%);
 }
 
-.luxury-toast.warning::before {
+.premium-toast.warning::before {
     background: linear-gradient(135deg, var(--core-warning) 0%, #d97706 100%);
 }
 
@@ -1587,7 +1587,7 @@ body.modal-open {
 .gap-lg { gap: var(--spacing-lg); }
 
 /* ========================================
-   13. PREMIUM ANIMATION SYSTEM - LUXURY EDITION
+   13. PREMIUM ANIMATION SYSTEM - PREMIUM EDITION
    ======================================== */
 
 /* BASIC ANIMATIONS */
@@ -1611,7 +1611,7 @@ body.modal-open {
     50% { opacity: 0.5; }
 }
 
-/* LUXURY BUTTON ANIMATIONS */
+/* PREMIUM BUTTON ANIMATIONS */
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -1624,7 +1624,7 @@ body.modal-open {
 }
 
 @keyframes luxuryGlow {
-    0%, 100% { box-shadow: var(--shadow-luxury); }
+    0%, 100% { box-shadow: var(--shadow-premium); }
     50% { box-shadow: var(--shadow-glow); }
 }
 
@@ -1721,7 +1721,7 @@ body.modal-open {
 .hover-heartbeat:hover { animation: heartbeat 1.5s ease-in-out; }
 
 /* ========================================
-   14. RESPONSIVE DESIGN - MOBILE-FIRST LUXURY
+   14. RESPONSIVE DESIGN - MOBILE-FIRST PREMIUM
    ======================================== */
 
 /* Mobile-First Base Styles */

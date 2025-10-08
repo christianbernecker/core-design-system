@@ -222,7 +222,7 @@
     
     /* Premium Shadows */
     --shadow-premium: 0 8px 32px rgba(0, 0, 0, 0.12);
-    --shadow-luxury: 0 12px 48px rgba(0, 0, 0, 0.15);
+    --shadow-premium: 0 12px 48px rgba(0, 0, 0, 0.15);
     
     /* ========================================
        TRANSITION SYSTEM
