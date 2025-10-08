@@ -9,44 +9,100 @@
 
 :root {
     /* ========================================
-       LIVE YOUR DREAMS CI COLORS
+       CORE CORPORATE COLORS (NEW SYSTEM)
+       Based on Design_DigitaleMedien_Basics.pdf
        ======================================== */
-    
-    /* Primary Brand Colors - CI konform */
-    --core-deep-blue: #000066;
-    --core-royal-blue: #3366CC;
+
+    /* Primary Corporate Colors */
+    --core-primary-blue: #08204A;
+    --core-primary-blue-rgb: 8, 32, 74;
+    --core-primary-orange: #FF5A10;
+    --core-primary-orange-rgb: 255, 90, 16;
+
+    /* Extended Blue Scale */
+    --core-blue-900: #051228;
+    --core-blue-900-rgb: 5, 18, 40;
+    --core-blue-800: #08204A;
+    --core-blue-800-rgb: 8, 32, 74;
+    --core-blue-600: #054A91;
+    --core-blue-600-rgb: 5, 74, 145;
+    --core-blue-400: #6498C5;
+    --core-blue-400-rgb: 100, 152, 197;
+
+    /* Extended Orange Scale */
+    --core-orange-600: #FF5A10;
+    --core-orange-600-rgb: 255, 90, 16;
+    --core-orange-400: #FFAD75;
+    --core-orange-400-rgb: 255, 173, 117;
+
+    /* Neon Accent Colors (NEW!) */
+    --core-neon-cyan: #00F0FF;
+    --core-neon-cyan-rgb: 0, 240, 255;
+    --core-neon-magenta: #FF00FF;
+    --core-neon-magenta-rgb: 255, 0, 255;
+    --core-neon-purple: #BF00FF;
+    --core-neon-purple-rgb: 191, 0, 255;
+
+    /* Neon Glow Effects */
+    --core-neon-glow-cyan: 0 0 20px rgba(0, 240, 255, 0.5);
+    --core-neon-glow-magenta: 0 0 20px rgba(255, 0, 255, 0.5);
+    --core-neon-glow-purple: 0 0 20px rgba(191, 0, 255, 0.5);
+
+    /* Legacy Support (kept for backward compatibility) */
+    --core-deep-blue: #08204A;
+    --core-royal-blue: #054A91;
     --core-accent: #E8F0FE;
     --core-grey: #666666;
     --core-line: #E5E7EB;
     --core-text: #111111;
     --core-bg: #ffffff;
-    
-    /* Extended Color Palette */
-    --core-primary: #0066ff;
-    --core-primary-hover: #0052cc;
-    --core-secondary: #6366f1;
-    --core-success: #10b981;
-    --core-warning: #f59e0b;
-    --core-error: #ef4444;
+
+    /* Semantic Colors (mapped to new system) */
+    --core-primary: var(--core-primary-blue);
+    --core-primary-hover: var(--core-blue-600);
+    --core-secondary: var(--core-orange-600);
+    --core-success: #00C853;
+    --core-warning: var(--core-primary-orange);
+    --core-error: #FF1744;
+    --core-info: var(--core-blue-400);
     
     /* Neutral Colors - Professional Scale */
+    --core-black: #000000;
     --core-white: #ffffff;
     --core-gray-50: #f9fafb;
     --core-gray-100: #f3f4f6;
     --core-gray-200: #e5e7eb;
-    --core-gray-300: #d1d5db;
+    --core-gray-300: #EEEAE9;
     --core-gray-400: #9ca3af;
-    --core-gray-500: #6b7280;
+    --core-gray-500: #C5C6C6;
     --core-gray-600: #4b5563;
-    --core-gray-700: #374151;
+    --core-gray-700: #878786;
     --core-gray-800: #1f2937;
     --core-gray-900: #111827;
-    
+
+    /* Gradient System */
+    --core-gradient-primary: linear-gradient(135deg, #08204A 0%, #054A91 100%);
+    --core-gradient-orange: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+    --core-gradient-neon: linear-gradient(135deg, #00F0FF 0%, #FF00FF 100%);
+    --core-gradient-neon-glow: linear-gradient(135deg, #00F0FF 0%, #BF00FF 50%, #FF00FF 100%);
+    --core-gradient-subtle: linear-gradient(180deg, rgba(8, 32, 74, 0.02) 0%, rgba(255, 90, 16, 0.02) 100%);
+    --core-gradient-hover: linear-gradient(135deg, #054A91 0%, #08204A 100%);
+
+    /* Data Visualization Colors */
+    --core-chart-1: var(--core-neon-cyan);
+    --core-chart-2: var(--core-neon-magenta);
+    --core-chart-3: var(--core-primary-blue);
+    --core-chart-4: var(--core-primary-orange);
+    --core-chart-5: var(--core-blue-400);
+    --core-chart-6: var(--core-neon-purple);
+    --core-chart-7: var(--core-orange-400);
+    --core-chart-8: var(--core-blue-600);
+
     /* Semantic Colors */
     --core-background: var(--core-white);
     --core-surface: var(--core-gray-50);
-    --core-text-primary: var(--core-gray-900);
-    --core-text-secondary: var(--core-gray-600);
+    --core-text-primary: var(--core-blue-900);
+    --core-text-secondary: var(--core-gray-700);
     
     /* ========================================
        TYPOGRAPHY SYSTEM
