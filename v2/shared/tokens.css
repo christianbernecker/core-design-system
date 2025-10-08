@@ -88,8 +88,9 @@
     --core-gradient-neon-horizontal: linear-gradient(90deg, #00F0FF 0%, #FF5A10 100%);
     --core-gradient-neon-hero: linear-gradient(90deg,
         #00F0FF 0%,
-        #5DDEF4 25%,
-        #FFA574 75%,
+        #B3F5FF 20%,
+        #FFFFFF 50%,
+        #FFD4B3 80%,
         #FF5A10 100%
     );
     --core-gradient-subtle: linear-gradient(180deg, rgba(8, 32, 74, 0.02) 0%, rgba(255, 90, 16, 0.02) 100%);
