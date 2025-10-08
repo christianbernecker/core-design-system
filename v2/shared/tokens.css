@@ -87,13 +87,15 @@
     --core-gradient-neon-glow: linear-gradient(135deg, #00F0FF 0%, #BF00FF 50%, #FF00FF 100%);
     --core-gradient-neon-horizontal: linear-gradient(90deg, #00F0FF 0%, #FF5A10 100%);
     --core-gradient-neon-hero: linear-gradient(90deg,
-        #D9F5FF 0%,      /* Minimaler Weiß-Hauch links */
-        #33DDFF 10%,     /* Schnell in helles Cyan */
-        #00D4FF 20%,     /* Kräftiges Cyan */
-        #00CCFF 40%,     /* CYAN DOMINIERT - Großer Bereich! */
-        #66D9FF 60%,     /* Cyan hält bis hier */
-        #FFB380 75%,     /* Übergang zu Orange */
-        #FF8844 90%,     /* Kräftiges Orange */
+        #F0FAFF 0%,      /* Fast reines Weiß links */
+        #E0F7FF 10%,     /* Weiß mit Cyan-Hauch */
+        #FFFFFF 20%,     /* Reines Weiß */
+        #FFFFFF 27%,     /* Weiß hält 27% (2/3 von Orange 40%) */
+        #33DDFF 35%,     /* Übergang zu Cyan */
+        #00D4FF 45%,     /* Kräftiges Cyan */
+        #00CCFF 60%,     /* Cyan-Ende */
+        #FFB380 70%,     /* Orange-Start */
+        #FF8844 85%,     /* Kräftiges Orange */
         #FF7733 100%     /* Orange-Ende */
     );
     --core-gradient-subtle: linear-gradient(180deg, rgba(8, 32, 74, 0.02) 0%, rgba(255, 90, 16, 0.02) 100%);
