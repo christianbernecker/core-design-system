@@ -508,7 +508,7 @@ p {
 }
 
 .core-button.primary {
-    background: var(--core-primary-orange);
+    background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
     background-size: 200% 200%;
     color: white;
     box-shadow: var(--shadow-premium);
@@ -541,7 +541,7 @@ p {
 }
 
 .core-button.secondary {
-    background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+    background: linear-gradient(135deg, #08204A 0%, #054A91 100%);
     background-size: 200% 200%;
     color: white;
     box-shadow: var(--shadow-md);
@@ -560,12 +560,18 @@ p {
 .core-button.outline {
     background: transparent;
     color: var(--core-primary-blue);
-    border: 2px solid var(--core-primary-blue);
+    border: 2px solid transparent;
+    background-image: linear-gradient(white, white), linear-gradient(90deg, #00F0FF 0%, #FF5A10 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    position: relative;
 }
 
 .core-button.outline:hover {
-    background: var(--core-primary-blue);
+    background: linear-gradient(90deg, #00F0FF 0%, #FF5A10 100%);
+    background-clip: padding-box;
     color: white;
+    border: 2px solid transparent;
 }
 
 .core-button:disabled {
