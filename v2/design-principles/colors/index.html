@@ -443,6 +443,32 @@
             <div class="color-group">
                 <p>Premium gradients combining corporate and neon colors.</p>
 
+                <!-- Hero Gradient Showcase -->
+                <div style="margin-bottom: var(--spacing-2xl);">
+                    <h3 style="margin-bottom: var(--spacing-lg);">Hero Gradient<span class="section-badge">NEW</span></h3>
+                    <div style="
+                        height: 200px;
+                        border-radius: 50px;
+                        background: linear-gradient(90deg, #00F0FF 0%, #5DDEF4 25%, #FFA574 75%, #FF5A10 100%);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 48px;
+                        font-weight: 900;
+                        color: #000;
+                        text-shadow: 0 2px 20px rgba(255,255,255,0.5);
+                        box-shadow: 0 10px 40px rgba(0,240,255,0.3), 0 0 80px rgba(255,90,16,0.2);
+                    ">
+                        NEON
+                    </div>
+                    <div class="usage-example" style="margin-top: var(--spacing-md);">
+                        <strong>Perfect for:</strong> Hero sections, CTAs, Premium buttons
+                        <p style="margin-top: var(--spacing-sm);">
+                            <code>background: var(--core-gradient-neon-hero);</code>
+                        </p>
+                    </div>
+                </div>
+
                 <div class="gradient-showcase">
                     <div class="gradient-card" style="background: linear-gradient(135deg, #08204A 0%, #054A91 100%);">
                         Primary Gradient
@@ -460,6 +486,10 @@
                         Neon Glow Gradient
                     </div>
 
+                    <div class="gradient-card" style="background: linear-gradient(90deg, #00F0FF 0%, #FF5A10 100%);">
+                        Neon Horizontal
+                    </div>
+
                     <div class="gradient-card" style="background: linear-gradient(135deg, #08204A 0%, #00F0FF 100%);">
                         Blue Neon Mix
                     </div>
@@ -475,7 +505,8 @@
                 <p style="margin-top: var(--spacing-sm);">
                     <code>background: var(--core-gradient-primary);</code><br>
                     <code>background: var(--core-gradient-orange);</code><br>
-                    <code>background: var(--core-gradient-neon);</code>
+                    <code>background: var(--core-gradient-neon);</code><br>
+                    <code>background: var(--core-gradient-neon-hero);</code>
                 </p>
             </div>
         </section>
@@ -688,7 +719,7 @@
             <div class="component-card">
                 <h3>Button Hierarchy</h3>
 
-                <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; margin-top: var(--spacing-lg);">
+                <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; margin-top: var(--spacing-lg); align-items: center;">
                     <button style="background: #08204A; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer;">
                         Primary Button
                     </button>
@@ -700,6 +731,23 @@
                     <button style="background: linear-gradient(135deg, #00F0FF, #FF00FF); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);">
                         Neon Accent
                     </button>
+
+                    <button style="
+                        background: linear-gradient(90deg, #00F0FF 0%, #5DDEF4 25%, #FFA574 75%, #FF5A10 100%);
+                        color: #000;
+                        border: none;
+                        padding: 16px 32px;
+                        border-radius: 50px;
+                        font-weight: 900;
+                        font-size: 16px;
+                        text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
+                        box-shadow: 0 10px 40px rgba(0, 240, 255, 0.3), 0 0 80px rgba(255, 90, 16, 0.2);
+                        cursor: pointer;
+                        text-transform: uppercase;
+                        letter-spacing: 0.05em;
+                    ">
+                        Hero Button
+                    </button>
                 </div>
 
                 <div class="usage-example">
@@ -707,7 +755,39 @@
                     <p style="margin-top: var(--spacing-sm);">
                         <code>Primary: var(--core-primary-blue)</code><br>
                         <code>CTA: var(--core-primary-orange)</code><br>
-                        <code>Neon: var(--core-gradient-neon)</code>
+                        <code>Neon: var(--core-gradient-neon)</code><br>
+                        <code>Hero: var(--core-gradient-neon-hero)</code> <span class="section-badge">NEW</span>
+                    </p>
+                    <br>
+                    <strong>CSS Classes:</strong>
+                    <p style="margin-top: var(--spacing-sm);">
+                        <code>class="btn-neon"</code> - Standard Neon Button<br>
+                        <code>class="btn-hero-neon"</code> - Hero Gradient Button
+                    </p>
+                </div>
+            </div>
+
+            <div class="component-card" style="margin-top: var(--spacing-xl);">
+                <h3>Badges & Labels</h3>
+
+                <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; margin-top: var(--spacing-lg); align-items: center;">
+                    <span style="display: inline-block; padding: 6px 16px; background: linear-gradient(90deg, #00F0FF 0%, #5DDEF4 25%, #FFA574 75%, #FF5A10 100%); color: #000; border-radius: 50px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);">
+                        NEW FEATURE
+                    </span>
+
+                    <span style="display: inline-block; padding: 6px 16px; background: #08204A; color: white; border-radius: 50px; font-size: 12px; font-weight: 700; text-transform: uppercase;">
+                        PREMIUM
+                    </span>
+
+                    <span style="display: inline-block; padding: 6px 16px; background: #FF5A10; color: white; border-radius: 50px; font-size: 12px; font-weight: 700; text-transform: uppercase;">
+                        HOT
+                    </span>
+                </div>
+
+                <div class="usage-example">
+                    <strong>Badge Styles:</strong>
+                    <p style="margin-top: var(--spacing-sm);">
+                        <code>class="badge-hero-neon"</code> - Hero Gradient Badge
                     </p>
                 </div>
             </div>

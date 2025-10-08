@@ -2147,3 +2147,94 @@ body.modal-open {
     border-color: var(--core-neon-magenta);
     box-shadow: 0 0 30px rgba(var(--core-neon-magenta-rgb), 0.4);
 }
+
+/* Hero Gradient Utilities (NEW!) */
+.bg-gradient-neon-hero {
+    background: var(--core-gradient-neon-hero);
+}
+
+.bg-gradient-neon-horizontal {
+    background: var(--core-gradient-neon-horizontal);
+}
+
+/* Hero Button with Neon Gradient */
+.btn-hero-neon {
+    background: var(--core-gradient-neon-hero);
+    color: #000000;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: var(--font-size-lg);
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
+    box-shadow: 
+        0 10px 40px rgba(0, 240, 255, 0.3),
+        0 0 80px rgba(255, 90, 16, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn-hero-neon:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 
+        0 15px 50px rgba(0, 240, 255, 0.4),
+        0 0 100px rgba(255, 90, 16, 0.3);
+    filter: brightness(1.1);
+}
+
+.btn-hero-neon:active {
+    transform: translateY(-2px) scale(1);
+}
+
+/* Card with Hero Gradient Border */
+.card-hero-gradient {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-hero-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--core-gradient-neon-hero);
+}
+
+/* Hero Badge with Gradient */
+.badge-hero-neon {
+    display: inline-block;
+    padding: 6px 16px;
+    background: var(--core-gradient-neon-hero);
+    color: #000;
+    border-radius: 50px;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+}
+
+/* Animated Gradient Shift */
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-animated {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+}
