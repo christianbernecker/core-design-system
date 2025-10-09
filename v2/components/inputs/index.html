@@ -268,8 +268,8 @@
                     <h3>Basic Input</h3>
                     <p class="text-muted">Standard text input field</p>
                     <div class="component-preview">
-                        <label class="core-input-label">Property Name</label>
-                        <input type="text" class="core-input" placeholder="Enter property name">
+                        <label class="core-input-label">Full Name</label>
+                        <input type="text" class="core-input" placeholder="Enter your full name">
                         <div class="core-input-helper">Maximum 100 characters</div>
                     </div>
                 </div>
@@ -292,12 +292,12 @@
                     <h3>Search Input</h3>
                     <p class="text-muted">Input with search functionality</p>
                     <div class="component-preview">
-                        <label class="core-input-label">Search Properties</label>
+                        <label class="core-input-label">Search</label>
                         <div class="core-input-wrapper has-icon has-icon-right">
                             <svg class="core-input-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                             </svg>
-                            <input type="search" class="core-input" placeholder="Search by location, price, or type">
+                            <input type="search" class="core-input" placeholder="Search for items">
                             <svg class="core-input-icon core-input-icon-right" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7 10l5 5 5-5z"/>
                             </svg>
@@ -323,10 +323,10 @@
                     <h3>Number Input</h3>
                     <p class="text-muted">Numeric input with formatting</p>
                     <div class="component-preview">
-                        <label class="core-input-label">Property Price</label>
+                        <label class="core-input-label">Amount</label>
                         <div class="core-input-group">
                             <span class="core-input-addon">€</span>
-                            <input type="number" class="core-input" placeholder="1,500,000" min="0" step="1000">
+                            <input type="number" class="core-input" placeholder="1,000" min="0" step="10">
                         </div>
                     </div>
                 </div>
@@ -335,7 +335,7 @@
                     <h3>Premium Input</h3>
                     <p class="text-muted">Premium gradient border effect</p>
                     <div class="component-preview">
-                        <label class="core-input-label">Exclusive Property Code</label>
+                        <label class="core-input-label">Access Code</label>
                         <input type="text" class="core-input premium" placeholder="Enter VIP access code">
                     </div>
                 </div>
@@ -370,8 +370,8 @@
                     <h3>Disabled State</h3>
                     <p class="text-muted">Non-interactive input</p>
                     <div class="component-preview">
-                        <label class="core-input-label">Property ID</label>
-                        <input type="text" class="core-input" value="LYD-2024-001" disabled>
+                        <label class="core-input-label">Record ID</label>
+                        <input type="text" class="core-input" value="CORE-2024-001" disabled>
                         <div class="core-input-helper">Auto-generated ID</div>
                     </div>
                 </div>
@@ -401,8 +401,8 @@
                 <h3>HTML Implementation</h3>
                 <div class="code-block">
                     <pre><code>&lt;!-- Basic Input --&gt;
-&lt;label class="core-input-label"&gt;Property Name&lt;/label&gt;
-&lt;input type="text" class="core-input" placeholder="Enter property name"&gt;
+&lt;label class="core-input-label"&gt;Full Name&lt;/label&gt;
+&lt;input type="text" class="core-input" placeholder="Enter your full name"&gt;
 &lt;div class="core-input-helper"&gt;Maximum 100 characters&lt;/div&gt;
 
 &lt;!-- Input with Icon --&gt;
@@ -648,12 +648,12 @@ function formatCurrency(input) {
                 </div>
                 
                 <div class="component-card">
-                    <h3>LYD Brand Guidelines</h3>
+                    <h3>Design System Guidelines</h3>
                     <ul class="best-practices-list">
-                        <li>Use LYD border colors for focus states</li>
-                        <li>Apply subtle shadows on focus</li>
+                        <li>Use orange (#FF5A10) for hover and focus states</li>
+                        <li>Apply subtle shadows on focus (rgba orange glow)</li>
                         <li>Keep consistent input heights (44px default)</li>
-                        <li>Use system fonts for better readability</li>
+                        <li>Use Inter font for better readability</li>
                         <li>Group related fields logically</li>
                         <li>Provide real-time validation feedback</li>
                         <li>Use icons to enhance understanding</li>
