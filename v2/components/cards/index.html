@@ -114,6 +114,51 @@
         .core-card.horizontal .core-card-content {
             flex: 1;
         }
+
+        /* Full Picture Card */
+        .core-card.full-picture {
+            border: none;
+            padding: 0;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .core-card.full-picture::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(8, 32, 74, 0.4) 50%, rgba(8, 32, 74, 0.85) 100%);
+            z-index: 1;
+        }
+
+        .core-card.full-picture .core-card-content {
+            position: relative;
+            z-index: 2;
+            padding: var(--spacing-xl);
+            color: white;
+        }
+
+        .core-card.full-picture .core-card-title {
+            color: white;
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .core-card.full-picture .core-card-body {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--font-size-base);
+        }
+
+        .core-card.full-picture .core-card-footer {
+            border-top: none;
+            margin-top: var(--spacing-lg);
+            padding-top: 0;
+        }
     </style>
 </head>
 <body>
@@ -237,13 +282,31 @@
             <div class="component-card">
                 <h3>Compact Card</h3>
                 <p>Reduced padding variant</p>
-                
+
                 <div class="core-card compact">
                     <div class="core-card-header">
                         <h3 class="core-card-title">Compact Card</h3>
                     </div>
                     <div class="core-card-body">
                         <p>Less padding for dense layouts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-card">
+                <h3>Full Picture Card</h3>
+                <p>Full-height image background with text overlay - no borders</p>
+
+                <div class="core-card full-picture" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22400%22><defs><linearGradient id=%22bg%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%25%22 style=%22stop-color:%2308204A%22/><stop offset=%22100%25%22 style=%22stop-color:%23054A91%22/></linearGradient></defs><rect width=%22800%22 height=%22400%22 fill=%22url(%23bg)%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 font-family=%22Inter%22 font-size=%2240%22 fill=%22white%22 opacity=%220.3%22>STRÖER</text></svg>');">
+                    <div class="core-card-content">
+                        <h3 class="core-card-title">Digital screens where Munich lives and moves</h3>
+                        <div class="core-card-body">
+                            <p>Your customers pass by digital screens every day — at the train station, in shopping areas, on their way to work. Now you can be there too, without the complexity or cost you'd expect.</p>
+                        </div>
+                        <div class="core-card-footer">
+                            <button class="core-button primary">Start planning</button>
+                            <button class="core-button outline">Explore locations</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -332,6 +395,20 @@
         &lt;h3 class="core-card-title"&gt;Image Card&lt;/h3&gt;
         &lt;p&gt;Content below the image.&lt;/p&gt;
     &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Full Picture Card --&gt;
+&lt;div class="core-card full-picture" style="background-image: url('hero-image.jpg');"&gt;
+    &lt;div class="core-card-content"&gt;
+        &lt;h3 class="core-card-title"&gt;Hero Title&lt;/h3&gt;
+        &lt;div class="core-card-body"&gt;
+            &lt;p&gt;Full-height background image with overlay text.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="core-card-footer"&gt;
+            &lt;button class="core-button primary"&gt;Primary Action&lt;/button&gt;
+            &lt;button class="core-button outline"&gt;Secondary&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;</pre>
                 </div>
                 
@@ -371,6 +448,8 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
   status?: 'success' | 'warning' | 'error' | 'info';
   horizontal?: boolean;
   clickable?: boolean;
+  fullPicture?: boolean;
+  backgroundImage?: string;
   children: ReactNode;
 }
 
@@ -383,8 +462,11 @@ export const Card = ({
   status,
   horizontal = false,
   clickable = false,
+  fullPicture = false,
+  backgroundImage,
   children,
   className = '',
+  style,
   ...props
 }: CardProps) => {
   const cardClasses = [
@@ -393,36 +475,51 @@ export const Card = ({
     status,
     horizontal && 'horizontal',
     clickable && 'clickable',
+    fullPicture && 'full-picture',
     className
   ].filter(Boolean).join(' ');
-  
+
+  const cardStyle = fullPicture && backgroundImage
+    ? { ...style, backgroundImage: `url(${backgroundImage})` }
+    : style;
+
   return (
-    &lt;div className={cardClasses} {...props}&gt;
-      {image && (
-        &lt;img src={image} alt="" className="core-card-image" /&gt;
-      )}
-      
-      {horizontal ? (
+    &lt;div className={cardClasses} style={cardStyle} {...props}&gt;
+      {fullPicture ? (
         &lt;div className="core-card-content"&gt;
-          {(title || subtitle) && (
-            &lt;div className="core-card-header"&gt;
-              {title && &lt;h3 className="core-card-title"&gt;{title}&lt;/h3&gt;}
-              {subtitle && &lt;div className="core-card-subtitle"&gt;{subtitle}&lt;/div&gt;}
-            &lt;/div&gt;
-          )}
+          {title && &lt;h3 className="core-card-title"&gt;{title}&lt;/h3&gt;}
           &lt;div className="core-card-body"&gt;{children}&lt;/div&gt;
           {footer && &lt;div className="core-card-footer"&gt;{footer}&lt;/div&gt;}
         &lt;/div&gt;
       ) : (
         &lt;&gt;
-          {(title || subtitle) && (
-            &lt;div className="core-card-header"&gt;
-              {title && &lt;h3 className="core-card-title"&gt;{title}&lt;/h3&gt;}
-              {subtitle && &lt;div className="core-card-subtitle"&gt;{subtitle}&lt;/div&gt;}
-            &lt;/div&gt;
+          {image && !horizontal && (
+            &lt;img src={image} alt="" className="core-card-image" /&gt;
           )}
-          &lt;div className="core-card-body"&gt;{children}&lt;/div&gt;
-          {footer && &lt;div className="core-card-footer"&gt;{footer}&lt;/div&gt;}
+
+          {horizontal ? (
+            &lt;div className="core-card-content"&gt;
+              {(title || subtitle) && (
+                &lt;div className="core-card-header"&gt;
+                  {title && &lt;h3 className="core-card-title"&gt;{title}&lt;/h3&gt;}
+                  {subtitle && &lt;div className="core-card-subtitle"&gt;{subtitle}&lt;/div&gt;}
+                &lt;/div&gt;
+              )}
+              &lt;div className="core-card-body"&gt;{children}&lt;/div&gt;
+              {footer && &lt;div className="core-card-footer"&gt;{footer}&lt;/div&gt;}
+            &lt;/div&gt;
+          ) : (
+            &lt;&gt;
+              {(title || subtitle) && (
+                &lt;div className="core-card-header"&gt;
+                  {title && &lt;h3 className="core-card-title"&gt;{title}&lt;/h3&gt;}
+                  {subtitle && &lt;div className="core-card-subtitle"&gt;{subtitle}&lt;/div&gt;}
+                &lt;/div&gt;
+              )}
+              &lt;div className="core-card-body"&gt;{children}&lt;/div&gt;
+              {footer && &lt;div className="core-card-footer"&gt;{footer}&lt;/div&gt;}
+            &lt;/&gt;
+          )}
         &lt;/&gt;
       )}
     &lt;/div&gt;
@@ -503,6 +600,10 @@ export const Card = ({
                     <tr>
                         <td><code>.info</code></td>
                         <td>Info status indicator</td>
+                    </tr>
+                    <tr>
+                        <td><code>.full-picture</code></td>
+                        <td>Full-height image background with text overlay, no borders</td>
                     </tr>
                 </tbody>
             </table>
