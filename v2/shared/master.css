@@ -603,13 +603,12 @@ div.core-modal button.core-button.outline,
 div.core-modal-footer button.core-button.primary,
 div.core-modal-footer button.core-button.secondary,
 div.core-modal-footer button.core-button.outline {
-    width: fit-content !important;
-    max-width: min(140px, 25vw) !important;
-    min-width: 80px !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: fit-content !important;
     flex-shrink: 0 !important;
     white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    padding: 12px 24px !important;
 }
 
 /* TOAST-SPEZIFISCHE BUTTON-OPTIMIERUNG - KOMPAKT */

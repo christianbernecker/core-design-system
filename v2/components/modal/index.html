@@ -24,7 +24,7 @@
             backdrop-filter: blur(4px);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: opacity 0.15s ease, visibility 0.15s ease;
             z-index: 10000;
         }
 
@@ -47,7 +47,7 @@
             overflow: auto;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: transform 0.15s ease, opacity 0.15s ease, visibility 0.15s ease;
             z-index: 10001;
         }
 
@@ -282,10 +282,10 @@
                             <p>Are you sure you want to delete this property listing?</p>
                         </div>
                         <div class="core-modal-footer">
-                            <button class="core-button outline" onclick="closeModal('modal2')">
+                            <button class="core-button secondary" onclick="closeModal('modal2')">
                                 Cancel
                             </button>
-                            <button class="core-button primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                            <button class="core-button primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;">
                                 Delete
                             </button>
                         </div>
