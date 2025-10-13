@@ -22,7 +22,6 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
-            z-index: 10000 !important;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
@@ -45,7 +44,6 @@
             width: 90%;
             max-height: 90vh;
             overflow: auto;
-            z-index: 10001 !important;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
@@ -55,7 +53,6 @@
             transform: translate(-50%, -50%) scale(1);
             opacity: 1 !important;
             visibility: visible !important;
-            z-index: 10001 !important;
         }
         
         .core-modal-header {
@@ -133,6 +130,27 @@
         
         .core-modal.slide-up.active {
             transform: translate(-50%, -50%);
+        }
+
+        /* Demo Grid for Image Placeholders */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .demo-item {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, rgba(255, 90, 16, 0.1) 0%, rgba(8, 32, 74, 0.1) 100%);
+            border: 2px dashed var(--core-primary-blue);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-semibold);
+            color: var(--core-primary-blue);
+            font-size: var(--font-size-sm);
         }
     </style>
 </head>
@@ -262,10 +280,10 @@
                             <p>Are you sure you want to delete this property listing?</p>
                         </div>
                         <div class="core-modal-footer">
-                            <button class="core-button secondary" onclick="closeModal('modal2')">
+                            <button class="core-button outline" onclick="closeModal('modal2')">
                                 Cancel
                             </button>
-                            <button class="core-button primary" style="background: var(--core-error);">
+                            <button class="core-button primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
                                 Delete
                             </button>
                         </div>
@@ -333,7 +351,7 @@
                         <div class="core-modal-body">
                             <p>This is the first modal. Try opening another modal to see z-index stacking in action.</p>
                             <button class="core-button secondary" onclick="openModal('stackModal2')" style="margin-top: var(--spacing-md);">
-                                Open Second Modal from Here
+                                Open Second Modal
                             </button>
                         </div>
                         <div class="core-modal-footer">
@@ -357,8 +375,8 @@
                         </div>
                         <div class="core-modal-body">
                             <p>This modal appears on top of the first one. The dynamic z-index system ensures proper stacking.</p>
-                            <button class="core-button outline" onclick="openModal('stackModal3')" style="margin-top: var(--spacing-md);">
-                                Open Third Modal
+                            <button class="core-button primary" onclick="openModal('stackModal3')" style="margin-top: var(--spacing-md);">
+                                Next Modal
                             </button>
                         </div>
                         <div class="core-modal-footer">
