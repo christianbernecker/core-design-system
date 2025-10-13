@@ -7,16 +7,25 @@
 // MODAL SYSTEM - GLOBAL
 window.LYDModal = {
     activeModals: [],
-    baseZIndex: 2147483647,
+    baseZIndex: 10000,
 
     open: function(modalId) {
         const backdrop = document.getElementById(modalId + '-backdrop');
         const modal = document.getElementById(modalId);
 
         if (backdrop && modal) {
-            // Z-index is managed by CSS !important rules
-            // We only need to track modals for stacking order
-            // But CSS has the maximum z-index already set
+            // CRITICAL: Move modal to body to escape component-card stacking context
+            // component-card has isolation:isolate which traps child elements
+            if (backdrop.parentElement !== document.body) {
+                document.body.appendChild(backdrop);
+            }
+
+            // Calculate dynamic z-index for proper stacking of multiple modals
+            const zIndex = this.baseZIndex + (this.activeModals.length * 10);
+
+            // Apply z-index to backdrop and modal
+            backdrop.style.zIndex = zIndex;
+            modal.style.zIndex = zIndex + 1;
 
             backdrop.classList.add('active');
             modal.classList.add('active');
@@ -27,7 +36,8 @@ window.LYDModal = {
             this.activeModals.push({
                 id: modalId,
                 backdrop: backdrop,
-                modal: modal
+                modal: modal,
+                zIndex: zIndex
             });
         }
     },
