@@ -69,7 +69,7 @@
         .core-modal-title {
             font-size: var(--font-size-xl);
             font-weight: var(--font-weight-bold);
-            color: var(--core-deep-blue);
+            color: #08204A;
         }
         
         .core-modal-close {
@@ -87,8 +87,8 @@
         }
         
         .core-modal-close:hover {
-            background: var(--core-gray-100);
-            color: var(--core-text);
+            background: rgba(255, 90, 16, 0.1);
+            color: #FF5A10;
         }
         
         .core-modal-body {
@@ -194,15 +194,15 @@
     
     <main class="main-content">
         <h1>Modal</h1>
-        <p>Professional modal dialogs for property details, forms, and confirmations with smooth animations.</p>
+        <p>Professional modal dialogs with smooth animations and dynamic z-index stacking. Designed with Design System v2 colors and premium transitions.</p>
         
         <!-- Section 1: Modal Variants -->
         <section class="section">
-            <h2 class="section-title">Modal Variants</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 18px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">MODAL VARIANTS</h2>
             
             <div class="component-card">
                 <h3>Standard Modal</h3>
-                <p>Classic modal with header, body, and footer</p>
+                <p>Classic modal with Primary Blue header and Orange action buttons</p>
                 
                 <button class="core-button primary" onclick="openModal('modal1')">
                     Open Standard Modal
@@ -242,7 +242,7 @@
             
             <div class="component-card">
                 <h3>Small Modal</h3>
-                <p>Compact modal for confirmations</p>
+                <p>Compact modal for confirmations with Design System v2 colors</p>
                 
                 <button class="core-button secondary" onclick="openModal('modal2')">
                     Open Small Modal
@@ -275,7 +275,7 @@
             
             <div class="component-card">
                 <h3>Large Modal</h3>
-                <p>Spacious modal for detailed content</p>
+                <p>Spacious modal for detailed content with consistent styling</p>
                 
                 <button class="core-button outline" onclick="openModal('modal3')">
                     Open Large Modal
@@ -302,10 +302,99 @@
                     </div>
                 </div>
             </div>
+
+            <div class="component-card">
+                <h3>Multiple Modals (Z-Index Stacking)</h3>
+                <p>Open multiple modals - the latest modal always appears on top</p>
+
+                <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap;">
+                    <button class="core-button primary" onclick="openModal('stackModal1')">
+                        Open First Modal
+                    </button>
+                    <button class="core-button secondary" onclick="openModal('stackModal2')">
+                        Open Second Modal
+                    </button>
+                    <button class="core-button outline" onclick="openModal('stackModal3')">
+                        Open Third Modal
+                    </button>
+                </div>
+
+                <!-- Stack Modal 1 -->
+                <div class="core-modal-backdrop" id="stackModal1-backdrop">
+                    <div class="core-modal" id="stackModal1">
+                        <div class="core-modal-header">
+                            <h3 class="core-modal-title">First Modal</h3>
+                            <button class="core-modal-close" onclick="closeModal('stackModal1')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="core-modal-body">
+                            <p>This is the first modal. Try opening another modal to see z-index stacking in action.</p>
+                            <button class="core-button secondary" onclick="openModal('stackModal2')" style="margin-top: var(--spacing-md);">
+                                Open Second Modal from Here
+                            </button>
+                        </div>
+                        <div class="core-modal-footer">
+                            <button class="core-button secondary" onclick="closeModal('stackModal1')">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stack Modal 2 -->
+                <div class="core-modal-backdrop" id="stackModal2-backdrop">
+                    <div class="core-modal small" id="stackModal2">
+                        <div class="core-modal-header">
+                            <h3 class="core-modal-title">Second Modal</h3>
+                            <button class="core-modal-close" onclick="closeModal('stackModal2')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="core-modal-body">
+                            <p>This modal appears on top of the first one. The dynamic z-index system ensures proper stacking.</p>
+                            <button class="core-button outline" onclick="openModal('stackModal3')" style="margin-top: var(--spacing-md);">
+                                Open Third Modal
+                            </button>
+                        </div>
+                        <div class="core-modal-footer">
+                            <button class="core-button secondary" onclick="closeModal('stackModal2')">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stack Modal 3 -->
+                <div class="core-modal-backdrop" id="stackModal3-backdrop">
+                    <div class="core-modal small" id="stackModal3">
+                        <div class="core-modal-header">
+                            <h3 class="core-modal-title">Third Modal</h3>
+                            <button class="core-modal-close" onclick="closeModal('stackModal3')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="core-modal-body">
+                            <p>This is the topmost modal with the highest z-index. Close it to see the modal below.</p>
+                        </div>
+                        <div class="core-modal-footer">
+                            <button class="core-button primary" onclick="closeModal('stackModal3')">
+                                Got It!
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 <!-- Section 3: Implementation Guide -->
         <section class="section">
-            <h2 class="section-title">Implementation Guide</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 18px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">IMPLEMENTATION GUIDE</h2>
             
             <div class="implementation-section">
                 <h3>HTML Structure</h3>
@@ -433,7 +522,7 @@ export const Modal = ({
         
         <!-- Section 4: API Reference -->
         <section class="section">
-            <h2 class="section-title">API Reference</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 18px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">API REFERENCE</h2>
             
             <table class="api-table">
                 <thead>
@@ -485,15 +574,26 @@ export const Modal = ({
                     </tr>
                     <tr>
                         <td><code>.active</code></td>
-                        <td>Shows modal and backdrop</td>
+                        <td>Shows modal and backdrop with dynamic z-index</td>
                     </tr>
                 </tbody>
             </table>
+
+            <div class="component-card" style="margin-top: var(--spacing-xl);">
+                <h3>Z-Index Stacking System</h3>
+                <p>The modal system automatically manages z-index for multiple modals:</p>
+                <ul>
+                    <li><strong>Base z-index:</strong> 10000 (first modal)</li>
+                    <li><strong>Stack increment:</strong> +10 for each additional modal</li>
+                    <li><strong>Modal vs Backdrop:</strong> Modal is always +1 above its backdrop</li>
+                    <li><strong>Automatic cleanup:</strong> Z-index resets when all modals are closed</li>
+                </ul>
+            </div>
         </section>
         
         <!-- Section 5: Accessibility -->
         <section class="section">
-            <h2 class="section-title">Accessibility & Best Practices</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 18px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">ACCESSIBILITY & BEST PRACTICES</h2>
             
             <div class="component-card">
                 <h3>Keyboard Navigation</h3>
@@ -516,9 +616,12 @@ export const Modal = ({
                 <ul>
                     <li>Prevent body scroll when open</li>
                     <li>Close on backdrop click</li>
-                    <li>Smooth open/close animations</li>
+                    <li>Smooth open/close animations with Design System v2 colors</li>
                     <li>Responsive sizing on mobile</li>
-                    <li>Clear visual hierarchy</li>
+                    <li>Clear visual hierarchy with Primary Blue titles and Orange accents</li>
+                    <li>Dynamic z-index stacking for multiple modals</li>
+                    <li>Latest opened modal always appears on top</li>
+                    <li>Proper cleanup when modals are closed</li>
                 </ul>
             </div>
         </section>

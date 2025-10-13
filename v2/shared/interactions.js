@@ -6,27 +6,52 @@
 
 // MODAL SYSTEM - GLOBAL
 window.LYDModal = {
+    activeModals: [],
+    baseZIndex: 10000,
+
     open: function(modalId) {
         const backdrop = document.getElementById(modalId + '-backdrop');
         const modal = document.getElementById(modalId);
-        
+
         if (backdrop && modal) {
+            // Calculate z-index based on number of active modals
+            const zIndex = this.baseZIndex + (this.activeModals.length * 10);
+
+            // Apply z-index to backdrop and modal
+            backdrop.style.zIndex = zIndex;
+            modal.style.zIndex = zIndex + 1;
+
             backdrop.classList.add('active');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
             document.body.classList.add('modal-open');
+
+            // Track this modal
+            this.activeModals.push({
+                id: modalId,
+                backdrop: backdrop,
+                modal: modal,
+                zIndex: zIndex
+            });
         }
     },
-    
+
     close: function(modalId) {
         const backdrop = document.getElementById(modalId + '-backdrop');
         const modal = document.getElementById(modalId);
-        
+
         if (backdrop && modal) {
             backdrop.classList.remove('active');
             modal.classList.remove('active');
-            document.body.style.overflow = '';
-            document.body.classList.remove('modal-open');
+
+            // Remove from active modals array
+            this.activeModals = this.activeModals.filter(m => m.id !== modalId);
+
+            // If no more modals are open, restore body scroll
+            if (this.activeModals.length === 0) {
+                document.body.style.overflow = '';
+                document.body.classList.remove('modal-open');
+            }
         }
     },
     
