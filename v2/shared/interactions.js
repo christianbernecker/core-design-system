@@ -84,61 +84,71 @@ window.LYDModal = {
     }
 };
 
-// DROPDOWN SYSTEM - EINFACH UND FUNKTIONAL
+// DROPDOWN SYSTEM - DOM RELOCATION FÜR Z-INDEX FIX
 window.LYDDropdown = {
+    activeDropdowns: [],
+    baseZIndex: 10000,
+
     toggle: function(dropdownId) {
         const dropdown = document.getElementById(dropdownId);
-        const trigger = dropdown?.previousElementSibling;
-        
-        if (dropdown && trigger) {
-            // Close ALL other dropdowns first
-            document.querySelectorAll('.core-dropdown-menu').forEach(menu => {
-                if (menu.id !== dropdownId) {
-                    menu.classList.remove('active');
-                    menu.style.display = 'none';
-                }
-            });
-            
-            document.querySelectorAll('.core-dropdown-trigger').forEach(btn => {
-                if (btn !== trigger) {
-                    btn.classList.remove('active');
-                }
-            });
-            
-            // Toggle current dropdown
-            const isActive = dropdown.classList.contains('active');
-            if (isActive) {
-                dropdown.classList.remove('active');
-                dropdown.style.display = 'none';
-                trigger.classList.remove('active');
-            } else {
-                dropdown.classList.add('active');
-                dropdown.style.display = 'block';
-                dropdown.style.position = 'absolute';
-                dropdown.style.top = 'calc(100% + 8px)';
-                dropdown.style.left = '0';
-                dropdown.style.right = '0';
-                dropdown.style.zIndex = '99999999';
-                dropdown.style.background = 'white';
-                dropdown.style.border = '1px solid #e5e7eb';
-                dropdown.style.borderRadius = '8px';
-                dropdown.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)';
-                trigger.classList.add('active');
+        const trigger = document.querySelector(`[data-dropdown="${dropdownId}"]`) ||
+                       document.querySelector(`[onclick*="${dropdownId}"]`)?.closest('.core-dropdown')?.querySelector('.core-dropdown-trigger, .heroui-trigger');
+
+        if (!dropdown || !trigger) return;
+
+        const isActive = dropdown.classList.contains('active');
+
+        // Close all other dropdowns first
+        this.closeAll();
+
+        if (!isActive) {
+            // CRITICAL: Move dropdown to body to escape component-card stacking context
+            // component-card has isolation:isolate which traps child elements
+            if (dropdown.parentElement !== document.body) {
+                document.body.appendChild(dropdown);
             }
+
+            // Position dropdown relative to trigger button
+            const rect = trigger.getBoundingClientRect();
+            dropdown.style.position = 'fixed';
+            dropdown.style.top = `${rect.bottom + 8}px`;
+            dropdown.style.left = `${rect.left}px`;
+            dropdown.style.minWidth = `${rect.width}px`;
+            dropdown.style.zIndex = this.baseZIndex;
+
+            // Show dropdown
+            dropdown.classList.add('active');
+            dropdown.style.display = 'block';
+            dropdown.setAttribute('data-open', 'true');
+            trigger.classList.add('active');
+
+            // Track active dropdown
+            this.activeDropdowns.push({ id: dropdownId, dropdown, trigger });
         }
     },
-    
+
+    closeAll: function() {
+        this.activeDropdowns.forEach(({ dropdown, trigger }) => {
+            dropdown.classList.remove('active');
+            dropdown.style.display = 'none';
+            dropdown.setAttribute('data-open', 'false');
+            trigger.classList.remove('active');
+        });
+        this.activeDropdowns = [];
+    },
+
     init: function() {
         // Close dropdowns when clicking outside
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.core-dropdown')) {
-                document.querySelectorAll('.core-dropdown-menu.active').forEach(dropdown => {
-                    dropdown.classList.remove('active');
-                    dropdown.style.display = 'none';
-                });
-                document.querySelectorAll('.core-dropdown-trigger.active').forEach(trigger => {
-                    trigger.classList.remove('active');
-                });
+            if (!e.target.closest('.core-dropdown') && !e.target.closest('.heroui-dropdown') && !e.target.closest('.core-dropdown-menu') && !e.target.closest('.heroui-menu')) {
+                this.closeAll();
+            }
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeAll();
             }
         });
     }

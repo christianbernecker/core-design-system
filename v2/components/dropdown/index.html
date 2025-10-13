@@ -35,31 +35,30 @@
         }
         
         .heroui-trigger:hover {
-            border-color: #0066ff;
-            background: #f8fafc;
+            border-color: #FF5A10;
+            background: rgba(255, 90, 16, 0.05);
         }
-        
+
         .heroui-trigger:focus {
-            border-color: #0066ff;
-            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+            border-color: #FF5A10;
+            box-shadow: 0 0 0 3px rgba(255, 90, 16, 0.1);
         }
         
         .heroui-menu {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
+            position: fixed;
             min-width: 200px;
             background: white;
             border: 1px solid #e5e7eb;
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            z-index: 999999999;
+            z-index: 10000;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-8px) scale(0.95);
-            transition: all 0.2s ease;
+            transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
             padding: 8px 0;
             overflow: hidden;
+            display: none;
         }
         
         .heroui-menu[data-open="true"] {
@@ -86,16 +85,16 @@
         }
         
         .heroui-item:hover {
-            background: #f3f4f6;
+            background: rgba(255, 90, 16, 0.1);
         }
         
         .heroui-section-header {
             padding: 8px 16px;
             font-size: 12px;
-            font-weight: bold;
-            color: #666;
+            font-weight: 700;
+            color: #08204A;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.1em;
         }
         
         .heroui-divider {
@@ -124,8 +123,8 @@
         }
         
         .heroui-checkbox[data-selected="true"]::before {
-            background: #0066ff;
-            border-color: #0066ff;
+            background: #FF5A10;
+            border-color: #FF5A10;
         }
         
         .heroui-checkbox[data-selected="true"]::after {
@@ -143,45 +142,23 @@
     </style>
     
     <script>
-        // HEROUI-BASIERTE DROPDOWN FUNKTIONALITÄT
+        // DROPDOWN FUNKTIONALITÄT - Nutzt interactions.js LYDDropdown
         function toggleHeroUIDropdown(triggerId) {
+            // Get menu ID from trigger
             const trigger = document.getElementById(triggerId);
             const menu = trigger.nextElementSibling;
-            const isOpen = menu.getAttribute('data-open') === 'true';
-            
-            // Close all dropdowns
-            document.querySelectorAll('.heroui-menu').forEach(m => {
-                m.setAttribute('data-open', 'false');
-            });
-            
-            // Toggle current dropdown
-            if (!isOpen) {
-                menu.setAttribute('data-open', 'true');
+            const menuId = menu.id;
+
+            // Use LYDDropdown for DOM Relocation and z-index handling
+            if (window.LYDDropdown) {
+                LYDDropdown.toggle(menuId);
             }
         }
-        
+
         function toggleCheckbox(item) {
             const isSelected = item.getAttribute('data-selected') === 'true';
             item.setAttribute('data-selected', isSelected ? 'false' : 'true');
         }
-        
-        // Close on outside click
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.heroui-dropdown')) {
-                document.querySelectorAll('.heroui-menu').forEach(m => {
-                    m.setAttribute('data-open', 'false');
-                });
-            }
-        });
-        
-        // Close on escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.heroui-menu').forEach(m => {
-                    m.setAttribute('data-open', 'false');
-                });
-            }
-        });
     </script>
 </head>
 <body>
@@ -243,11 +220,11 @@
     
     <main class="main-content">
         <h1>Dropdown</h1>
-        <p>Versatile dropdown menus for navigation, actions, and selections with smooth animations - rebuilt with HeroUI architecture.</p>
+        <p>Versatile dropdown menus with DOM Relocation for perfect z-index handling and Design System v2 colors. Fast animations (0.15s) for responsive interactions.</p>
         
         <!-- Section 1: HeroUI Dropdown Variants -->
         <section class="section">
-            <h2 class="section-title">HeroUI Dropdown Variants</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 18px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">DROPDOWN VARIANTS</h2>
             
             <div class="component-card">
                 <h3>Standard Dropdown</h3>
@@ -260,7 +237,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
-                    <div class="heroui-menu" data-open="false">
+                    <div class="heroui-menu" id="menu-dropdown1" data-open="false">
                         <a href="#" class="heroui-item">View Details</a>
                         <a href="#" class="heroui-item">Edit Property</a>
                         <a href="#" class="heroui-item">Share Listing</a>
@@ -281,7 +258,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
-                    <div class="heroui-menu" data-open="false">
+                    <div class="heroui-menu" id="menu-dropdown2" data-open="false">
                         <a href="#" class="heroui-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <circle cx="12" cy="12" r="10"/>
@@ -318,7 +295,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
-                    <div class="heroui-menu" data-open="false">
+                    <div class="heroui-menu" id="menu-dropdown3" data-open="false">
                         <div class="heroui-section-header">Property Type</div>
                         <button class="heroui-item heroui-checkbox" data-selected="false" onclick="toggleCheckbox(this)">Apartment</button>
                         <button class="heroui-item heroui-checkbox" data-selected="true" onclick="toggleCheckbox(this)">House</button>
@@ -330,7 +307,7 @@
         </section>
 <!-- Section 3: Implementation Guide -->
         <section class="section">
-            <h2 class="section-title">Implementation Guide</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 18px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">IMPLEMENTATION GUIDE</h2>
             
             <div class="implementation-section">
                 <h3>HTML Structure</h3>
@@ -397,7 +374,7 @@ export const Dropdown = ({ trigger, children, align = 'left' }: DropdownProps) =
         
         <!-- Section 4: API Reference -->
         <section class="section">
-            <h2 class="section-title">API Reference</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 18px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">API REFERENCE</h2>
             
             <table class="api-table">
                 <thead>
@@ -453,7 +430,7 @@ export const Dropdown = ({ trigger, children, align = 'left' }: DropdownProps) =
         
         <!-- Section 5: Accessibility -->
         <section class="section">
-            <h2 class="section-title">Accessibility & Best Practices</h2>
+            <h2 class="section-title" style="color: var(--core-primary-blue); text-transform: uppercase; font-size: 18px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: var(--spacing-xl);">ACCESSIBILITY & BEST PRACTICES</h2>
             
             <div class="component-card">
                 <h3>Keyboard Navigation</h3>
