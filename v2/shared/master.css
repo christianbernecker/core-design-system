@@ -1374,9 +1374,8 @@ button.core-button.large {
     opacity: 1 !important;
 }
 
-/* Modal specific z-index */
+/* Modal specific z-index - Dynamic z-index managed by interactions.js */
 .core-modal-backdrop {
-    z-index: var(--z-modal-backdrop) !important;
     background: rgba(0, 0, 0, 0.5) !important;
     position: fixed !important;
     top: 0 !important;
@@ -1386,19 +1385,8 @@ button.core-button.large {
 }
 
 .core-modal {
-    z-index: var(--z-modal) !important;
     position: fixed !important;
     background: white !important;
-    opacity: 1 !important;
-}
-
-/* Modal specific z-index */
-.core-modal-backdrop {
-    z-index: var(--z-modal-backdrop) !important;
-}
-
-.core-modal {
-    z-index: var(--z-modal) !important;
 }
 
 /* Toast notifications should be on top */
