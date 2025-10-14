@@ -88,13 +88,34 @@ window.LYDModal = {
 window.LYDDropdown = {
     activeDropdowns: [],
     baseZIndex: 10000,
+    dropdownTriggerMap: {},
 
-    toggle: function(dropdownId) {
+    toggle: function(dropdownId, triggerElement) {
         const dropdown = document.getElementById(dropdownId);
-        const trigger = document.querySelector(`[data-dropdown="${dropdownId}"]`) ||
-                       document.querySelector(`[onclick*="${dropdownId}"]`)?.closest('.core-dropdown')?.querySelector('.core-dropdown-trigger, .heroui-trigger');
 
-        if (!dropdown || !trigger) return;
+        // Use provided trigger or find from map
+        let trigger = triggerElement;
+        if (!trigger) {
+            trigger = this.dropdownTriggerMap[dropdownId];
+        }
+
+        // Fallback: Try multiple strategies to find trigger
+        if (!trigger) {
+            const dropdownIdShort = dropdownId.replace('menu-', '');
+            trigger =
+                document.querySelector(`[data-dropdown="${dropdownId}"]`) ||
+                document.querySelector(`button[id="${dropdownIdShort}"]`) ||
+                document.querySelector(`.heroui-trigger[id="${dropdownIdShort}"]`) ||
+                document.querySelector(`[onclick*="${dropdownIdShort}"]`);
+        }
+
+        if (!dropdown || !trigger) {
+            console.warn('Dropdown or trigger not found:', dropdownId, trigger);
+            return;
+        }
+
+        // Store trigger reference for future use (important after DOM relocation!)
+        this.dropdownTriggerMap[dropdownId] = trigger;
 
         const isActive = dropdown.classList.contains('active');
 

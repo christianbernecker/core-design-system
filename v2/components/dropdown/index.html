@@ -144,14 +144,15 @@
     <script>
         // DROPDOWN FUNKTIONALITÄT - Nutzt interactions.js LYDDropdown
         function toggleHeroUIDropdown(triggerId) {
-            // Get menu ID from trigger
             const trigger = document.getElementById(triggerId);
-            const menu = trigger.nextElementSibling;
-            const menuId = menu.id;
+            if (!trigger) return;
 
-            // Use LYDDropdown for DOM Relocation and z-index handling
+            // Menu ID ist immer menu-{triggerId}
+            const menuId = `menu-${triggerId}`;
+
+            // Pass trigger reference to LYDDropdown for DOM Relocation
             if (window.LYDDropdown) {
-                LYDDropdown.toggle(menuId);
+                LYDDropdown.toggle(menuId, trigger);
             }
         }
 
