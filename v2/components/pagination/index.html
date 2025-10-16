@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagination - CORE Design System V2</title>
+    <title>Pagination - CORE Design System v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- ZENTRALES CSS SYSTEM -->
@@ -36,14 +36,16 @@
         }
         
         .core-pagination-item:hover {
-            background: var(--core-gray-100);
-            border-color: var(--core-primary);
+            background: rgba(255, 90, 16, 0.08);
+            border-color: #FF5A10;
+            color: #FF5A10;
         }
-        
+
         .core-pagination-item.active {
-            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
             color: white;
             border-color: transparent;
+            box-shadow: 0 2px 8px rgba(255, 90, 16, 0.25);
         }
         
         .core-pagination-item:disabled {

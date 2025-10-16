@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radio - CORE Design System V2</title>
+    <title>Radio - CORE Design System v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- ZENTRALES CSS SYSTEM -->
@@ -38,13 +38,14 @@
         }
         
         .core-radio-group:hover .core-radio {
-            border-color: var(--core-primary);
+            border-color: #FF5A10;
         }
-        
+
         .core-radio-input:checked ~ .core-radio {
-            border-color: var(--core-primary);
+            border-color: #FF5A10;
+            box-shadow: 0 2px 8px rgba(255, 90, 16, 0.2);
         }
-        
+
         .core-radio-input:checked ~ .core-radio::after {
             content: '';
             position: absolute;
@@ -54,7 +55,7 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--core-primary) 0%, var(--core-royal-blue) 100%);
+            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
         }
         
         .core-radio-label {

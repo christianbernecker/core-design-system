@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabs - CORE Design System V2</title>
+    <title>Tabs - CORE Design System v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- ZENTRALES CSS SYSTEM -->
@@ -52,9 +52,10 @@
         }
         
         .core-tab.active {
-            color: var(--core-primary);
+            color: #FF5A10;
+            font-weight: var(--font-weight-semibold);
         }
-        
+
         .core-tab.active::after {
             content: '';
             position: absolute;
@@ -62,7 +63,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: var(--core-primary);
+            background: linear-gradient(90deg, #FF5A10 0%, #FFAD75 100%);
         }
         
         .core-tab-panel {
@@ -104,8 +105,9 @@
         
         .core-tabs-list.pills .core-tab.active {
             background: white;
-            color: var(--core-primary);
+            color: #FF5A10;
             box-shadow: var(--shadow-sm);
+            font-weight: var(--font-weight-semibold);
         }
         
         .core-tabs-list.pills .core-tab.active::after {

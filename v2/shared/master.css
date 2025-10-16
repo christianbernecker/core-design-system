@@ -1844,14 +1844,14 @@ body.modal-open {
     padding: var(--spacing-lg, 24px);
 }
 
-/* Gradient Spinner - HERO UI STYLE MIT LYD GRADIENT */
+/* Gradient Spinner - HERO UI STYLE MIT DESIGN SYSTEM V2 GRADIENT */
 .core-loading-spinner-gradient {
     position: relative;
     border-radius: var(--radius-full, 9999px);
     background: conic-gradient(
         from 0deg,
-        var(--core-primary, #3b82f6) 0deg,
-        var(--core-royal-blue, #1d4ed8) 120deg,
+        #FF5A10 0deg,
+        #FFAD75 120deg,
         transparent 180deg,
         transparent 360deg
     );
@@ -1873,7 +1873,7 @@ body.modal-open {
     position: relative;
     border-radius: var(--radius-full, 9999px);
     border: 3px solid var(--core-gray-200, #e5e7eb);
-    border-top: 3px solid var(--core-primary, #3b82f6);
+    border-top: 3px solid #FF5A10;
     animation: core-spinner-rotate 1s linear infinite;
 }
 
@@ -1890,7 +1890,7 @@ body.modal-open {
 .core-dot {
     width: 8px;
     height: 8px;
-    background: var(--core-primary, #3b82f6);
+    background: #FF5A10;
     border-radius: var(--radius-full, 9999px);
     animation: core-dots-bounce 1.4s ease-in-out infinite both;
 }

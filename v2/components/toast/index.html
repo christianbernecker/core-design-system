@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toast - CORE Design System V2</title>
+    <title>Toast - CORE Design System v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- ZENTRALES CSS SYSTEM -->
@@ -36,7 +36,7 @@
             min-width: 300px;
             animation: slideIn 0.3s ease;
             position: relative;
-            border-left: 4px solid var(--core-primary);
+            border-left: 4px solid #08204A;
         }
         
         @keyframes slideIn {
@@ -133,21 +133,33 @@
         }
         
         .core-toast.info {
-            border-left-color: var(--core-primary);
+            border-left-color: #08204A;
         }
-        
+
         .core-toast.info .core-toast-icon {
-            color: var(--core-primary);
+            color: #08204A;
         }
-        
+
         /* Progress Bar */
         .core-toast-progress {
             position: absolute;
             bottom: 0;
             left: 0;
             height: 3px;
-            background: var(--core-primary);
+            background: linear-gradient(90deg, #FF5A10 0%, #FFAD75 100%);
             animation: progress 5s linear;
+        }
+
+        .core-toast.success .core-toast-progress {
+            background: var(--core-success);
+        }
+
+        .core-toast.error .core-toast-progress {
+            background: var(--core-error);
+        }
+
+        .core-toast.warning .core-toast-progress {
+            background: var(--core-warning);
         }
         
         @keyframes progress {
