@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar - CORE Design System V2</title>
+    <title>Calendar - CORE Design System v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- ZENTRALES CSS SYSTEM -->
@@ -61,9 +61,9 @@
         }
         
         .core-calendar-nav-btn:hover {
-            background: var(--core-gradient-subtle);
-            border-color: var(--core-primary);
-            color: var(--core-primary);
+            background: rgba(255, 90, 16, 0.08);
+            border-color: #FF5A10;
+            color: #FF5A10;
         }
         
         .core-calendar-weekdays {
@@ -104,20 +104,21 @@
         }
         
         .core-calendar-day:hover {
-            background: var(--core-gradient-subtle);
-            color: var(--core-primary);
+            background: rgba(255, 90, 16, 0.08);
+            color: #FF5A10;
         }
-        
+
         .core-calendar-day.today {
-            background: var(--core-primary);
+            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
             color: white;
             font-weight: var(--font-weight-bold);
         }
-        
+
         .core-calendar-day.selected {
-            background: var(--core-gradient-primary);
+            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
             color: white;
             font-weight: var(--font-weight-bold);
+            box-shadow: 0 2px 8px rgba(255, 90, 16, 0.3);
         }
         
         .core-calendar-day.disabled {
@@ -131,8 +132,8 @@
         }
         
         .core-calendar-day.in-range {
-            background: rgba(0, 102, 255, 0.1);
-            color: var(--core-primary);
+            background: rgba(255, 90, 16, 0.1);
+            color: #FF5A10;
         }
         
         /* Month/Year Selector */
@@ -167,15 +168,15 @@
         
         .core-month-item:hover,
         .core-year-item:hover {
-            background: var(--core-gradient-subtle);
-            border-color: var(--core-primary);
-            color: var(--core-primary);
+            background: rgba(255, 90, 16, 0.08);
+            border-color: #FF5A10;
+            color: #FF5A10;
         }
-        
+
         .core-month-item.selected,
         .core-year-item.selected {
-            background: var(--core-primary);
-            border-color: var(--core-primary);
+            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            border-color: transparent;
             color: white;
         }
     </style>
