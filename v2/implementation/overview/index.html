@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Implementation Guide - CORE Design System v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- ZENTRALES CSS SYSTEM -->
     <link rel="stylesheet" href="/shared/master.css">
-    
+
     <style>
         /* Implementation Guide specific styles */
         .guide-intro {
@@ -17,91 +17,201 @@
             border-radius: var(--radius-lg);
             margin-bottom: var(--spacing-2xl);
         }
-        
+
         .guide-intro h1 {
-            background: var(--core-gradient-primary);
+            background: var(--orange-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: var(--spacing-lg);
+            font-size: 48px;
         }
-        
+
         .guide-card {
             background: white;
             border-radius: var(--radius-lg);
             padding: var(--spacing-xl);
             margin-bottom: var(--spacing-lg);
             box-shadow: var(--shadow-md);
-            border-left: 4px solid var(--core-primary);
-            transition: var(--transition-premium);
+            border-left: 4px solid var(--orange-primary);
+            transition: var(--transition-base);
         }
-        
+
         .guide-card:hover {
             transform: translateX(4px);
-            box-shadow: var(--shadow-premium);
+            box-shadow: 0 4px 20px rgba(255, 90, 16, 0.15);
         }
-        
+
         .guide-card h3 {
-            color: var(--core-primary);
+            color: var(--orange-primary);
             margin-bottom: var(--spacing-md);
             display: flex;
             align-items: center;
             gap: var(--spacing-sm);
+            font-size: 22px;
         }
-        
+
         .guide-card ul {
             list-style: none;
             padding: 0;
         }
-        
+
         .guide-card li {
             padding: var(--spacing-sm) 0;
             padding-left: var(--spacing-lg);
             position: relative;
         }
-        
+
         .guide-card li::before {
             content: '→';
             position: absolute;
             left: 0;
-            color: var(--core-primary);
+            color: var(--orange-primary);
             font-weight: bold;
         }
-        
-        .highlight-box {
-            background: var(--core-gradient-subtle);
-            border-radius: var(--radius-md);
-            padding: var(--spacing-lg);
-            margin: var(--spacing-lg) 0;
-            border-left: 3px solid var(--core-primary);
+
+        .quick-start-box {
+            background: linear-gradient(135deg, rgba(255, 90, 16, 0.05) 0%, rgba(255, 173, 117, 0.05) 100%);
+            border: 2px solid var(--orange-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            margin: var(--spacing-2xl) 0;
         }
-        
-        .tech-stack {
+
+        .quick-start-box h2 {
+            color: var(--orange-primary);
+            margin-bottom: var(--spacing-lg);
+            font-size: 32px;
+        }
+
+        .step-counter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--orange-gradient);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: var(--spacing-sm);
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--spacing-md) 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .code-block .comment { color: #64748b; }
+        .code-block .tag { color: #38bdf8; }
+        .code-block .attr { color: #fb923c; }
+        .code-block .string { color: #86efac; }
+        .code-block .keyword { color: #c084fc; }
+
+        .info-box {
+            background: rgba(8, 32, 74, 0.05);
+            border-left: 4px solid var(--blue-deep);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .warning-box {
+            background: rgba(251, 146, 60, 0.05);
+            border-left: 4px solid #fb923c;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .success-box {
+            background: rgba(134, 239, 172, 0.05);
+            border-left: 4px solid #22c55e;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .browser-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .browser-item {
+            text-align: center;
+            padding: var(--spacing-md);
+            background: white;
+            border: 1px solid var(--core-line);
+            border-radius: var(--radius-md);
+        }
+
+        .browser-item.supported {
+            border-color: #22c55e;
+            background: rgba(134, 239, 172, 0.05);
+        }
+
+        .version-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--orange-gradient);
+            color: white;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .faq-item {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .faq-question {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--blue-deep);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .faq-answer {
+            color: var(--core-text);
+            line-height: 1.6;
+        }
+
+        .metric-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: var(--spacing-md);
             margin-top: var(--spacing-lg);
         }
-        
-        .tech-item {
+
+        .metric-card {
             background: white;
-            border: 1px solid var(--core-line);
+            border: 2px solid var(--core-line);
             border-radius: var(--radius-md);
-            padding: var(--spacing-md);
+            padding: var(--spacing-lg);
             text-align: center;
-            transition: var(--transition-premium);
         }
-        
-        .tech-item:hover {
-            border-color: var(--core-primary);
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-        
-        .tech-item strong {
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--orange-primary);
             display: block;
-            color: var(--core-primary);
             margin-bottom: var(--spacing-xs);
+        }
+
+        .metric-label {
+            color: var(--core-text-secondary);
+            font-size: 14px;
         }
     </style>
 </head>
@@ -111,7 +221,7 @@
             <div class="core-logo-text">CORE</div>
             <div class="logo-subtitle">Design System v2</div>
         </div>
-        
+
         <nav>
             <div class="nav-section">
                 <div class="nav-section-title">Design Principles</div>
@@ -121,210 +231,587 @@
                 <a href="/design-principles/grid/" class="nav-item">Grid</a>
                 <a href="/design-principles/spacing/" class="nav-item">Spacing</a>
             </div>
-            
+
             <div class="nav-section">
                 <div class="nav-section-title">Implementation Guide</div>
                 <a href="/implementation/overview/" class="nav-item active">Overview</a>
                 <a href="/implementation/css/" class="nav-item">CSS Architecture</a>
                 <a href="/implementation/nextjs/" class="nav-item">Next.js Integration</a>
             </div>
-            
+
             <div class="nav-section">
                 <div class="nav-section-title">Components</div>
                 <a href="/components/overview/" class="nav-item">Overview</a>
                 <a href="/components/buttons/" class="nav-item">Button</a>
                 <a href="/components/inputs/" class="nav-item">Input</a>
                 <a href="/components/cards/" class="nav-item">Card</a>
-                <a href="/components/select/" class="nav-item">Select</a>
-                <a href="/components/accordion/" class="nav-item">Accordion</a>
-                <a href="/components/modal/" class="nav-item">Modal</a>
-                <a href="/components/dropdown/" class="nav-item">Dropdown</a>
-                <a href="/components/checkbox/" class="nav-item">Checkbox</a>
-                <a href="/components/radio/" class="nav-item">Radio</a>
-                <a href="/components/toast/" class="nav-item">Toast</a>
-                <a href="/components/table/" class="nav-item">Table</a>
-                <a href="/components/textarea/" class="nav-item">Textarea</a>
-                <a href="/components/switch/" class="nav-item">Switch</a>
-                <a href="/components/slider/" class="nav-item">Slider</a>
-                <a href="/components/alert/" class="nav-item">Alert</a>
-                <a href="/components/badge/" class="nav-item">Badge</a>
-                <a href="/components/date-picker/" class="nav-item">Date Picker</a>
-                <a href="/components/avatar/" class="nav-item">Avatar</a>
-                <a href="/components/navbar/" class="nav-item">Navbar</a>
-                <a href="/components/tabs/" class="nav-item">Tabs</a>
-                <a href="/components/progress/" class="nav-item">Progress</a>
-                <a href="/components/calendar/" class="nav-item">Calendar</a>
-                <a href="/components/autocomplete/" class="nav-item">Autocomplete</a>
-                <a href="/components/pagination/" class="nav-item">Pagination</a>
-                <a href="/components/tooltip/" class="nav-item">Tooltip</a>
-                <a href="/components/spinner/" class="nav-item">Spinner</a>
-                </div>
+                <a href="/components/" class="nav-item">All Components →</a>
+            </div>
         </nav>
     </div>
-    
+
     <main class="main-content">
         <div class="guide-intro">
             <h1>Implementation Guide</h1>
-            <p>Welcome to the CORE Design System Implementation Guide. This documentation walks you through the technical architecture and best practices for integrating our design system into your projects.</p>
-            <p>Before implementing individual components, we recommend familiarizing yourself with the architecture and core principles.</p>
+            <p style="font-size: 18px; line-height: 1.8;">Willkommen zum CORE Design System v2 Implementation Guide. Diese Dokumentation führt dich Schritt für Schritt durch die Integration unseres Design Systems in dein Projekt - von der Installation bis zum produktiven Einsatz.</p>
+            <p style="font-size: 16px; color: var(--core-text-secondary); margin-top: var(--spacing-md);">
+                <strong>Geschätzte Lesezeit:</strong> 15 Minuten |
+                <strong>Setup-Zeit:</strong> 5 Minuten |
+                <strong>Schwierigkeit:</strong> Anfänger-freundlich
+            </p>
         </div>
-        
+
+        <!-- QUICK START - 5 MINUTES -->
+        <div class="quick-start-box">
+            <h2>🚀 Quick Start - Dein erster Component in 5 Minuten</h2>
+            <p>Folge diesen 3 einfachen Schritten, um sofort loszulegen:</p>
+
+            <div style="margin-top: var(--spacing-xl);">
+                <h3 style="display: flex; align-items: center; margin-bottom: var(--spacing-md);">
+                    <span class="step-counter">1</span>
+                    CSS einbinden
+                </h3>
+                <p>Füge das zentrale CSS in deinen HTML <code>&lt;head&gt;</code> ein:</p>
+                <div class="code-block">
+<span class="comment">&lt;!-- In deinem HTML &lt;head&gt; --&gt;</span>
+&lt;<span class="tag">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://core-design-system.vercel.app/shared/master.css"</span>&gt;
+                </div>
+
+                <h3 style="display: flex; align-items: center; margin: var(--spacing-xl) 0 var(--spacing-md);">
+                    <span class="step-counter">2</span>
+                    Component HTML kopieren
+                </h3>
+                <p>Kopiere den HTML-Code eines beliebigen Components:</p>
+                <div class="code-block">
+<span class="comment">&lt;!-- Primary Button --&gt;</span>
+&lt;<span class="tag">button</span> <span class="attr">class</span>=<span class="string">"core-button primary"</span>&gt;
+  Mein Button
+&lt;/<span class="tag">button</span>&gt;
+
+<span class="comment">&lt;!-- Input mit Label --&gt;</span>
+&lt;<span class="tag">div</span> <span class="attr">class</span>=<span class="string">"core-input-group"</span>&gt;
+  &lt;<span class="tag">label</span> <span class="attr">class</span>=<span class="string">"core-input-label"</span>&gt;E-Mail&lt;/<span class="tag">label</span>&gt;
+  &lt;<span class="tag">input</span> <span class="attr">type</span>=<span class="string">"email"</span> <span class="attr">class</span>=<span class="string">"core-input"</span> <span class="attr">placeholder</span>=<span class="string">"mail@example.com"</span>&gt;
+&lt;/<span class="tag">div</span>&gt;
+                </div>
+
+                <h3 style="display: flex; align-items: center; margin: var(--spacing-xl) 0 var(--spacing-md);">
+                    <span class="step-counter">3</span>
+                    Fertig! 🎉
+                </h3>
+                <p>Öffne deine Seite im Browser - die Components sind sofort einsatzbereit!</p>
+
+                <div class="success-box" style="margin-top: var(--spacing-xl);">
+                    <strong>✅ Live Demo:</strong> Teste alle Components auf
+                    <a href="https://core-design-system.vercel.app/components/" style="color: var(--orange-primary); font-weight: 600;">core-design-system.vercel.app</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- INSTALLATION OPTIONS -->
         <section class="section">
-            <h2 class="section-title">Quick Start</h2>
-            
+            <h2 class="section-title">Installation & Setup</h2>
+
             <div class="guide-card">
                 <h3>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
                     </svg>
-                    Getting Started in 3 Steps
+                    Option 1: CDN (Schnellste Methode)
                 </h3>
-                <ol>
-                    <li><strong>Understand CSS Architecture:</strong> Learn about our central master.css system</li>
-                    <li><strong>Framework Integration:</strong> Integrate components into Next.js, React, or Vanilla JS</li>
-                    <li><strong>Use Components:</strong> Implement pre-built components in your project</li>
+                <p>Ideal für Prototypen, Demos und statische Websites:</p>
+                <div class="code-block">
+<span class="comment">&lt;!-- Füge dies in deinen &lt;head&gt; ein --&gt;</span>
+&lt;<span class="tag">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>
+     <span class="attr">href</span>=<span class="string">"https://core-design-system.vercel.app/shared/master.css"</span>&gt;
+                </div>
+                <div class="info-box">
+                    <strong>Vorteile:</strong> Keine Installation, automatisches Caching, sofort einsatzbereit<br>
+                    <strong>Nachteile:</strong> Keine Offline-Verfügbarkeit, keine Customization
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    Option 2: NPM Package (Empfohlen für Projekte)
+                </h3>
+                <p>Für Next.js, React, Vue und andere Node.js-basierte Projekte:</p>
+                <div class="code-block">
+<span class="comment"># Installation via NPM</span>
+npm install @core/design-system
+
+<span class="comment"># Oder via Yarn</span>
+yarn add @core/design-system
+                </div>
+                <p style="margin-top: var(--spacing-md);">Import in deinem Projekt:</p>
+                <div class="code-block">
+<span class="comment">// In deinem App/Layout File</span>
+<span class="keyword">import</span> <span class="string">'@core/design-system/master.css'</span>
+                </div>
+                <div class="info-box">
+                    <strong>Vorteile:</strong> Version Pinning, Tree Shaking, Bundle Optimization<br>
+                    <strong>Ideal für:</strong> Production Apps, CI/CD Pipelines
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Option 3: Manual Download
+                </h3>
+                <p>Für volle Kontrolle und Customization:</p>
+                <ol style="padding-left: 20px;">
+                    <li style="margin: 8px 0;">Download <code>master.css</code> von GitHub</li>
+                    <li style="margin: 8px 0;">Kopiere in dein <code>public/css/</code> Verzeichnis</li>
+                    <li style="margin: 8px 0;">Verlinke lokal: <code>&lt;link href="/css/master.css"&gt;</code></li>
                 </ol>
+                <div class="info-box">
+                    <strong>Vorteile:</strong> Volle Kontrolle, Offline verfügbar, anpassbar<br>
+                    <strong>Download:</strong> <a href="https://github.com/christianbernecker/core-design-system" style="color: var(--orange-primary);">GitHub Repository →</a>
+                </div>
             </div>
         </section>
-        
+
+        <!-- PROJECT STRUCTURE -->
+        <section class="section">
+            <h2 class="section-title">Empfohlene Projekt-Struktur</h2>
+
+            <div class="guide-card">
+                <h3>Next.js / React Project</h3>
+                <div class="code-block">
+my-project/
+├── public/
+│   ├── css/
+│   │   └── master.css          <span class="comment"># CORE Design System</span>
+│   └── images/
+├── app/                         <span class="comment"># Next.js 13+ App Router</span>
+│   ├── layout.tsx              <span class="comment"># Globales Layout (CSS Import hier)</span>
+│   ├── page.tsx
+│   └── components/
+│       └── ui/                 <span class="comment"># Deine UI Components</span>
+│           ├── Button.tsx
+│           ├── Input.tsx
+│           └── Modal.tsx
+├── components/                  <span class="comment"># Shared Components</span>
+│   ├── header/
+│   ├── footer/
+│   └── layout/
+└── package.json
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <h3>Vanilla HTML Project</h3>
+                <div class="code-block">
+my-website/
+├── css/
+│   ├── master.css              <span class="comment"># CORE Design System</span>
+│   └── custom.css              <span class="comment"># Deine Custom Styles</span>
+├── js/
+│   └── main.js
+├── index.html
+├── about.html
+└── contact.html
+                </div>
+            </div>
+        </section>
+
+        <!-- ARCHITECTURE OVERVIEW -->
         <section class="section">
             <h2 class="section-title">Architecture Overview</h2>
-            
+
+            <div class="guide-card">
+                <h3>Das Zentrale CSS System</h3>
+                <p>Unser Design System basiert auf einer <strong>Single-File Architecture</strong> mit <code>master.css</code> als zentralem Stylesheet:</p>
+
+                <div class="metric-grid" style="margin: var(--spacing-xl) 0;">
+                    <div class="metric-card">
+                        <span class="metric-value">45KB</span>
+                        <span class="metric-label">CSS Bundle Size</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">27</span>
+                        <span class="metric-label">Components</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">150+</span>
+                        <span class="metric-label">CSS Variables</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">0</span>
+                        <span class="metric-label">Dependencies</span>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: var(--spacing-xl); color: var(--orange-primary);">Was ist in master.css enthalten?</h4>
+                <ul>
+                    <li><strong>CSS Custom Properties:</strong> Farben, Typography, Spacing, Shadows</li>
+                    <li><strong>Design Tokens v2:</strong> Orange (#FF5A10) & Deep Blue (#08204A)</li>
+                    <li><strong>Component Classes:</strong> Alle 27 Components mit Variants</li>
+                    <li><strong>Responsive Utilities:</strong> Mobile-first Breakpoints</li>
+                    <li><strong>Utility Classes:</strong> Margin, Padding, Display, etc.</li>
+                </ul>
+            </div>
+
+            <div class="guide-card">
+                <h3>Framework Kompatibilität</h3>
+                <p>Das CORE Design System ist <strong>framework-agnostic</strong> und funktioniert mit:</p>
+                <div class="browser-grid">
+                    <div class="browser-item supported">
+                        <strong>Next.js 13+</strong><br>
+                        <span style="font-size: 12px; color: #22c55e;">✓ App Router</span>
+                    </div>
+                    <div class="browser-item supported">
+                        <strong>React 18+</strong><br>
+                        <span style="font-size: 12px; color: #22c55e;">✓ TypeScript</span>
+                    </div>
+                    <div class="browser-item supported">
+                        <strong>Vue 3</strong><br>
+                        <span style="font-size: 12px; color: #22c55e;">✓ Composition API</span>
+                    </div>
+                    <div class="browser-item supported">
+                        <strong>Vanilla JS</strong><br>
+                        <span style="font-size: 12px; color: #22c55e;">✓ ES6+</span>
+                    </div>
+                    <div class="browser-item supported">
+                        <strong>HTML/CSS</strong><br>
+                        <span style="font-size: 12px; color: #22c55e;">✓ Pure</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VERSIONING & UPDATES -->
+        <section class="section">
+            <h2 class="section-title">Versioning & Updates</h2>
+
             <div class="guide-card">
                 <h3>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
                     </svg>
-                    Central CSS System
+                    Semantic Versioning
                 </h3>
-                <p>Our design system is based on a central <code>master.css</code> file containing all global styles, variables, and utility classes:</p>
-                <ul>
-                    <li><strong>CSS Custom items:</strong> Colors, Typography, Spacing, Shadows</li>
-                    <li><strong>Premium Design Tokens:</strong> Gradients, Glassmorphism, Premium Transitions</li>
-                    <li><strong>Component Classes:</strong> Reusable styles for all components</li>
-                    <li><strong>Responsive Design:</strong> Mobile-first approach with breakpoints</li>
-                </ul>
+                <p>Wir folgen <strong>Semantic Versioning (SemVer)</strong>: <code>MAJOR.MINOR.PATCH</code></p>
+
+                <div style="margin-top: var(--spacing-lg);">
+                    <div style="margin-bottom: var(--spacing-md);">
+                        <span class="version-badge">v2.0.0</span>
+                        <strong>MAJOR:</strong> Breaking Changes (z.B. CSS Class Umbenennungen)
+                    </div>
+                    <div style="margin-bottom: var(--spacing-md);">
+                        <span class="version-badge" style="background: #3b82f6;">v2.1.0</span>
+                        <strong>MINOR:</strong> Neue Features (z.B. neue Components)
+                    </div>
+                    <div style="margin-bottom: var(--spacing-md);">
+                        <span class="version-badge" style="background: #22c55e;">v2.0.1</span>
+                        <strong>PATCH:</strong> Bugfixes (z.B. Style Corrections)
+                    </div>
+                </div>
             </div>
-            
+
             <div class="guide-card">
-                <h3>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                    </svg>
-                    JavaScript & Framework Integration
-                </h3>
-                <p>Components are framework-agnostic and can be used in various environments:</p>
-                <ul>
-                    <li><strong>Vanilla JavaScript:</strong> Direct HTML/CSS/JS integration</li>
-                    <li><strong>React/Next.js:</strong> As React components with TypeScript support</li>
-                    <li><strong>Vue.js:</strong> As Vue components</li>
-                    <li><strong>Web Components:</strong> As custom elements</li>
-                </ul>
-            </div>
-        </section>
-        
-        <section class="section">
-            <h2 class="section-title">Technology Stack</h2>
-            
-            <div class="tech-stack">
-                <div class="tech-item">
-                    <strong>CSS3</strong>
-                    <span>Custom items, Grid, Flexbox</span>
+                <h3>Was passiert bei Updates?</h3>
+
+                <h4 style="color: var(--orange-primary); margin-top: var(--spacing-lg);">📦 NPM Package Updates</h4>
+                <div class="code-block">
+<span class="comment"># Check for updates</span>
+npm outdated @core/design-system
+
+<span class="comment"># Update to latest version</span>
+npm update @core/design-system
+
+<span class="comment"># Update to specific version</span>
+npm install @core/design-system@2.1.0
                 </div>
-                <div class="tech-item">
-                    <strong>JavaScript ES6+</strong>
-                    <span>Modern JavaScript Features</span>
+
+                <h4 style="color: var(--orange-primary); margin-top: var(--spacing-xl);">🔗 CDN Updates</h4>
+                <p>CDN Links sind immer auf dem neuesten Stand. Für Version Pinning:</p>
+                <div class="code-block">
+<span class="comment">&lt;!-- Latest (automatische Updates) --&gt;</span>
+&lt;<span class="tag">link</span> <span class="attr">href</span>=<span class="string">"https://core-design-system.vercel.app/shared/master.css"</span>&gt;
+
+<span class="comment">&lt;!-- Specific Version (empfohlen für Production) --&gt;</span>
+&lt;<span class="tag">link</span> <span class="attr">href</span>=<span class="string">"https://core-design-system.vercel.app/v2.0.0/shared/master.css"</span>&gt;
                 </div>
-                <div class="tech-item">
-                    <strong>TypeScript</strong>
-                    <span>Type-safe Development</span>
-                </div>
-                <div class="tech-item">
-                    <strong>Next.js 14+</strong>
-                    <span>React Framework</span>
-                </div>
-                <div class="tech-item">
-                    <strong>SVG Icons</strong>
-                    <span>Scalable Vector Graphics</span>
-                </div>
-                <div class="tech-item">
-                    <strong>Web Standards</strong>
-                    <span>Accessibility, Performance</span>
+
+                <div class="warning-box">
+                    <strong>⚠️ Breaking Changes Policy:</strong><br>
+                    Bei MAJOR Updates erstellen wir immer einen <strong>Migration Guide</strong>.
+                    Alte Versionen bleiben mindestens 6 Monate verfügbar.
                 </div>
             </div>
-        </section>
-        
-        <section class="section">
-            <h2 class="section-title">Best Practices</h2>
-            
-            <div class="highlight-box">
-                <h3>Design Principles</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--core-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                            <line x1="9" y1="9" x2="15" y2="9"/>
-                            <line x1="9" y1="15" x2="15" y2="15"/>
-                        </svg>
-                        <div><strong>Consistency:</strong> Always use predefined design tokens</div>
-                    </li>
-                    <li style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--core-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                        </svg>
-                        <div><strong>Accessibility:</strong> All components follow WCAG 2.1 AA standards</div>
-                    </li>
-                    <li style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--core-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
-                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-                            <line x1="12" y1="18" x2="12.01" y2="18"/>
-                        </svg>
-                        <div><strong>Responsive:</strong> Mobile-first approach for all components</div>
-                    </li>
-                    <li style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--core-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
-                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                        </svg>
-                        <div><strong>Performance:</strong> Optimized CSS and lazy-loading for JavaScript</div>
-                    </li>
-                    <li style="display: flex; align-items: start; gap: 12px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--core-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
-                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-                        </svg>
-                        <div><strong>Maintainability:</strong> Clear naming conventions and documentation</div>
-                    </li>
-                </ul>
-            </div>
-            
+
             <div class="guide-card">
-                <h3>Naming Conventions</h3>
+                <h3>Update Benachrichtigungen</h3>
+                <p>Bleibe auf dem Laufenden:</p>
                 <ul>
-                    <li><strong>CSS Classes:</strong> <code>.core-[component]-[variant]</code></li>
-                    <li><strong>CSS Variables:</strong> <code>--core-[item]-[value]</code></li>
-                    <li><strong>JavaScript Functions:</strong> <code>camelCase</code> for functions</li>
-                    <li><strong>Component Files:</strong> <code>kebab-case</code> for file names</li>
+                    <li><strong>GitHub Releases:</strong> <a href="https://github.com/christianbernecker/core-design-system/releases" style="color: var(--orange-primary);">Changelog ansehen</a></li>
+                    <li><strong>npm Notifications:</strong> <code>npm outdated</code> zeigt verfügbare Updates</li>
+                    <li><strong>Documentation:</strong> Alle Changes werden hier dokumentiert</li>
                 </ul>
             </div>
         </section>
-        
+
+        <!-- CUSTOMIZATION & THEMING -->
+        <section class="section">
+            <h2 class="section-title">Customization & Theming</h2>
+
+            <div class="guide-card">
+                <h3>Brand Colors überschreiben</h3>
+                <p>Passe das Design System an deine Brand an, indem du CSS Variables überschreibst:</p>
+                <div class="code-block">
+<span class="comment">/* In deinem custom.css NACH master.css */</span>
+<span class="keyword">:root</span> {
+  <span class="comment">/* Überschreibe Primary Color */</span>
+  <span class="attr">--orange-primary</span>: <span class="string">#YOUR_BRAND_COLOR</span>;
+
+  <span class="comment">/* Überschreibe Secondary Color */</span>
+  <span class="attr">--blue-deep</span>: <span class="string">#YOUR_SECONDARY_COLOR</span>;
+
+  <span class="comment">/* Custom Gradient */</span>
+  <span class="attr">--orange-gradient</span>: <span class="string">linear-gradient(135deg, #YOUR_COLOR1, #YOUR_COLOR2)</span>;
+}
+                </div>
+
+                <div class="success-box">
+                    <strong>✅ Tipp:</strong> Alle CSS Variables findest du in der
+                    <a href="/design-principles/colors/" style="color: var(--orange-primary); font-weight: 600;">Colors Documentation</a>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <h3>Dark Mode implementieren</h3>
+                <p>Beispiel für einen Dark Mode Toggle:</p>
+                <div class="code-block">
+<span class="comment">/* Dark Mode Variables */</span>
+<span class="keyword">:root</span>.<span class="attr">dark-mode</span> {
+  <span class="attr">--core-bg</span>: <span class="string">#1a1a1a</span>;
+  <span class="attr">--core-text</span>: <span class="string">#ffffff</span>;
+  <span class="attr">--core-card-bg</span>: <span class="string">#2a2a2a</span>;
+}
+
+<span class="comment">/* Toggle via JavaScript */</span>
+<span class="keyword">document</span>.<span class="attr">documentElement</span>.<span class="attr">classList</span>.<span class="attr">toggle</span>(<span class="string">'dark-mode'</span>);
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <h3>Eigene Components erstellen</h3>
+                <p>Erstelle custom Components mit CORE Tokens:</p>
+                <div class="code-block">
+<span class="comment">/* Nutze bestehende Variables */</span>
+.<span class="attr">my-custom-card</span> {
+  <span class="attr">background</span>: <span class="keyword">var</span>(<span class="string">--core-card-bg</span>);
+  <span class="attr">border-radius</span>: <span class="keyword">var</span>(<span class="string">--radius-lg</span>);
+  <span class="attr">padding</span>: <span class="keyword">var</span>(<span class="string">--spacing-xl</span>);
+  <span class="attr">box-shadow</span>: <span class="keyword">var</span>(<span class="string">--shadow-md</span>);
+  <span class="attr">transition</span>: <span class="keyword">var</span>(<span class="string">--transition-base</span>);
+}
+
+.<span class="attr">my-custom-card</span>:<span class="attr">hover</span> {
+  <span class="attr">box-shadow</span>: <span class="keyword">var</span>(<span class="string">--orange-shadow-lg</span>);
+  <span class="attr">transform</span>: <span class="string">translateY(-2px)</span>;
+}
+                </div>
+            </div>
+        </section>
+
+        <!-- BROWSER SUPPORT -->
+        <section class="section">
+            <h2 class="section-title">Browser Support & Compatibility</h2>
+
+            <div class="guide-card">
+                <h3>Supported Browsers</h3>
+                <div class="browser-grid">
+                    <div class="browser-item supported">
+                        <strong>Chrome</strong><br>
+                        <span style="font-size: 12px;">Version 90+</span><br>
+                        <span style="font-size: 12px; color: #22c55e;">✓ Full Support</span>
+                    </div>
+                    <div class="browser-item supported">
+                        <strong>Firefox</strong><br>
+                        <span style="font-size: 12px;">Version 88+</span><br>
+                        <span style="font-size: 12px; color: #22c55e;">✓ Full Support</span>
+                    </div>
+                    <div class="browser-item supported">
+                        <strong>Safari</strong><br>
+                        <span style="font-size: 12px;">Version 14+</span><br>
+                        <span style="font-size: 12px; color: #22c55e;">✓ Full Support</span>
+                    </div>
+                    <div class="browser-item supported">
+                        <strong>Edge</strong><br>
+                        <span style="font-size: 12px;">Version 90+</span><br>
+                        <span style="font-size: 12px; color: #22c55e;">✓ Full Support</span>
+                    </div>
+                    <div class="browser-item">
+                        <strong>IE 11</strong><br>
+                        <span style="font-size: 12px;">Deprecated</span><br>
+                        <span style="font-size: 12px; color: #ef4444;">✗ Not Supported</span>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: var(--spacing-lg);">
+                    <strong>CSS Features verwendet:</strong><br>
+                    CSS Custom Properties (Variables), CSS Grid, Flexbox, CSS Transforms, CSS Transitions
+                </div>
+            </div>
+        </section>
+
+        <!-- PERFORMANCE -->
+        <section class="section">
+            <h2 class="section-title">Performance Best Practices</h2>
+
+            <div class="guide-card">
+                <h3>Bundle Metrics</h3>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="metric-value">45KB</span>
+                        <span class="metric-label">CSS Bundle (uncompressed)</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">~12KB</span>
+                        <span class="metric-label">Gzipped</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">&lt;50ms</span>
+                        <span class="metric-label">CSS Parse Time</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">0KB</span>
+                        <span class="metric-label">JavaScript (optional)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <h3>Optimization Tipps</h3>
+                <ul>
+                    <li><strong>Lazy Loading:</strong> Lade nur die Components, die du benötigst</li>
+                    <li><strong>CSS Minification:</strong> Nutze Production Builds mit minified CSS</li>
+                    <li><strong>CDN Caching:</strong> Browser cachen master.css automatisch</li>
+                    <li><strong>Tree Shaking:</strong> Bei NPM Package automatisch aktiviert</li>
+                    <li><strong>Critical CSS:</strong> Inline kritische Styles für Above-the-Fold Content</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TROUBLESHOOTING & FAQ -->
+        <section class="section">
+            <h2 class="section-title">Troubleshooting & FAQ</h2>
+
+            <div class="guide-card">
+                <h3>Häufige Probleme & Lösungen</h3>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Styles werden nicht geladen / Component sieht falsch aus</div>
+                    <div class="faq-answer">
+                        <strong>Lösungen:</strong>
+                        <ol style="padding-left: 20px; margin-top: 8px;">
+                            <li>Prüfe, ob <code>master.css</code> korrekt eingebunden ist (Browser DevTools → Network)</li>
+                            <li>Stelle sicher, dass der Pfad korrekt ist (CDN vs. local)</li>
+                            <li>Checke Browser Console auf CSS Fehler</li>
+                            <li>Leere Browser Cache (Cmd/Ctrl + Shift + R)</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Component funktioniert nicht / JavaScript Error</div>
+                    <div class="faq-answer">
+                        <strong>Lösungen:</strong>
+                        <ol style="padding-left: 20px; margin-top: 8px;">
+                            <li>Manche Components benötigen JavaScript - siehe Component Docs</li>
+                            <li>Prüfe, ob <code>interactions.js</code> eingebunden ist (falls benötigt)</li>
+                            <li>Checke Browser Console auf JavaScript Fehler</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ CSS Konflikte mit bestehendem Styling</div>
+                    <div class="faq-answer">
+                        <strong>Lösungen:</strong>
+                        <ol style="padding-left: 20px; margin-top: 8px;">
+                            <li>Nutze CSS Specificity: <code>.your-wrapper .core-button { }</code></li>
+                            <li>Lade <code>master.css</code> VOR deinem custom CSS</li>
+                            <li>Verwende <code>:where()</code> für niedrige Specificity</li>
+                            <li>Erwäge CSS Modules oder Scoped Styles (React/Vue)</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Responsive Design funktioniert nicht auf Mobile</div>
+                    <div class="faq-answer">
+                        <strong>Lösungen:</strong>
+                        <ol style="padding-left: 20px; margin-top: 8px;">
+                            <li>Füge Viewport Meta Tag hinzu: <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                            <li>Checke ob Container-Breiten responsive sind</li>
+                            <li>Teste mit Browser DevTools Mobile Emulation</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Performance Probleme / Langsame Ladezeiten</div>
+                    <div class="faq-answer">
+                        <strong>Lösungen:</strong>
+                        <ol style="padding-left: 20px; margin-top: 8px;">
+                            <li>Nutze CDN für automatisches Caching</li>
+                            <li>Enable Gzip/Brotli Compression auf deinem Server</li>
+                            <li>Lazy Load Components, die nicht sofort sichtbar sind</li>
+                            <li>Verwende Production Build (minified CSS)</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <h3>Weitere Hilfe benötigt?</h3>
+                <ul>
+                    <li><strong>GitHub Issues:</strong> <a href="https://github.com/christianbernecker/core-design-system/issues" style="color: var(--orange-primary);">Bug Report erstellen</a></li>
+                    <li><strong>Component Docs:</strong> Jeder Component hat detaillierte Usage Examples</li>
+                    <li><strong>Code Examples:</strong> Alle Examples sind Copy-Paste ready</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- NEXT STEPS -->
         <section class="section">
             <h2 class="section-title">Next Steps</h2>
-            
+
             <div class="guide-card">
                 <h3>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
                         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                     </svg>
-                    Advanced Documentation
+                    Vertiefe dein Wissen
                 </h3>
-                <p>Deepen your knowledge with our detailed guides:</p>
+                <p>Jetzt wo du die Basics kennst, erkunde weitere Themen:</p>
                 <ul>
-                    <li><a href="/implementation/css/" style="color: var(--core-primary); text-decoration: none; font-weight: 600;">CSS Architecture →</a> Understand the master.css system in detail</li>
-                    <li><a href="/implementation/nextjs/" style="color: var(--core-primary); text-decoration: none; font-weight: 600;">Next.js Integration →</a> Implement components in Next.js projects</li>
-                    <li><a href="/components/overview/" style="color: var(--core-primary); text-decoration: none; font-weight: 600;">Component Library →</a> Explore all available components</li>
+                    <li><a href="/implementation/css/" style="color: var(--orange-primary); text-decoration: none; font-weight: 600;">CSS Architecture →</a> Verstehe das master.css System im Detail</li>
+                    <li><a href="/implementation/nextjs/" style="color: var(--orange-primary); text-decoration: none; font-weight: 600;">Next.js Integration →</a> Implementiere Components in Next.js 13+</li>
+                    <li><a href="/components/overview/" style="color: var(--orange-primary); text-decoration: none; font-weight: 600;">Component Library →</a> Entdecke alle 27 verfügbaren Components</li>
+                    <li><a href="/design-principles/colors/" style="color: var(--orange-primary); text-decoration: none; font-weight: 600;">Design Principles →</a> Lerne über Colors, Typography & Grid</li>
                 </ul>
+            </div>
+
+            <div class="success-box">
+                <h3 style="margin-top: 0;">🎉 Bereit zum Start?</h3>
+                <p>Du bist jetzt startklar! Beginne mit dem <a href="/components/buttons/" style="color: var(--orange-primary); font-weight: 600;">Button Component</a> oder springe direkt zur <a href="/components/overview/" style="color: var(--orange-primary); font-weight: 600;">Component Overview</a>.</p>
             </div>
         </section>
     </main>
