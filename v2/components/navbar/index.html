@@ -68,17 +68,17 @@
             font-size: var(--font-size-base);
             font-weight: var(--font-weight-medium);
             border-radius: var(--radius-md);
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
         }
         
         .core-navbar-link:hover {
-            background: rgba(255, 90, 16, 0.08);
-            color: #FF5A10;
+            background: var(--orange-hover-bg);
+            color: var(--orange-primary);
         }
 
         .core-navbar-link.active {
-            color: #FF5A10;
-            background: rgba(255, 90, 16, 0.1);
+            color: var(--orange-primary);
+            background: var(--orange-active-bg);
             font-weight: var(--font-weight-semibold);
         }
         
@@ -104,7 +104,7 @@
             width: 24px;
             height: 2px;
             background: var(--core-text);
-            transition: all 0.3s ease;
+            transition: all var(--transition-slow);
         }
         
         .core-navbar-toggle.active span:nth-child(1) {
@@ -132,7 +132,7 @@
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
         }
         
         .core-navbar-item:hover .core-navbar-dropdown {
@@ -147,12 +147,12 @@
             color: var(--core-text);
             text-decoration: none;
             font-size: var(--font-size-sm);
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
         }
         
         .core-navbar-dropdown-item:hover {
-            background: rgba(255, 90, 16, 0.08);
-            color: #FF5A10;
+            background: var(--orange-hover-bg);
+            color: var(--orange-primary);
         }
         
         /* Dark Navbar */
@@ -194,7 +194,7 @@
                 transform: translateY(-100%);
                 opacity: 0;
                 visibility: hidden;
-                transition: all 0.3s ease;
+                transition: all var(--transition-slow);
             }
             
             .core-navbar-menu.active {
@@ -212,7 +212,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

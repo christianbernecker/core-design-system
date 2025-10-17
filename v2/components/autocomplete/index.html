@@ -29,12 +29,12 @@
             border-radius: var(--radius-md);
             background: white;
             color: var(--core-text);
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
         }
         
         .core-autocomplete-input:focus {
             outline: none;
-            border-color: #FF5A10;
+            border-color: var(--orange-primary);
             box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
         }
         
@@ -85,14 +85,14 @@
         }
         
         .core-autocomplete-item.active {
-            background: #FF5A10;
+            background: var(--orange-primary);
             color: white;
         }
         
         .core-autocomplete-item-icon {
             width: 20px;
             height: 20px;
-            color: #FF5A10;
+            color: var(--orange-primary);
         }
         
         .core-autocomplete-item.active .core-autocomplete-item-icon {
@@ -127,7 +127,7 @@
         
         .core-autocomplete-highlight {
             font-weight: var(--font-weight-bold);
-            color: #FF5A10;
+            color: var(--orange-primary);
         }
         
         .core-autocomplete-item.active .core-autocomplete-highlight {
@@ -150,7 +150,7 @@
             width: 24px;
             height: 24px;
             border: 3px solid var(--core-gray-200);
-            border-top-color: #FF5A10;
+            border-top-color: var(--orange-primary);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin: 0 auto;

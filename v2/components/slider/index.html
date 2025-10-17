@@ -34,10 +34,10 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             cursor: pointer;
-            box-shadow: 0 2px 6px rgba(255, 90, 16, 0.3);
-            transition: all 0.2s ease;
+            box-shadow: var(--orange-shadow-md);
+            transition: all var(--transition-base);
         }
         
         .core-slider::-webkit-slider-thumb:hover {
@@ -50,11 +50,11 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             cursor: pointer;
-            box-shadow: 0 2px 6px rgba(255, 90, 16, 0.3);
+            box-shadow: var(--orange-shadow-md);
             border: none;
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
         }
         
         .core-slider::-moz-range-thumb:hover {
@@ -72,7 +72,7 @@
         .core-slider-track {
             position: absolute;
             height: 6px;
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             border-radius: 3px;
             pointer-events: none;
         }
@@ -90,7 +90,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             color: white;
             padding: 4px 12px;
             border-radius: var(--radius-md);
@@ -129,7 +129,7 @@
         .core-range-selected {
             position: absolute;
             height: 6px;
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             border-radius: 3px;
             top: 17px;
         }
@@ -152,7 +152,7 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             cursor: pointer;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         }
@@ -162,7 +162,7 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             cursor: pointer;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
             border: none;
@@ -186,7 +186,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

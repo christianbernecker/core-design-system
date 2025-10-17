@@ -101,16 +101,16 @@
         }
         
         .core-alert.info {
-            background: rgba(8, 32, 74, 0.08);
-            border-left-color: #08204A;
+            background: var(--blue-info-bg);
+            border-left-color: var(--blue-deep);
         }
 
         .core-alert.info .core-alert-icon {
-            color: #08204A;
+            color: var(--blue-deep);
         }
 
         .core-alert.info .core-alert-title {
-            color: #08204A;
+            color: var(--blue-deep);
         }
         
         /* Alert Actions */
@@ -126,7 +126,7 @@
             font-size: var(--font-size-sm);
             font-weight: var(--font-weight-medium);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
             border: none;
             background: rgba(0, 0, 0, 0.05);
         }
@@ -136,7 +136,7 @@
         }
         
         .core-alert-action.primary {
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             color: white;
         }
 
@@ -162,7 +162,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accordion - CORE Design System V2</title>
+    <title>Accordion - CORE Design System v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- ZENTRALES CSS SYSTEM -->
@@ -28,7 +28,7 @@
             background: white;
             border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-slow);
             font-size: var(--font-size-base);
             font-weight: var(--font-weight-semibold);
             color: var(--core-text);
@@ -40,7 +40,7 @@
         }
         
         .core-accordion-header.active {
-            background: linear-gradient(135deg, rgba(255, 90, 16, 0.08) 0%, rgba(255, 173, 117, 0.08) 100%);
+            background: linear-gradient(135deg, var(--orange-hover-bg) 0%, rgba(255, 173, 117, 0.08) 100%);
             color: var(--core-primary-orange);
         }
         
@@ -101,7 +101,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

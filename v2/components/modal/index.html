@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modal - CORE Design System V2</title>
+    <title>Modal - CORE Design System v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- ZENTRALES CSS SYSTEM -->
@@ -68,7 +68,7 @@
         .core-modal-title {
             font-size: var(--font-size-xl);
             font-weight: var(--font-weight-bold);
-            color: #08204A;
+            color: var(--blue-deep);
         }
         
         .core-modal-close {
@@ -81,13 +81,13 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
             color: var(--core-grey);
         }
         
         .core-modal-close:hover {
-            background: rgba(255, 90, 16, 0.1);
-            color: #FF5A10;
+            background: var(--orange-active-bg);
+            color: var(--orange-primary);
         }
         
         .core-modal-body {
@@ -144,7 +144,7 @@
 
         .demo-item {
             aspect-ratio: 16/9;
-            background: linear-gradient(135deg, rgba(255, 90, 16, 0.1) 0%, rgba(8, 32, 74, 0.1) 100%);
+            background: linear-gradient(135deg, var(--orange-active-bg) 0%, var(--blue-info-bg) 100%);
             border: 2px dashed var(--core-primary-blue);
             border-radius: var(--radius-md);
             display: flex;
@@ -159,7 +159,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

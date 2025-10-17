@@ -36,7 +36,7 @@
             min-width: 300px;
             animation: slideIn 0.3s ease;
             position: relative;
-            border-left: 4px solid #08204A;
+            border-left: 4px solid var(--blue-deep);
         }
         
         @keyframes slideIn {
@@ -98,7 +98,7 @@
             justify-content: center;
             cursor: pointer;
             color: var(--core-grey);
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
             border-radius: var(--radius-sm);
         }
         
@@ -133,11 +133,11 @@
         }
         
         .core-toast.info {
-            border-left-color: #08204A;
+            border-left-color: var(--blue-deep);
         }
 
         .core-toast.info .core-toast-icon {
-            color: #08204A;
+            color: var(--blue-deep);
         }
 
         /* Progress Bar */
@@ -146,7 +146,7 @@
             bottom: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(90deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             animation: progress 5s linear;
         }
 
@@ -191,7 +191,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

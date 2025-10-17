@@ -32,7 +32,7 @@
             right: 0;
             bottom: 0;
             background: var(--core-gray-300);
-            transition: all 0.3s ease;
+            transition: all var(--transition-slow);
             border-radius: 24px;
         }
         
@@ -44,14 +44,14 @@
             left: 3px;
             bottom: 3px;
             background: white;
-            transition: all 0.3s ease;
+            transition: all var(--transition-slow);
             border-radius: 50%;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         input:checked + .core-switch-slider {
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
-            box-shadow: 0 2px 8px rgba(255, 90, 16, 0.3);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
+            box-shadow: var(--orange-shadow-md);
         }
         
         input:checked + .core-switch-slider:before {
@@ -144,7 +144,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

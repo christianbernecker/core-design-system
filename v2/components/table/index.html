@@ -100,8 +100,8 @@
         }
         
         .table-badge.info {
-            background: rgba(8, 32, 74, 0.08);
-            color: #08204A;
+            background: var(--blue-info-bg);
+            color: var(--blue-deep);
         }
         
         /* Table Actions */
@@ -116,13 +116,13 @@
             padding: 4px;
             cursor: pointer;
             color: var(--core-grey);
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
             border-radius: var(--radius-sm);
         }
         
         .table-action:hover {
-            background: rgba(255, 90, 16, 0.08);
-            color: #FF5A10;
+            background: var(--orange-hover-bg);
+            color: var(--orange-primary);
         }
         
         /* Sortable Headers */
@@ -163,7 +163,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

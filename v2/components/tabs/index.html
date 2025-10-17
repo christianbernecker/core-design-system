@@ -43,7 +43,7 @@
             font-weight: var(--font-weight-medium);
             color: var(--core-grey);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
             white-space: nowrap;
         }
         
@@ -52,7 +52,7 @@
         }
         
         .core-tab.active {
-            color: #FF5A10;
+            color: var(--orange-primary);
             font-weight: var(--font-weight-semibold);
         }
 
@@ -63,7 +63,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(90deg, var(--orange-primary) 0%, var(--orange-light) 100%);
         }
         
         .core-tab-panel {
@@ -105,7 +105,7 @@
         
         .core-tabs-list.pills .core-tab.active {
             background: white;
-            color: #FF5A10;
+            color: var(--orange-primary);
             box-shadow: var(--shadow-sm);
             font-weight: var(--font-weight-semibold);
         }
@@ -179,7 +179,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

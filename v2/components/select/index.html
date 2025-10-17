@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select - CORE Design System V2</title>
+    <title>Select - CORE Design System v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- ZENTRALES CSS SYSTEM -->
@@ -41,7 +41,7 @@
             font-size: var(--font-size-base);
             color: var(--core-text);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
         }
         
         .core-select-trigger:hover {
@@ -50,7 +50,7 @@
 
         .core-select-trigger.active {
             border-color: var(--core-primary-blue);
-            box-shadow: 0 0 0 3px rgba(8, 32, 74, 0.1);
+            box-shadow: 0 0 0 3px var(--blue-info-bg);
         }
         
         .core-select-icon {
@@ -79,7 +79,7 @@
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
             z-index: 999999 !important;
         }
         
@@ -106,7 +106,7 @@
         
         .core-select-search input:focus {
             border-color: var(--core-primary-blue);
-            box-shadow: 0 0 0 3px rgba(8, 32, 74, 0.1);
+            box-shadow: 0 0 0 3px var(--blue-info-bg);
         }
         
         .core-select-option {
@@ -122,7 +122,7 @@
         }
         
         .core-select-option.selected {
-            background: rgba(8, 32, 74, 0.05);
+            background: var(--blue-info-bg);
             color: var(--core-primary-blue);
             font-weight: var(--font-weight-semibold);
         }
@@ -216,7 +216,7 @@
             align-items: center;
             gap: 6px;
             padding: 4px 10px;
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             color: white;
             border-radius: var(--radius-full);
             font-size: var(--font-size-sm);
@@ -236,7 +236,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

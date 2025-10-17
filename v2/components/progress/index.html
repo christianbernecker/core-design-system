@@ -26,10 +26,10 @@
         
         .core-progress-bar {
             height: 100%;
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             border-radius: var(--radius-full);
             transition: width 0.3s ease;
-            box-shadow: 0 2px 4px rgba(255, 90, 16, 0.2);
+            box-shadow: var(--orange-shadow-sm);
         }
         
         /* Progress Sizes */
@@ -168,9 +168,9 @@
         }
         
         .core-progress-step.active .core-progress-step-dot {
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             color: white;
-            box-shadow: 0 2px 8px rgba(255, 90, 16, 0.3);
+            box-shadow: var(--orange-shadow-md);
         }
         
         .core-progress-step.completed .core-progress-step-dot {
@@ -213,7 +213,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

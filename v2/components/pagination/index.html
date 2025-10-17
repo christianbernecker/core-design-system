@@ -31,21 +31,21 @@
             border: 1px solid var(--core-line);
             border-radius: var(--radius-md);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
             text-decoration: none;
         }
         
         .core-pagination-item:hover {
-            background: rgba(255, 90, 16, 0.08);
-            border-color: #FF5A10;
-            color: #FF5A10;
+            background: var(--orange-hover-bg);
+            border-color: var(--orange-primary);
+            color: var(--orange-primary);
         }
 
         .core-pagination-item.active {
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             color: white;
             border-color: transparent;
-            box-shadow: 0 2px 8px rgba(255, 90, 16, 0.25);
+            box-shadow: var(--orange-shadow-lg);
         }
         
         .core-pagination-item:disabled {
@@ -123,7 +123,7 @@
             border: none;
             cursor: pointer;
             color: var(--core-text);
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
         }
         
         .core-pagination-mini button:hover:not(:disabled) {
@@ -156,16 +156,16 @@
             padding: 12px 32px;
             font-size: var(--font-size-base);
             font-weight: var(--font-weight-medium);
-            color: #FF5A10;
+            color: var(--orange-primary);
             background: white;
-            border: 2px solid #FF5A10;
+            border: 2px solid var(--orange-primary);
             border-radius: var(--radius-md);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
         }
         
         .core-pagination-loadmore-btn:hover {
-            background: #FF5A10;
+            background: var(--orange-primary);
             color: white;
         }
         
@@ -178,7 +178,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

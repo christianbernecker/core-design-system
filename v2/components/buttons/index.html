@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button - CORE Design System V2</title>
+    <title>Button - CORE Design System v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- ZENTRALES CSS SYSTEM -->
@@ -74,7 +74,7 @@
         }
 
         .core-button.ghost:hover {
-            background: rgba(8, 32, 74, 0.1);
+            background: var(--blue-info-bg);
             color: var(--core-primary-blue);
             transform: translateY(-1px);
         }
@@ -130,7 +130,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>
@@ -543,8 +543,8 @@ function addRippleEffect(button) {
                 <div class="component-card">
                     <h3>Design System Guidelines</h3>
                     <ul class="best-practices-list">
-                        <li>Primary buttons use orange gradient (#FF5A10 to #FFAD75)</li>
-                        <li>Secondary buttons use Ströer blue gradient (#08204A to #054A91)</li>
+                        <li>Primary buttons use orange gradient (var(--orange-primary) to var(--orange-light))</li>
+                        <li>Secondary buttons use Ströer blue gradient (var(--blue-deep) to #054A91)</li>
                         <li>Outline buttons use neon gradient border (Cyan to Orange)</li>
                         <li>Maintain consistent button heights across the application</li>
                         <li>Use SVG icons with <code style="font-family: var(--font-family-mono); font-size: 12px; background: var(--core-gray-100); padding: 2px 6px; border-radius: 4px;">stroke="currentColor"</code> for color inheritance</li>

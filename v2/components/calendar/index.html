@@ -55,15 +55,15 @@
             border-radius: var(--radius-md);
             color: var(--core-text);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
             font-size: 18px;
             font-weight: bold;
         }
         
         .core-calendar-nav-btn:hover {
-            background: rgba(255, 90, 16, 0.08);
-            border-color: #FF5A10;
-            color: #FF5A10;
+            background: var(--orange-hover-bg);
+            border-color: var(--orange-primary);
+            color: var(--orange-primary);
         }
         
         .core-calendar-weekdays {
@@ -100,25 +100,25 @@
             font-weight: var(--font-weight-medium);
             border-radius: var(--radius-md);
             cursor: pointer;
-            transition: all 0.15s ease;
+            transition: all var(--transition-fast);
         }
         
         .core-calendar-day:hover {
-            background: rgba(255, 90, 16, 0.08);
-            color: #FF5A10;
+            background: var(--orange-hover-bg);
+            color: var(--orange-primary);
         }
 
         .core-calendar-day.today {
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             color: white;
             font-weight: var(--font-weight-bold);
         }
 
         .core-calendar-day.selected {
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             color: white;
             font-weight: var(--font-weight-bold);
-            box-shadow: 0 2px 8px rgba(255, 90, 16, 0.3);
+            box-shadow: var(--orange-shadow-md);
         }
         
         .core-calendar-day.disabled {
@@ -132,8 +132,8 @@
         }
         
         .core-calendar-day.in-range {
-            background: rgba(255, 90, 16, 0.1);
-            color: #FF5A10;
+            background: var(--orange-active-bg);
+            color: var(--orange-primary);
         }
         
         /* Month/Year Selector */
@@ -160,7 +160,7 @@
             border: 1px solid var(--core-line);
             border-radius: var(--radius-md);
             cursor: pointer;
-            transition: all 0.15s ease;
+            transition: all var(--transition-fast);
             font-size: var(--font-size-sm);
             font-weight: var(--font-weight-medium);
             background: white;
@@ -168,14 +168,14 @@
         
         .core-month-item:hover,
         .core-year-item:hover {
-            background: rgba(255, 90, 16, 0.08);
-            border-color: #FF5A10;
-            color: #FF5A10;
+            background: var(--orange-hover-bg);
+            border-color: var(--orange-primary);
+            color: var(--orange-primary);
         }
 
         .core-month-item.selected,
         .core-year-item.selected {
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
             border-color: transparent;
             color: white;
         }
@@ -185,7 +185,7 @@
     <div class="sidebar">
         <div class="sidebar-header">
             <div class="core-logo-text">CORE</div>
-            <div class="logo-subtitle">Design System V2</div>
+            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>

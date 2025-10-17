@@ -33,6 +33,36 @@
     --core-success: #10b981;
     --core-warning: #f59e0b;
     --core-error: #ef4444;
+
+    /* ========================================
+       DESIGN SYSTEM V2 - ORANGE & BLUE TOKENS
+       Standardized colors for consistency
+       ======================================== */
+
+    /* Orange Primary Tokens */
+    --orange-primary: #FF5A10;
+    --orange-light: #FFAD75;
+    --orange-hover-bg: rgba(255, 90, 16, 0.08);
+    --orange-active-bg: rgba(255, 90, 16, 0.1);
+    --orange-focus-ring: rgba(255, 90, 16, 0.1);
+    --orange-gradient: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+    --orange-gradient-hover: linear-gradient(135deg, #E54F0D 0%, #FF9C66 100%);
+
+    /* Orange Shadows */
+    --orange-shadow-sm: 0 2px 4px rgba(255, 90, 16, 0.2);
+    --orange-shadow-md: 0 2px 8px rgba(255, 90, 16, 0.3);
+    --orange-shadow-lg: 0 4px 12px rgba(255, 90, 16, 0.25);
+    --orange-shadow-focus: 0 0 0 3px rgba(255, 90, 16, 0.1);
+
+    /* Deep Blue Secondary Tokens */
+    --blue-deep: #08204A;
+    --blue-info-bg: rgba(8, 32, 74, 0.08);
+    --blue-info-border: rgba(8, 32, 74, 0.2);
+
+    /* Standardized Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.2s ease;
+    --transition-slow: 0.3s ease;
     
     /* Gray Scale */
     --core-gray-100: #f3f4f6;

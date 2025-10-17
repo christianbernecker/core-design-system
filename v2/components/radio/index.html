@@ -33,17 +33,17 @@
             background: white;
             border: 2px solid var(--core-line);
             border-radius: 50%;
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
             flex-shrink: 0;
         }
         
         .core-radio-group:hover .core-radio {
-            border-color: #FF5A10;
+            border-color: var(--orange-primary);
         }
 
         .core-radio-input:checked ~ .core-radio {
-            border-color: #FF5A10;
-            box-shadow: 0 2px 8px rgba(255, 90, 16, 0.2);
+            border-color: var(--orange-primary);
+            box-shadow: var(--orange-shadow-md);
         }
 
         .core-radio-input:checked ~ .core-radio::after {
@@ -55,7 +55,7 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #FF5A10 0%, #FFAD75 100%);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%);
         }
         
         .core-radio-label {
@@ -124,7 +124,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System V2</div>
+            <div class="core-logo-text">CORE</div>            <div class="logo-subtitle">Design System v2</div>
         </div>
         
         <nav>
