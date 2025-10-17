@@ -477,32 +477,32 @@ cp path/to/master.css public/css/master.css
             <div class="component-card">
                 <h3>Server Component with Data Fetching</h3>
                 
-                <span class="file-label">app/properties/page.tsx</span>
+                <span class="file-label">app/items/page.tsx</span>
                 <div class="code-block">
 <span class="keyword">import</span> { Card } <span class="keyword">from</span> <span class="string">'@/components/ui/Card'</span>
 
 <span class="keyword">async function</span> <span class="function">getProperties</span>() {
-  <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'https://api.example.com/properties'</span>, {
+  <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'https://api.example.com/items'</span>, {
     next: { revalidate: 3600 }
   })
   <span class="keyword">return</span> res.json()
 }
 
 <span class="keyword">export default async function</span> <span class="function">PropertiesPage</span>() {
-  <span class="keyword">const</span> properties = <span class="keyword">await</span> <span class="function">getProperties</span>()
+  <span class="keyword">const</span> items = <span class="keyword">await</span> <span class="function">getProperties</span>()
 
   <span class="keyword">return</span> (
     &lt;<span class="tag">div</span> <span class="attr">className</span>=<span class="string">"grid grid-cols-1 md:grid-cols-3 gap-6"</span>&gt;
-      {properties.map((property: any) => (
+      {items.map((item: any) => (
         &lt;<span class="tag">Card</span>
-          <span class="attr">key</span>={property.id}
-          <span class="attr">title</span>={property.title}
-          <span class="attr">subtitle</span>={property.location}
-          <span class="attr">image</span>={property.image}
+          <span class="attr">key</span>={item.id}
+          <span class="attr">title</span>={item.title}
+          <span class="attr">subtitle</span>={item.location}
+          <span class="attr">image</span>={item.image}
         &gt;
-          &lt;<span class="tag">p</span>&gt;{property.description}&lt;/<span class="tag">p</span>&gt;
+          &lt;<span class="tag">p</span>&gt;{item.description}&lt;/<span class="tag">p</span>&gt;
           &lt;<span class="tag">p</span> <span class="attr">className</span>=<span class="string">"font-bold"</span>&gt;
-            €{property.price.toLocaleString()}
+            €{item.price.toLocaleString()}
           &lt;/<span class="tag">p</span>&gt;
         &lt;/<span class="tag">Card</span>&gt;
       ))}

@@ -171,7 +171,7 @@
             margin-top: var(--spacing-md);
         }
         
-        .spacing-code .property {
+        .spacing-code .item {
             color: #9CDCFE;
         }
         
@@ -481,19 +481,19 @@
                 <p>Always use spacing variables instead of hardcoded pixel values for consistency.</p>
                 
                 <div class="spacing-code">
-<span class="property">/* ✅ Correct Usage */</span>
-<span class="property">padding</span>: <span class="value">var(--spacing-md)</span>;
-<span class="property">margin-bottom</span>: <span class="value">var(--spacing-lg)</span>;
-<span class="property">gap</span>: <span class="value">var(--spacing-sm)</span>;
+<span class="item">/* ✅ Correct Usage */</span>
+<span class="item">padding</span>: <span class="value">var(--spacing-md)</span>;
+<span class="item">margin-bottom</span>: <span class="value">var(--spacing-lg)</span>;
+<span class="item">gap</span>: <span class="value">var(--spacing-sm)</span>;
 
-<span class="property">/* ❌ Avoid Hardcoded Values */</span>
-<span class="property">padding</span>: <span class="value">16px</span>;
-<span class="property">margin-bottom</span>: <span class="value">24px</span>;
-<span class="property">gap</span>: <span class="value">8px</span>;
+<span class="item">/* ❌ Avoid Hardcoded Values */</span>
+<span class="item">padding</span>: <span class="value">16px</span>;
+<span class="item">margin-bottom</span>: <span class="value">24px</span>;
+<span class="item">gap</span>: <span class="value">8px</span>;
 
-<span class="property">/* Combining Spacing */</span>
-<span class="property">padding</span>: <span class="value">var(--spacing-md) var(--spacing-xl)</span>;
-<span class="property">margin</span>: <span class="value">var(--spacing-lg) auto</span>;
+<span class="item">/* Combining Spacing */</span>
+<span class="item">padding</span>: <span class="value">var(--spacing-md) var(--spacing-xl)</span>;
+<span class="item">margin</span>: <span class="value">var(--spacing-lg) auto</span>;
                 </div>
             </div>
             
@@ -502,20 +502,20 @@
                 <p>Adjust spacing for different screen sizes while maintaining proportions.</p>
                 
                 <div class="spacing-code">
-<span class="property">/* Mobile */</span>
-<span class="property">padding</span>: <span class="value">var(--spacing-md)</span>;
-<span class="property">gap</span>: <span class="value">var(--spacing-sm)</span>;
+<span class="item">/* Mobile */</span>
+<span class="item">padding</span>: <span class="value">var(--spacing-md)</span>;
+<span class="item">gap</span>: <span class="value">var(--spacing-sm)</span>;
 
-<span class="property">/* Tablet and up */</span>
-<span class="property">@media</span> (<span class="value">min-width: 768px</span>) {
-  <span class="property">padding</span>: <span class="value">var(--spacing-lg)</span>;
-  <span class="property">gap</span>: <span class="value">var(--spacing-md)</span>;
+<span class="item">/* Tablet and up */</span>
+<span class="item">@media</span> (<span class="value">min-width: 768px</span>) {
+  <span class="item">padding</span>: <span class="value">var(--spacing-lg)</span>;
+  <span class="item">gap</span>: <span class="value">var(--spacing-md)</span>;
 }
 
-<span class="property">/* Desktop */</span>
-<span class="property">@media</span> (<span class="value">min-width: 1024px</span>) {
-  <span class="property">padding</span>: <span class="value">var(--spacing-xl)</span>;
-  <span class="property">gap</span>: <span class="value">var(--spacing-lg)</span>;
+<span class="item">/* Desktop */</span>
+<span class="item">@media</span> (<span class="value">min-width: 1024px</span>) {
+  <span class="item">padding</span>: <span class="value">var(--spacing-xl)</span>;
+  <span class="item">gap</span>: <span class="value">var(--spacing-lg)</span>;
 }
                 </div>
             </div>

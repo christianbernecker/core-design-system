@@ -27,7 +27,7 @@
             color: #6A9955;
         }
         
-        .code-example .property {
+        .code-example .item {
             color: #9CDCFE;
         }
         
@@ -164,7 +164,7 @@
                     <li><strong>Consistency:</strong> All components use the same design tokens</li>
                     <li><strong>Performance:</strong> Only one CSS file needs to be loaded</li>
                     <li><strong>Maintainability:</strong> Central location for all style changes</li>
-                    <li><strong>Scalability:</strong> Easy extension through CSS Custom Properties</li>
+                    <li><strong>Scalability:</strong> Easy extension through CSS Custom items</li>
                 </ul>
             </div>
             
@@ -172,7 +172,7 @@
                 <h3>Integration</h3>
                 <div class="code-example">
 <span class="comment">&lt;!-- Integration in HTML --&gt;</span>
-&lt;<span class="selector">link</span> <span class="property">rel</span>=<span class="value">"stylesheet"</span> <span class="property">href</span>=<span class="value">"/shared/master.css"</span>&gt;
+&lt;<span class="selector">link</span> <span class="item">rel</span>=<span class="value">"stylesheet"</span> <span class="item">href</span>=<span class="value">"/shared/master.css"</span>&gt;
                 </div>
             </div>
         </section>
@@ -221,8 +221,8 @@
                 <div class="code-example">
 <span class="comment">/* Font Families */</span>
 <span class="selector">:root</span> {
-    <span class="property">--font-family-primary</span>: <span class="value">'Inter', system-ui, sans-serif</span>;
-    <span class="property">--font-family-mono</span>: <span class="value">'JetBrains Mono', monospace</span>;
+    <span class="item">--font-family-primary</span>: <span class="value">'Inter', system-ui, sans-serif</span>;
+    <span class="item">--font-family-mono</span>: <span class="value">'JetBrains Mono', monospace</span>;
 }
                 </div>
                 
@@ -294,10 +294,10 @@
                 <h3>Gradients</h3>
                 <div class="code-example">
 <span class="comment">/* Premium Gradients */</span>
-<span class="property">--core-gradient-primary</span>: <span class="value">linear-gradient(135deg, #000066 0%, #3366CC 100%)</span>;
-<span class="property">--core-gradient-hover</span>: <span class="value">linear-gradient(135deg, #3366CC 0%, #000066 100%)</span>;
-<span class="property">--core-gradient-subtle</span>: <span class="value">linear-gradient(180deg, rgba(0,0,102,0.03) 0%, rgba(51,102,204,0.05) 100%)</span>;
-<span class="property">--core-gradient-glass</span>: <span class="value">linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)</span>;
+<span class="item">--core-gradient-primary</span>: <span class="value">linear-gradient(135deg, #000066 0%, #3366CC 100%)</span>;
+<span class="item">--core-gradient-hover</span>: <span class="value">linear-gradient(135deg, #3366CC 0%, #000066 100%)</span>;
+<span class="item">--core-gradient-subtle</span>: <span class="value">linear-gradient(180deg, rgba(0,0,102,0.03) 0%, rgba(51,102,204,0.05) 100%)</span>;
+<span class="item">--core-gradient-glass</span>: <span class="value">linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)</span>;
                 </div>
             </div>
             
@@ -306,9 +306,9 @@
                 <div class="code-example">
 <span class="comment">/* Glassmorphism Effects */</span>
 <span class="selector">.glass-card</span> {
-    <span class="property">background</span>: <span class="value">var(--glass-white)</span>;
-    <span class="property">backdrop-filter</span>: <span class="value">var(--glass-blur)</span>;
-    <span class="property">border</span>: <span class="value">var(--glass-border)</span>;
+    <span class="item">background</span>: <span class="value">var(--glass-white)</span>;
+    <span class="item">backdrop-filter</span>: <span class="value">var(--glass-blur)</span>;
+    <span class="item">border</span>: <span class="value">var(--glass-border)</span>;
 }
                 </div>
             </div>
@@ -317,9 +317,9 @@
                 <h3>Premium Transitions</h3>
                 <div class="code-example">
 <span class="comment">/* Premium Transitions */</span>
-<span class="property">--transition-premium</span>: <span class="value">all 0.4s cubic-bezier(0.4, 0, 0.2, 1)</span>;
-<span class="property">--transition-smooth</span>: <span class="value">all 0.6s cubic-bezier(0.23, 1, 0.32, 1)</span>;
-<span class="property">--transition-bounce</span>: <span class="value">all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)</span>;
+<span class="item">--transition-premium</span>: <span class="value">all 0.4s cubic-bezier(0.4, 0, 0.2, 1)</span>;
+<span class="item">--transition-smooth</span>: <span class="value">all 0.6s cubic-bezier(0.23, 1, 0.32, 1)</span>;
+<span class="item">--transition-bounce</span>: <span class="value">all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)</span>;
                 </div>
             </div>
         </section>
@@ -364,22 +364,22 @@
             <h2 class="section-title">Best Practices</h2>
             
             <div class="component-card">
-                <h3>Using CSS Custom Properties</h3>
+                <h3>Using CSS Custom items</h3>
                 <p>Always use predefined CSS Variables instead of hardcoded values:</p>
                 
                 <div class="code-example">
 <span class="comment">/* ✅ Correct */</span>
 <span class="selector">.my-component</span> {
-    <span class="property">color</span>: <span class="value">var(--core-primary)</span>;
-    <span class="property">padding</span>: <span class="value">var(--spacing-md)</span>;
-    <span class="property">border-radius</span>: <span class="value">var(--radius-md)</span>;
+    <span class="item">color</span>: <span class="value">var(--core-primary)</span>;
+    <span class="item">padding</span>: <span class="value">var(--spacing-md)</span>;
+    <span class="item">border-radius</span>: <span class="value">var(--radius-md)</span>;
 }
 
 <span class="comment">/* ❌ Wrong */</span>
 <span class="selector">.my-component</span> {
-    <span class="property">color</span>: <span class="value">#000066</span>;
-    <span class="property">padding</span>: <span class="value">16px</span>;
-    <span class="property">border-radius</span>: <span class="value">6px</span>;
+    <span class="item">color</span>: <span class="value">#000066</span>;
+    <span class="item">padding</span>: <span class="value">16px</span>;
+    <span class="item">border-radius</span>: <span class="value">6px</span>;
 }
                 </div>
             </div>
@@ -393,8 +393,8 @@
 &lt;<span class="selector">style</span>&gt;
     <span class="comment">/* ONLY component-specific styles */</span>
     <span class="selector">.core-datepicker-calendar</span> {
-        <span class="property">position</span>: <span class="value">absolute</span>;
-        <span class="property">z-index</span>: <span class="value">var(--z-dropdown)</span>;
+        <span class="item">position</span>: <span class="value">absolute</span>;
+        <span class="item">z-index</span>: <span class="value">var(--z-dropdown)</span>;
     }
 &lt;/<span class="selector">style</span>&gt;
                 </div>

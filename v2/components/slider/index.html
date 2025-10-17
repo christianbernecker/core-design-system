@@ -251,7 +251,7 @@
                 <h3>Basic Slider</h3>
                 <div class="core-slider-container">
                     <label class="core-slider-label">
-                        Property Size (m²)
+                        item Size (m²)
                         <span class="core-slider-value" id="size-value">150</span>
                     </label>
                     <input type="range" class="core-slider" id="size-slider" min="50" max="500" value="150" step="10">
@@ -262,10 +262,10 @@
                 <h3>Slider with Marks</h3>
                 <div class="core-slider-container">
                     <label class="core-slider-label">
-                        Number of Bedrooms
-                        <span class="core-slider-value" id="bedroom-value">3</span>
+                        Number of Units
+                        <span class="core-slider-value" id="unit-value">3</span>
                     </label>
-                    <input type="range" class="core-slider" id="bedroom-slider" min="1" max="6" value="3" step="1">
+                    <input type="range" class="core-slider" id="unit-slider" min="1" max="6" value="3" step="1">
                     <div class="core-slider-marks">
                         <span class="core-slider-mark">1</span>
                         <span class="core-slider-mark">2</span>
@@ -385,7 +385,7 @@ function setupRangeSlider(minId, maxId, selectedId, valueId) {
 
 // Initialize
 setupSlider('size-slider', 'size-value', (v) => v + ' m²');
-setupSlider('bedroom-slider', 'bedroom-value');
+setupSlider('unit-slider', 'unit-value');
 setupRangeSlider('price-min', 'price-max', 'price-range-selected', 'price-range-value');</pre>
                 </div>
                 
@@ -551,7 +551,7 @@ export const Slider = ({
         
         // Initialize sliders
         setupSlider('size-slider', 'size-value', ' m²');
-        setupSlider('bedroom-slider', 'bedroom-value');
+        setupSlider('unit-slider', 'unit-value');
         setupSlider('area-slider', 'area-value', ' m²');
         setupSlider('distance-slider', 'distance-value', ' km');
         setupSlider('year-slider', 'year-value');

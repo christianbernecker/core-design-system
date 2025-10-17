@@ -142,7 +142,7 @@
     </style>
     
     <script>
-        // DROPDOWN FUNKTIONALITÄT - Nutzt interactions.js LYDDropdown
+        // DROPDOWN FUNKTIONALITÄT - Nutzt interactions.js CoreDropdown
         function toggleHeroUIDropdown(triggerId) {
             const trigger = document.getElementById(triggerId);
             if (!trigger) return;
@@ -150,9 +150,9 @@
             // Menu ID ist immer menu-{triggerId}
             const menuId = `menu-${triggerId}`;
 
-            // Pass trigger reference to LYDDropdown for DOM Relocation
-            if (window.LYDDropdown) {
-                LYDDropdown.toggle(menuId, trigger);
+            // Pass trigger reference to CoreDropdown for DOM Relocation
+            if (window.CoreDropdown) {
+                CoreDropdown.toggle(menuId, trigger);
             }
         }
 
@@ -240,8 +240,8 @@
                     </button>
                     <div class="heroui-menu" id="menu-dropdown1" data-open="false">
                         <a href="#" class="heroui-item">View Details</a>
-                        <a href="#" class="heroui-item">Edit Property</a>
-                        <a href="#" class="heroui-item">Share Listing</a>
+                        <a href="#" class="heroui-item">Edit item</a>
+                        <a href="#" class="heroui-item">Share Item</a>
                         <div class="heroui-divider"></div>
                         <a href="#" class="heroui-item" style="color: #ef4444;">Delete</a>
                     </div>
@@ -291,17 +291,17 @@
                 
                 <div class="heroui-dropdown">
                     <button class="heroui-trigger" id="dropdown3" onclick="toggleHeroUIDropdown('dropdown3')">
-                        <span>Filter Properties</span>
+                        <span>Filter items</span>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="heroui-menu" id="menu-dropdown3" data-open="false">
-                        <div class="heroui-section-header">Property Type</div>
-                        <button class="heroui-item heroui-checkbox" data-selected="false" onclick="toggleCheckbox(this)">Apartment</button>
-                        <button class="heroui-item heroui-checkbox" data-selected="true" onclick="toggleCheckbox(this)">House</button>
-                        <button class="heroui-item heroui-checkbox" data-selected="false" onclick="toggleCheckbox(this)">Villa</button>
-                        <button class="heroui-item heroui-checkbox" data-selected="false" onclick="toggleCheckbox(this)">Penthouse</button>
+                        <div class="heroui-section-header">item Type</div>
+                        <button class="heroui-item heroui-checkbox" data-selected="false" onclick="toggleCheckbox(this)">Type A</button>
+                        <button class="heroui-item heroui-checkbox" data-selected="true" onclick="toggleCheckbox(this)">Type B</button>
+                        <button class="heroui-item heroui-checkbox" data-selected="false" onclick="toggleCheckbox(this)">Type C</button>
+                        <button class="heroui-item heroui-checkbox" data-selected="false" onclick="toggleCheckbox(this)">Type D</button>
                     </div>
                 </div>
             </div>
@@ -315,7 +315,7 @@
                 <div class="code-block">
                     <pre>&lt;!-- Standard Dropdown --&gt;
 &lt;div class="core-dropdown"&gt;
-    &lt;button class="core-dropdown-trigger" onclick="LYDDropdown.toggle('myDropdown')"&gt;
+    &lt;button class="core-dropdown-trigger" onclick="CoreDropdown.toggle('myDropdown')"&gt;
         &lt;span&gt;Options&lt;/span&gt;
         &lt;svg class="core-dropdown-icon"&gt;...&lt;/svg&gt;
     &lt;/button&gt;
@@ -466,7 +466,7 @@ export const Dropdown = ({ trigger, children, align = 'left' }: DropdownProps) =
         // HeroUI-inspirierte Dropdown-Funktionalität
         document.addEventListener('DOMContentLoaded', function() {
             // Verbesserte Toggle-Funktion
-            window.LYDDropdown = window.LYDDropdown || {
+            window.CoreDropdown = window.CoreDropdown || {
                 toggle: function(dropdownId) {
                     const dropdown = document.getElementById(dropdownId);
                     const trigger = dropdown?.previousElementSibling;

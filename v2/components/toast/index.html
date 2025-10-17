@@ -288,8 +288,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             <div class="core-toast-content">
-                                <div class="core-toast-title">Property Saved</div>
-                                <div class="core-toast-message">Your property has been successfully saved to favorites.</div>
+                                <div class="core-toast-title">item Saved</div>
+                                <div class="core-toast-message">Your item has been successfully saved to favorites.</div>
                             </div>
                             <button class="core-toast-close">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -336,8 +336,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             <div class="core-toast-content">
-                                <div class="core-toast-title">New Properties</div>
-                                <div class="core-toast-message">5 new properties match your criteria.</div>
+                                <div class="core-toast-title">New items</div>
+                                <div class="core-toast-message">5 new items match your criteria.</div>
                             </div>
                             <button class="core-toast-close">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -625,24 +625,24 @@ export const Toast = ({ type, title, message, duration = 5000, onClose }: ToastP
     <div class="core-toast-container" id="toast-container"></div>
     
     <script>
-        // Toast-Demo-Funktionen - Nutzen zentrales LYDToast-System
+        // Toast-Demo-Funktionen - Nutzen zentrales COREToast-System
         function showToast(type) {
             const messages = {
-                success: 'Your property has been successfully saved.',
-                error: 'Could not save property. Please try again.',
+                success: 'Your item has been successfully saved.',
+                error: 'Could not save item. Please try again.',
                 warning: 'Some fields require your attention.',
-                info: '5 new properties match your criteria.'
+                info: '5 new items match your criteria.'
             };
             
-            LYDToast.show(messages[type], type);
+            COREToast.show(messages[type], type);
         }
         
         function showToastWithProgress() {
-            LYDToast.show('Your request is being processed...', 'info', 5000);
+            COREToast.show('Your request is being processed...', 'info', 5000);
         }
         
         function showPersistentToast() {
-            LYDToast.show('Please complete your profile to continue.', 'warning', 0);
+            COREToast.show('Please complete your profile to continue.', 'warning', 0);
         }
     </script>
 </body>
