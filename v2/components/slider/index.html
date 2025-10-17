@@ -251,7 +251,7 @@
                 <h3>Basic Slider</h3>
                 <div class="core-slider-container">
                     <label class="core-slider-label">
-                        item Size (m²)
+                        Value
                         <span class="core-slider-value" id="size-value">150</span>
                     </label>
                     <input type="range" class="core-slider" id="size-slider" min="50" max="500" value="150" step="10">
@@ -384,7 +384,7 @@ function setupRangeSlider(minId, maxId, selectedId, valueId) {
 }
 
 // Initialize
-setupSlider('size-slider', 'size-value', (v) => v + ' m²');
+setupSlider('size-slider', 'size-value');
 setupSlider('unit-slider', 'unit-value');
 setupRangeSlider('price-min', 'price-max', 'price-range-selected', 'price-range-value');</pre>
                 </div>
@@ -550,9 +550,9 @@ export const Slider = ({
         }
         
         // Initialize sliders
-        setupSlider('size-slider', 'size-value', ' m²');
+        setupSlider('size-slider', 'size-value');
         setupSlider('unit-slider', 'unit-value');
-        setupSlider('area-slider', 'area-value', ' m²');
+        setupSlider('area-slider', 'area-value');
         setupSlider('distance-slider', 'distance-value', ' km');
         setupSlider('year-slider', 'year-value');
         
